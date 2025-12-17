@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Builds - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .build-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #6b7280;
+        }
+        .build-card.warrior { border-left-color: #dc2626; }
+        .build-card.mage { border-left-color: #2563eb; }
+        .build-card.thief { border-left-color: #16a34a; }
+        .build-card.hybrid { border-left-color: #9333ea; }
+        .build-card h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1.375rem;
+        }
+        .build-card .archetype {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        .build-section {
+            margin-bottom: 1rem;
+        }
+        .build-section h4 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            margin-bottom: 0.5rem;
+        }
+        .skill-tag {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+        .skill-tag.primary { background: #dbeafe; color: #1e40af; }
+        .skill-tag.secondary { background: #f3f4f6; color: #374151; }
+        .gear-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+        }
+        .gear-item {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .gear-item strong {
+            color: #1f2937;
+        }
+        .difficulty-meter {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+        .difficulty-pip {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: #e5e7eb;
+        }
+        .difficulty-pip.filled { background: #f59e0b; }
+        .playstyle-note {
+            background: #fffbeb;
+            border-left: 3px solid #f59e0b;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            font-size: 0.9375rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="builds.html" class="active">Character Builds</a></li>
+                        <li><a href="items.html">Items & Equipment</a></li>
+                        <li><a href="crafting.html">Crafting</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html">Daedric Quests</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Skyrim</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Character Builds</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Character Builds</h1>
+                <p class="article-meta">Optimized playstyles for every type of adventurer</p>
+
+                <p>Skyrim allows complete freedom in character building. These are proven builds that excel at their roles, with skill priorities and gear recommendations.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Build Philosophy</div>
+                    <p><strong>Primary Skills:</strong> Focus your perks here first<br>
+                    <strong>Secondary Skills:</strong> Support skills, level naturally or with spare perks<br>
+                    <strong>Difficulty:</strong> How challenging to play effectively</p>
+                </div>
+
+                <h2>Stealth Builds</h2>
+
+                <div class="build-card thief">
+                    <h3>Stealth Archer</h3>
+                    <div class="archetype">The build everyone becomes eventually</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">Archery</span>
+                            <span class="skill-tag primary">Sneak</span>
+                            <span class="skill-tag primary">Light Armor</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Alchemy</span>
+                            <span class="skill-tag secondary">Smithing</span>
+                            <span class="skill-tag secondary">Enchanting</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Sneak:</strong> Stealth 5/5, Backstab, Deadly Aim (3x bow damage), Shadow Warrior</li>
+                            <li><strong>Archery:</strong> Overdraw 5/5, Eagle Eye, Steady Hand, Quick Shot</li>
+                            <li><strong>Light Armor:</strong> Agile Defender 5/5, Custom Fit</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Dragonscale or Guild Master</div>
+                            <div class="gear-item"><strong>Weapon:</strong> Dragonbone Bow</div>
+                            <div class="gear-item"><strong>Enchants:</strong> Fortify Archery, Sneak</div>
+                            <div class="gear-item"><strong>Arrows:</strong> Daedric or Dragonbone</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Easy - Extremely overpowered</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Crouch, headshot, repeat. The 3x sneak attack bonus with bows makes almost everything a one-shot. Use Aura Whisper to track enemies through walls.
+                    </div>
+                </div>
+
+                <div class="build-card thief">
+                    <h3>Assassin</h3>
+                    <div class="archetype">Silent killer with daggers</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">Sneak</span>
+                            <span class="skill-tag primary">One-Handed</span>
+                            <span class="skill-tag primary">Alchemy</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Light Armor</span>
+                            <span class="skill-tag secondary">Illusion</span>
+                            <span class="skill-tag secondary">Pickpocket</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Sneak:</strong> Backstab, Assassin's Blade (15x dagger damage!), Silence, Shadow Warrior</li>
+                            <li><strong>One-Handed:</strong> Armsman 5/5, Dual Flurry, Dual Savagery</li>
+                            <li><strong>Alchemy:</strong> Poisoner, Concentrated Poison</li>
+                            <li><strong>Illusion:</strong> Quiet Casting (essential!)</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Shrouded/Ancient Shrouded</div>
+                            <div class="gear-item"><strong>Weapon:</strong> Blade of Woe, Mehrunes' Razor</div>
+                            <div class="gear-item"><strong>Ring:</strong> Muffle enchant</div>
+                            <div class="gear-item"><strong>Poisons:</strong> Paralysis, Damage Health</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Easy-Medium - Position dependent</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> 15x sneak attack damage with daggers is absurd. Use Invisibility potions or spells to reposition. Mehrunes' Razor adds instant-kill chance. Dark Brotherhood questline is mandatory.
+                    </div>
+                </div>
+
+                <h2>Warrior Builds</h2>
+
+                <div class="build-card warrior">
+                    <h3>Two-Handed Berserker</h3>
+                    <div class="archetype">Devastating power attacks</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">Two-Handed</span>
+                            <span class="skill-tag primary">Heavy Armor</span>
+                            <span class="skill-tag primary">Smithing</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Enchanting</span>
+                            <span class="skill-tag secondary">Block</span>
+                            <span class="skill-tag secondary">Alchemy</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Two-Handed:</strong> Barbarian 5/5, Champion's Stance, Devastating Blow, Sweep</li>
+                            <li><strong>Heavy Armor:</strong> Juggernaut 5/5, Conditioning (weightless armor)</li>
+                            <li><strong>Smithing:</strong> Daedric or Dragonbone path</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Daedric or Dragonplate</div>
+                            <div class="gear-item"><strong>Weapon:</strong> Volendrung or Daedric Greatsword</div>
+                            <div class="gear-item"><strong>Enchants:</strong> Fortify Two-Handed, Stamina Regen</div>
+                            <div class="gear-item"><strong>Shout:</strong> Elemental Fury (doesn't work on enchanted weapons)</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Easy-Medium - Simple and effective</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Power attack everything. Sweep hits multiple enemies. Volendrung's stamina absorption means infinite power attacks. Use Vegetable Soup for continuous stamina.
+                    </div>
+                </div>
+
+                <div class="build-card warrior">
+                    <h3>Sword and Shield Tank</h3>
+                    <div class="archetype">Immovable object</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">One-Handed</span>
+                            <span class="skill-tag primary">Block</span>
+                            <span class="skill-tag primary">Heavy Armor</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Smithing</span>
+                            <span class="skill-tag secondary">Restoration</span>
+                            <span class="skill-tag secondary">Enchanting</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Block:</strong> Shield Wall 5/5, Deflect Arrows, Elemental Protection, Shield Charge</li>
+                            <li><strong>One-Handed:</strong> Armsman 5/5, Fighting Stance, Savage Strike</li>
+                            <li><strong>Heavy Armor:</strong> Juggernaut 5/5, Fists of Steel, Conditioning, Reflect Blows</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Daedric with Shield</div>
+                            <div class="gear-item"><strong>Shield:</strong> Spellbreaker or Auriel's Shield</div>
+                            <div class="gear-item"><strong>Weapon:</strong> Mace of Molag Bal, Dawnbreaker</div>
+                            <div class="gear-item"><strong>Enchants:</strong> Fortify Block, Magic Resist</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Very Easy - Nearly unkillable</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Block everything, bash to interrupt, counterattack. Shield Charge turns you into a bowling ball. With Spellbreaker, even dragons can't hurt you.
+                    </div>
+                </div>
+
+                <h2>Mage Builds</h2>
+
+                <div class="build-card mage">
+                    <h3>Pure Destruction Mage</h3>
+                    <div class="archetype">Master of the elements</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">Destruction</span>
+                            <span class="skill-tag primary">Enchanting</span>
+                            <span class="skill-tag primary">Restoration</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Alteration</span>
+                            <span class="skill-tag secondary">Conjuration</span>
+                            <span class="skill-tag secondary">Alchemy</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Destruction:</strong> All Augmented perks, Impact (stagger), Dual Casting</li>
+                            <li><strong>Enchanting:</strong> Extra Effect for stacking cost reduction</li>
+                            <li><strong>Alteration:</strong> Mage Armor 3/3 (if not wearing armor)</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Archmage's Robes or enchanted robes</div>
+                            <div class="gear-item"><strong>Head:</strong> Morokei (Dragon Priest mask)</div>
+                            <div class="gear-item"><strong>Enchants:</strong> Fortify Destruction + Magicka Regen</div>
+                            <div class="gear-item"><strong>Goal:</strong> 100% Destruction cost reduction</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Medium - Needs gear to shine</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Impact-stagger enemies with dual-cast spells. They never get to attack. Once you hit 100% cost reduction, you have infinite spells. Use Slow Time shout for crowd control.
+                    </div>
+                </div>
+
+                <div class="build-card mage">
+                    <h3>Necromancer</h3>
+                    <div class="archetype">Army of the dead</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">Conjuration</span>
+                            <span class="skill-tag primary">Destruction</span>
+                            <span class="skill-tag primary">Enchanting</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Alteration</span>
+                            <span class="skill-tag secondary">Illusion</span>
+                            <span class="skill-tag secondary">Restoration</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Conjuration:</strong> Necromancy, Dark Souls, Twin Souls (2 minions!)</li>
+                            <li><strong>Destruction:</strong> Augmented Frost (thematic)</li>
+                            <li><strong>Restoration:</strong> Necromage (boosts everything if vampire)</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Vampire Royal Armor or Black Robes</div>
+                            <div class="gear-item"><strong>Weapon:</strong> Staff of Reanimation</div>
+                            <div class="gear-item"><strong>Ring:</strong> Ring of Necromancy (from Dawnguard)</div>
+                            <div class="gear-item"><strong>Race:</strong> Dark Elf or Vampire</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Easy-Medium - Minions do the work</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Raise the strongest enemies you kill to fight for you. Twin Souls lets you have 2 permanent thralls. Vampirism + Necromage boosts all your abilities by 25%.
+                    </div>
+                </div>
+
+                <h2>Hybrid Builds</h2>
+
+                <div class="build-card hybrid">
+                    <h3>Battlemage</h3>
+                    <div class="archetype">Spell in one hand, sword in the other</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">One-Handed</span>
+                            <span class="skill-tag primary">Destruction</span>
+                            <span class="skill-tag primary">Heavy Armor</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Conjuration</span>
+                            <span class="skill-tag secondary">Restoration</span>
+                            <span class="skill-tag secondary">Enchanting</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>One-Handed:</strong> Armsman 5/5, Fighting Stance</li>
+                            <li><strong>Destruction:</strong> Augmented element of choice, Impact (one-handed casting still staggers)</li>
+                            <li><strong>Heavy Armor:</strong> Juggernaut, Conditioning</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Ebony Mail or Daedric</div>
+                            <div class="gear-item"><strong>Weapon:</strong> Chillrend or Dragonbone Sword</div>
+                            <div class="gear-item"><strong>Enchants:</strong> Fortify Destruction, One-Handed</div>
+                            <div class="gear-item"><strong>Spell:</strong> Flames → Incinerate</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Medium - Versatile but splits focus</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Engage with destruction magic, close to melee range, finish with sword. Very flexible - use flames to whittle while backing up, or fireball groups before charging in.
+                    </div>
+                </div>
+
+                <div class="build-card hybrid">
+                    <h3>Spellsword</h3>
+                    <div class="archetype">Bound weapons and light armor agility</div>
+
+                    <div class="build-section">
+                        <h4>Primary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag primary">Conjuration</span>
+                            <span class="skill-tag primary">One-Handed</span>
+                            <span class="skill-tag primary">Light Armor</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Secondary Skills</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag secondary">Alteration</span>
+                            <span class="skill-tag secondary">Restoration</span>
+                            <span class="skill-tag secondary">Enchanting</span>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Key Perks</h4>
+                        <ul>
+                            <li><strong>Conjuration:</strong> Mystic Binding (stronger bound weapons), Soul Stealer, Oblivion Binding</li>
+                            <li><strong>One-Handed:</strong> Armsman 5/5, Dual Flurry</li>
+                            <li><strong>Alteration:</strong> Magic Resistance perks</li>
+                        </ul>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Recommended Gear</h4>
+                        <div class="gear-grid">
+                            <div class="gear-item"><strong>Armor:</strong> Nightingale or Glass</div>
+                            <div class="gear-item"><strong>Weapons:</strong> Bound Sword (auto soul trap)</div>
+                            <div class="gear-item"><strong>Enchants:</strong> Fortify Conjuration, One-Handed</div>
+                            <div class="gear-item"><strong>Standing Stone:</strong> Atronach (absorb spells)</div>
+                        </div>
+                    </div>
+
+                    <div class="build-section">
+                        <h4>Difficulty</h4>
+                        <div class="difficulty-meter">
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip filled"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                            <div class="difficulty-pip"></div>
+                        </div>
+                        <span style="font-size: 0.875rem; color: #6b7280;">Easy-Medium - Bound weapons are free!</span>
+                    </div>
+
+                    <div class="playstyle-note">
+                        <strong>Playstyle:</strong> Summon bound sword/bow as needed - they're weightless and scale with perks. Soul Stealer means free soul gems. Dual wield bound swords for maximum DPS.
+                    </div>
+                </div>
+
+                <h2>Build Comparison</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Build</th>
+                            <th>Damage</th>
+                            <th>Survival</th>
+                            <th>Difficulty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Stealth Archer</td><td>Extreme</td><td>High</td><td>Very Easy</td></tr>
+                        <tr><td>Assassin</td><td>Extreme</td><td>Medium</td><td>Easy</td></tr>
+                        <tr><td>Two-Handed</td><td>High</td><td>High</td><td>Easy</td></tr>
+                        <tr><td>Sword & Shield</td><td>Medium</td><td>Extreme</td><td>Very Easy</td></tr>
+                        <tr><td>Destruction Mage</td><td>High</td><td>Low</td><td>Medium</td></tr>
+                        <tr><td>Necromancer</td><td>Medium</td><td>High</td><td>Easy</td></tr>
+                        <tr><td>Battlemage</td><td>High</td><td>High</td><td>Medium</td></tr>
+                        <tr><td>Spellsword</td><td>High</td><td>Medium</td><td>Easy</td></tr>
+                    </tbody>
+                </table>
+
+                <nav class="page-nav">
+                    <a href="skills.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Skills & Perks</span>
+                    </a>
+                    <a href="items.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Items & Equipment</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
