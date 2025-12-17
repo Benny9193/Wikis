@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items & Equipment - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .item-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+        .item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .item-icon.weapon { background: #fee2e2; }
+        .item-icon.armor { background: #dbeafe; }
+        .item-icon.artifact { background: #f3e8ff; }
+        .item-icon.jewelry { background: #fef3c7; }
+        .item-info h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+        }
+        .item-info .location {
+            font-size: 0.8125rem;
+            color: #6b7280;
+        }
+        .item-stats {
+            text-align: right;
+            font-size: 0.875rem;
+        }
+        .item-stats .damage, .item-stats .armor-val {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .item-stats .effect {
+            color: #7c3aed;
+            font-size: 0.8125rem;
+        }
+        .rarity-legendary { border-left: 4px solid #f59e0b; }
+        .rarity-unique { border-left: 4px solid #8b5cf6; }
+        .rarity-artifact { border-left: 4px solid #ec4899; }
+        .tier-section {
+            background: linear-gradient(90deg, #1f2937 0%, #374151 100%);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="builds.html">Character Builds</a></li>
+                        <li><a href="items.html" class="active">Items & Equipment</a></li>
+                        <li><a href="crafting.html">Crafting</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html">Daedric Quests</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Skyrim</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Items & Equipment</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Items & Equipment</h1>
+                <p class="article-meta">Unique weapons, armor sets, and artifacts</p>
+
+                <p>This page covers the best unique and legendary items in Skyrim. For Daedric Artifacts, see the <a href="quests-daedric.html">Daedric Quests</a> page.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Item Scaling</div>
+                    <p>Many unique items are leveled - their stats depend on your level when you first enter the area or receive them. For best results, wait until higher levels for these items.</p>
+                </div>
+
+                <h2>Unique Weapons</h2>
+
+                <div class="tier-section">Swords</div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">⚔️</div>
+                    <div class="item-info">
+                        <h4>Chillrend</h4>
+                        <div class="location">Riftweald Manor (Thieves Guild quest "The Pursuit")</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 15-24</div>
+                        <div class="effect">Frost damage + chance to paralyze</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">⚔️</div>
+                    <div class="item-info">
+                        <h4>Nightingale Blade</h4>
+                        <div class="location">Thieves Guild quest "Hard Answers"</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 10-14</div>
+                        <div class="effect">Absorb Health & Stamina</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">⚔️</div>
+                    <div class="item-info">
+                        <h4>Dragonbane</h4>
+                        <div class="location">Sky Haven Temple (Main Quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 10-14</div>
+                        <div class="effect">Extra damage vs Dragons + Shock</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-legendary">
+                    <div class="item-icon weapon">⚔️</div>
+                    <div class="item-info">
+                        <h4>Windshear</h4>
+                        <div class="location">The Katariah (Dark Brotherhood quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 11</div>
+                        <div class="effect">Staggers enemies on every hit!</div>
+                    </div>
+                </div>
+
+                <div class="tier-section">Daggers</div>
+
+                <div class="item-card rarity-artifact">
+                    <div class="item-icon weapon">🗡️</div>
+                    <div class="item-info">
+                        <h4>Blade of Woe</h4>
+                        <div class="location">Kill Astrid (Dark Brotherhood)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 12</div>
+                        <div class="effect">Absorb 10 Health</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-artifact">
+                    <div class="item-icon weapon">🗡️</div>
+                    <div class="item-info">
+                        <h4>Valdr's Lucky Dagger</h4>
+                        <div class="location">Moss Mother Cavern (help Valdr)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 5</div>
+                        <div class="effect">25% Critical Hit chance</div>
+                    </div>
+                </div>
+
+                <div class="tier-section">Two-Handed</div>
+
+                <div class="item-card rarity-legendary">
+                    <div class="item-icon weapon">🪓</div>
+                    <div class="item-info">
+                        <h4>Wuuthrad</h4>
+                        <div class="location">Companions questline (final quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 25</div>
+                        <div class="effect">1.2x damage vs Elves</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">🪓</div>
+                    <div class="item-info">
+                        <h4>The Longhammer</h4>
+                        <div class="location">Liar's Retreat</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 21</div>
+                        <div class="effect">Swings 33% faster than normal</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">⚔️</div>
+                    <div class="item-info">
+                        <h4>Bloodskal Blade</h4>
+                        <div class="location">Bloodskal Barrow (Dragonborn DLC)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 21</div>
+                        <div class="effect">Power attacks release energy blasts</div>
+                    </div>
+                </div>
+
+                <div class="tier-section">Bows</div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">🏹</div>
+                    <div class="item-info">
+                        <h4>Nightingale Bow</h4>
+                        <div class="location">Thieves Guild quest "Blindsighted"</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 12-19</div>
+                        <div class="effect">Frost + Shock damage</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-legendary">
+                    <div class="item-icon weapon">🏹</div>
+                    <div class="item-info">
+                        <h4>Auriel's Bow</h4>
+                        <div class="location">Dawnguard DLC (Main Quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 13</div>
+                        <div class="effect">Sun damage, special sun/blood arrows</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon weapon">🏹</div>
+                    <div class="item-info">
+                        <h4>Zephyr</h4>
+                        <div class="location">Arkngthamz (Dawnguard DLC)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="damage">Damage: 12</div>
+                        <div class="effect">Fires 30% faster</div>
+                    </div>
+                </div>
+
+                <h2>Armor Sets</h2>
+
+                <div class="tier-section">Heavy Armor</div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Set</th>
+                            <th>Armor Rating</th>
+                            <th>Special Effect</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Daedric</strong></td>
+                            <td>144 (full set)</td>
+                            <td>None (best base stats)</td>
+                            <td>Smithing (90) or loot</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dragonplate</strong></td>
+                            <td>136</td>
+                            <td>None (lighter than Daedric)</td>
+                            <td>Smithing (100)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ebony</strong></td>
+                            <td>128</td>
+                            <td>None</td>
+                            <td>Smithing (80) or loot</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nordic Carved</strong></td>
+                            <td>111</td>
+                            <td>None</td>
+                            <td>Dragonborn DLC</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blades</strong></td>
+                            <td>100</td>
+                            <td>None</td>
+                            <td>Sky Haven Temple</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tier-section">Light Armor</div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Set</th>
+                            <th>Armor Rating</th>
+                            <th>Special Effect</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dragonscale</strong></td>
+                            <td>111 (full set)</td>
+                            <td>None (best light armor)</td>
+                            <td>Smithing (100)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glass</strong></td>
+                            <td>103</td>
+                            <td>None</td>
+                            <td>Smithing (70) or loot</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nightingale</strong></td>
+                            <td>69-85</td>
+                            <td>Stamina, Frost Resist, Muffle, Lockpick</td>
+                            <td>Thieves Guild</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Guild Master's</strong></td>
+                            <td>76</td>
+                            <td>Carry Weight +50, Lockpick, Pickpocket, Prices</td>
+                            <td>Thieves Guild (restore guild)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ancient Shrouded</strong></td>
+                            <td>72</td>
+                            <td>Poison immunity, Sneak, Bow, Backstab</td>
+                            <td>Dark Brotherhood (Hail Sithis)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deathbrand</strong></td>
+                            <td>78.5</td>
+                            <td>Full set: +100 Armor, dual wield, waterbreathing</td>
+                            <td>Dragonborn DLC treasure hunt</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Unique Armor Pieces</h2>
+
+                <div class="item-card rarity-artifact">
+                    <div class="item-icon armor">🛡️</div>
+                    <div class="item-info">
+                        <h4>Archmage's Robes</h4>
+                        <div class="location">College of Winterhold (final quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="armor-val">Robes</div>
+                        <div class="effect">+50 Magicka, +100% Regen, -15% all spell cost</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-legendary">
+                    <div class="item-icon armor">👑</div>
+                    <div class="item-info">
+                        <h4>Jagged Crown</h4>
+                        <div class="location">Korvanjund (Civil War quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="armor-val">Heavy Helmet</div>
+                        <div class="effect">Can be kept if pickpocketed back</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon armor">🎭</div>
+                    <div class="item-info">
+                        <h4>Krosis (Dragon Priest Mask)</h4>
+                        <div class="location">Shearpoint</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="armor-val">23 Armor</div>
+                        <div class="effect">+20% Lockpicking, Archery, Alchemy</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon armor">🎭</div>
+                    <div class="item-info">
+                        <h4>Morokei (Dragon Priest Mask)</h4>
+                        <div class="location">Labyrinthian (College quest)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="armor-val">5 Armor</div>
+                        <div class="effect">+100% Magicka Regeneration</div>
+                    </div>
+                </div>
+
+                <h2>Dragon Priest Masks</h2>
+                <p>Eight masks are found at Word Walls across Skyrim. Collecting all eight creates the ninth mask, Konahrik.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mask</th>
+                            <th>Location</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Hevnoraak</strong></td><td>Valthume</td><td>Immunity to Disease and Poison</td></tr>
+                        <tr><td><strong>Krosis</strong></td><td>Shearpoint</td><td>+20% Lockpicking, Archery, Alchemy</td></tr>
+                        <tr><td><strong>Morokei</strong></td><td>Labyrinthian</td><td>+100% Magicka Regen</td></tr>
+                        <tr><td><strong>Nahkriin</strong></td><td>Skuldafn (no return!)</td><td>+50 Magicka, -20% Destruction/Restoration cost</td></tr>
+                        <tr><td><strong>Otar</strong></td><td>Ragnvald</td><td>+30% Fire, Frost, Shock Resist</td></tr>
+                        <tr><td><strong>Rahgot</strong></td><td>Forelhost</td><td>+70 Stamina</td></tr>
+                        <tr><td><strong>Vokun</strong></td><td>High Gate Ruins</td><td>-20% Alteration, Conjuration, Illusion cost</td></tr>
+                        <tr><td><strong>Volsung</strong></td><td>Volskygge</td><td>+20 Carry, Waterbreathing, +20% Prices</td></tr>
+                        <tr><td><strong>Konahrik</strong></td><td>Bromjunaar Sanctuary</td><td>Chance to heal and summon Dragon Priest ally when low HP</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">Nahkriin Warning</div>
+                    <p>Nahkriin is only accessible during the main quest "The World-Eater's Eyrie." You cannot return to Skuldafn, so don't miss it!</p>
+                </div>
+
+                <h2>Jewelry & Accessories</h2>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon jewelry">💍</div>
+                    <div class="item-info">
+                        <h4>Amulet of Articulation</h4>
+                        <div class="location">Thieves Guild (become Guild Master)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="effect">+5-35% Speech, 100% Persuasion success</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon jewelry">💍</div>
+                    <div class="item-info">
+                        <h4>Gauldur Amulet</h4>
+                        <div class="location">Reachwater Rock (reunite fragments)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="effect">+30 Health, Magicka, and Stamina</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-unique">
+                    <div class="item-icon jewelry">💍</div>
+                    <div class="item-info">
+                        <h4>Locket of Saint Jiub</h4>
+                        <div class="location">Soul Cairn (Dawnguard DLC)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="effect">+50 Stamina, +50 Carry Weight</div>
+                    </div>
+                </div>
+
+                <div class="item-card rarity-artifact">
+                    <div class="item-icon jewelry">👑</div>
+                    <div class="item-info">
+                        <h4>Aetherial Crown</h4>
+                        <div class="location">Lost to the Ages (Dawnguard DLC)</div>
+                    </div>
+                    <div class="item-stats">
+                        <div class="effect">Store and use a second Standing Stone power!</div>
+                    </div>
+                </div>
+
+                <h2>Staves</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Staff</th>
+                            <th>Effect</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Staff of Magnus</strong></td><td>Absorb 20 Magicka/sec, then Health</td><td>College of Winterhold</td></tr>
+                        <tr><td><strong>Sanguine Rose</strong></td><td>Summon Dremora for 60 sec</td><td>Daedric quest</td></tr>
+                        <tr><td><strong>Wabbajack</strong></td><td>Random transformation</td><td>Daedric quest</td></tr>
+                        <tr><td><strong>Skull of Corruption</strong></td><td>20-50 damage (dream-powered)</td><td>Daedric quest</td></tr>
+                        <tr><td><strong>Miraak's Staff</strong></td><td>Sprays tentacles, poisons</td><td>Dragonborn DLC</td></tr>
+                    </tbody>
+                </table>
+
+                <nav class="page-nav">
+                    <a href="builds.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Character Builds</span>
+                    </a>
+                    <a href="crafting.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Crafting</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
