@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title - Wiki Name</title>
+    <link rel="stylesheet" href="../../assets/css/wiki.css">
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/>
+                    </svg>
+                    Wiki Name
+                </a>
+                <a href="../../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Back to Hub
+                </a>
+            </div>
+
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search...">
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Getting Started</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html">Introduction</a></li>
+                        <li><a href="getting-started.html" class="active">Getting Started</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Topics</div>
+                    <ul class="nav-list">
+                        <li><a href="topic-1.html">Topic 1</a></li>
+                        <li><a href="topic-2.html">Topic 2</a></li>
+                        <li><a href="topic-3.html">Topic 3</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reference</div>
+                    <ul class="nav-list">
+                        <li><a href="reference.html">API Reference</a></li>
+                        <li><a href="glossary.html">Glossary</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Wiki Name</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Page Title</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Page Title</h1>
+                <p class="article-meta">Last updated: December 2024</p>
+
+                <p>This is an introductory paragraph. Use this space to provide context and overview for the page content.</p>
+
+                <h2>Section Heading</h2>
+                <p>Section content goes here. You can use various formatting options:</p>
+
+                <ul>
+                    <li>Bullet point one</li>
+                    <li>Bullet point two</li>
+                    <li>Bullet point three</li>
+                </ul>
+
+                <h3>Subsection</h3>
+                <p>More detailed content can be organized into subsections.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Note</div>
+                    <p>This is a note box for important information.</p>
+                </div>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Tip</div>
+                    <p>This is a tip box for helpful suggestions.</p>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">Warning</div>
+                    <p>This is a warning box for cautions.</p>
+                </div>
+
+                <h2>Code Examples</h2>
+                <p>Inline code looks like <code>this</code>. Block code looks like:</p>
+
+                <pre><code>function example() {
+    console.log("Hello, Wiki!");
+    return true;
+}</code></pre>
+
+                <h2>Tables</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Column 1</th>
+                            <th>Column 2</th>
+                            <th>Column 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Row 1, Cell 1</td>
+                            <td>Row 1, Cell 2</td>
+                            <td>Row 1, Cell 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2, Cell 1</td>
+                            <td>Row 2, Cell 2</td>
+                            <td>Row 2, Cell 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <blockquote>
+                    <p>This is a blockquote. Use it for quotes or important callouts.</p>
+                </blockquote>
+
+                <nav class="page-nav">
+                    <a href="previous-page.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Previous Page Title</span>
+                    </a>
+                    <a href="next-page.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Next Page Title</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>

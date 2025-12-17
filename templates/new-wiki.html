@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Wiki - Wiki Hub</title>
+    <link rel="stylesheet" href="../assets/css/wiki.css">
+    <style>
+        .template-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            color: var(--color-primary);
+        }
+
+        .template-header {
+            margin-bottom: 3rem;
+        }
+
+        .template-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-header p {
+            color: var(--color-text-muted);
+            font-size: 1.125rem;
+        }
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .step h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .step p {
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: var(--color-code-bg);
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-family: 'SF Mono', Menlo, Monaco, monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin-top: 0.75rem;
+        }
+
+        .file-tree {
+            background: var(--color-surface);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            font-family: 'SF Mono', Menlo, Monaco, monospace;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+        }
+
+        .file-tree ul {
+            list-style: none;
+            padding-left: 1.25rem;
+        }
+
+        .file-tree > ul {
+            padding-left: 0;
+        }
+
+        .file-tree li {
+            position: relative;
+            margin: 0.25rem 0;
+        }
+
+        .file-tree li::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 0.6rem;
+            width: 0.6rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .folder {
+            color: var(--color-primary);
+        }
+
+        .download-section {
+            background: var(--color-surface);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-top: 2rem;
+        }
+
+        .download-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--color-primary-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="template-page">
+        <a href="../index.html" class="back-link">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back to Hub
+        </a>
+
+        <header class="template-header">
+            <h1>Create a New Wiki</h1>
+            <p>Follow these steps to set up a new wiki in your hub</p>
+        </header>
+
+        <div class="steps">
+            <div class="step">
+                <h3>Create the Wiki Folder</h3>
+                <p>Create a new folder inside the <code>wikis/</code> directory with your wiki's name:</p>
+                <div class="code-block">wikis/your-wiki-name/</div>
+            </div>
+
+            <div class="step">
+                <h3>Set Up the Folder Structure</h3>
+                <p>Create the following structure inside your new wiki folder:</p>
+                <div class="file-tree">
+                    <ul>
+                        <li><span class="folder">your-wiki-name/</span>
+                            <ul>
+                                <li>index.html</li>
+                                <li>page-1.html</li>
+                                <li>page-2.html</li>
+                                <li><span class="folder">images/</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <h3>Copy the Template</h3>
+                <p>Use the template below as a starting point for your wiki pages. Copy this HTML structure:</p>
+                <div class="code-block"><pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Page Title - Your Wiki Name&lt;/title&gt;
+    &lt;link rel="stylesheet" href="../../assets/css/wiki.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="wiki-layout"&gt;
+        &lt;aside class="wiki-sidebar"&gt;
+            &lt;!-- Sidebar content --&gt;
+        &lt;/aside&gt;
+        &lt;main class="wiki-main"&gt;
+            &lt;article class="wiki-article"&gt;
+                &lt;!-- Your content --&gt;
+            &lt;/article&gt;
+        &lt;/main&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+            </div>
+
+            <div class="step">
+                <h3>Add to the Hub</h3>
+                <p>Open <code>index.html</code> in the root folder and add a new wiki card to the grid:</p>
+                <div class="code-block"><pre>&lt;a href="wikis/your-wiki-name/index.html" class="wiki-card"&gt;
+    &lt;div class="wiki-icon"&gt;
+        &lt;!-- Choose an icon --&gt;
+    &lt;/div&gt;
+    &lt;h2 class="wiki-title"&gt;Your Wiki Name&lt;/h2&gt;
+    &lt;p class="wiki-description"&gt;Description of your wiki&lt;/p&gt;
+    &lt;span class="wiki-meta"&gt;Category&lt;/span&gt;
+&lt;/a&gt;</pre></div>
+            </div>
+
+            <div class="step">
+                <h3>Start Writing!</h3>
+                <p>Add your content using standard HTML. The wiki styles support:</p>
+                <ul>
+                    <li>Headings (h1-h4)</li>
+                    <li>Paragraphs and lists</li>
+                    <li>Code blocks and inline code</li>
+                    <li>Tables and blockquotes</li>
+                    <li>Info boxes (note, warning, tip)</li>
+                    <li>Navigation between pages</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h3>Quick Start</h3>
+            <p>Check out the existing wikis in the <code>wikis/</code> folder for complete examples of wiki structure and styling.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials Wiki</title>
+    <link rel="stylesheet" href="../../assets/css/wiki.css">
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                    </svg>
+                    Tutorials
+                </a>
+                <a href="../../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Back to Hub
+                </a>
+            </div>
+
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search tutorials...">
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="active">All Tutorials</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">By Category</div>
+                    <ul class="nav-list">
+                        <li><a href="web-development.html">Web Development</a></li>
+                        <li><a href="devops.html">DevOps</a></li>
+                        <li><a href="databases.html">Databases</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quick Guides</div>
+                    <ul class="nav-list">
+                        <li><a href="git-basics.html">Git Basics</a></li>
+                        <li><a href="docker-intro.html">Docker Introduction</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Tutorials</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Tutorials</h1>
+                <p class="article-meta">Step-by-step guides and how-to articles</p>
+
+                <p>Welcome to the Tutorials wiki. Here you'll find step-by-step guides for various technical topics, from beginner-friendly introductions to advanced techniques.</p>
+
+                <h2>Featured Tutorials</h2>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Git Basics</div>
+                    <p>Learn the fundamental Git commands and workflows for version control. <a href="git-basics.html">Read more &rarr;</a></p>
+                </div>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Docker Introduction</div>
+                    <p>Get started with containerization using Docker. <a href="docker-intro.html">Read more &rarr;</a></p>
+                </div>
+
+                <h2>Browse by Category</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Topics Covered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="web-development.html">Web Development</a></td>
+                            <td>HTML, CSS, JavaScript, React, Node.js</td>
+                        </tr>
+                        <tr>
+                            <td><a href="devops.html">DevOps</a></td>
+                            <td>CI/CD, Docker, Kubernetes, Cloud Services</td>
+                        </tr>
+                        <tr>
+                            <td><a href="databases.html">Databases</a></td>
+                            <td>SQL, PostgreSQL, MongoDB, Redis</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Writing Good Tutorials</h2>
+                <p>When writing tutorials for this wiki, follow these guidelines:</p>
+
+                <ol>
+                    <li><strong>Start with prerequisites</strong> - List what readers need to know before starting</li>
+                    <li><strong>Show the end result</strong> - Let readers know what they'll build or learn</li>
+                    <li><strong>Break into clear steps</strong> - Each step should be a single, focused action</li>
+                    <li><strong>Include code examples</strong> - Show complete, working code snippets</li>
+                    <li><strong>Explain the "why"</strong> - Don't just show what to do, explain reasoning</li>
+                    <li><strong>Add troubleshooting</strong> - Include common issues and solutions</li>
+                </ol>
+
+                <h2>Example Code Block</h2>
+                <p>Here's how code examples should look in tutorials:</p>
+
+                <pre><code># Example: Basic Git workflow
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/user/repo.git
+git push -u origin main</code></pre>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">Remember</div>
+                    <p>Always test your tutorials before publishing. Outdated or incorrect instructions can be frustrating for readers.</p>
+                </div>
+
+                <nav class="page-nav">
+                    <a href="git-basics.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Git Basics</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>

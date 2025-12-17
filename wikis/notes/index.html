@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes & Research Wiki</title>
+    <link rel="stylesheet" href="../../assets/css/wiki.css">
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    Notes & Research
+                </a>
+                <a href="../../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Back to Hub
+                </a>
+            </div>
+
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search notes...">
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="active">Introduction</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Topics</div>
+                    <ul class="nav-list">
+                        <li><a href="programming.html">Programming</a></li>
+                        <li><a href="design.html">Design</a></li>
+                        <li><a href="tools.html">Tools & Software</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Research</div>
+                    <ul class="nav-list">
+                        <li><a href="papers.html">Papers & Articles</a></li>
+                        <li><a href="bookmarks.html">Bookmarks</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Notes & Research</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Notes & Research</h1>
+                <p class="article-meta">Your personal knowledge base</p>
+
+                <p>Welcome to your Notes & Research wiki. This is a place to capture learnings, research findings, and reference material that you want to remember.</p>
+
+                <h2>How to Use This Wiki</h2>
+                <p>Organize your notes by topic or project. Use this wiki as your second brain for:</p>
+
+                <ul>
+                    <li><strong>Quick references</strong> - Code snippets, commands, and shortcuts</li>
+                    <li><strong>Learning notes</strong> - Summaries from courses, books, and tutorials</li>
+                    <li><strong>Research</strong> - Collected information on topics you're exploring</li>
+                    <li><strong>Ideas</strong> - Thoughts and concepts to develop later</li>
+                </ul>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Note</div>
+                    <p>The best notes are the ones you actually use. Keep them searchable and well-organized.</p>
+                </div>
+
+                <h2>Topics</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="programming.html">Programming</a></td>
+                            <td>Languages, frameworks, and coding techniques</td>
+                        </tr>
+                        <tr>
+                            <td><a href="design.html">Design</a></td>
+                            <td>UI/UX, visual design, and design systems</td>
+                        </tr>
+                        <tr>
+                            <td><a href="tools.html">Tools & Software</a></td>
+                            <td>Development tools, productivity apps, and utilities</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Note-Taking Tips</h2>
+                <ol>
+                    <li><strong>Write for your future self</strong> - Include context you might forget</li>
+                    <li><strong>Use examples</strong> - Concrete examples are easier to understand than abstract descriptions</li>
+                    <li><strong>Link related notes</strong> - Build connections between ideas</li>
+                    <li><strong>Review regularly</strong> - Spaced repetition helps retention</li>
+                </ol>
+
+                <blockquote>
+                    <p>"The faintest ink is more powerful than the strongest memory." - Chinese Proverb</p>
+                </blockquote>
+
+                <nav class="page-nav">
+                    <a href="programming.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Programming Notes</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
