@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Games Wiki</title>
+    <link rel="stylesheet" href="../../assets/css/wiki.css">
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                    Video Games
+                </a>
+                <a href="../../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Back to Hub
+                </a>
+            </div>
+
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search games...">
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="active">Introduction</a></li>
+                        <li><a href="backlog.html">Backlog</a></li>
+                        <li><a href="completed.html">Completed</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">By Genre</div>
+                    <ul class="nav-list">
+                        <li><a href="rpg.html">RPGs</a></li>
+                        <li><a href="action.html">Action</a></li>
+                        <li><a href="strategy.html">Strategy</a></li>
+                        <li><a href="indie.html">Indie</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">By Platform</div>
+                    <ul class="nav-list">
+                        <li><a href="pc.html">PC</a></li>
+                        <li><a href="playstation.html">PlayStation</a></li>
+                        <li><a href="nintendo.html">Nintendo</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Video Games</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Video Games</h1>
+                <p class="article-meta">Reviews, notes, and gaming journal</p>
+
+                <p>Welcome to the Video Games wiki. Track your gaming journey, write reviews, document strategies, and keep notes on the games you play.</p>
+
+                <h2>What to Track</h2>
+                <ul>
+                    <li><strong>Game reviews</strong> - Your thoughts and ratings</li>
+                    <li><strong>Playthroughs</strong> - Progress, choices made, builds used</li>
+                    <li><strong>Strategies</strong> - Tips, tricks, and guides</li>
+                    <li><strong>Backlog</strong> - Games you want to play</li>
+                    <li><strong>Wishlist</strong> - Upcoming releases to watch</li>
+                </ul>
+
+                <h2>Currently Playing</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Platform</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Add your games here</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Game Entry Template</h2>
+                <p>When adding a new game, consider including:</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Game Template</div>
+                    <p><strong>Title:</strong> Game Name<br>
+                    <strong>Platform:</strong> PC / Console<br>
+                    <strong>Genre:</strong> RPG, Action, etc.<br>
+                    <strong>Hours Played:</strong> 0<br>
+                    <strong>Status:</strong> Playing / Completed / Dropped<br>
+                    <strong>Rating:</strong> /10</p>
+                </div>
+
+                <h2>Review Categories</h2>
+                <p>Rate games across these dimensions:</p>
+                <ol>
+                    <li><strong>Gameplay</strong> - Core mechanics and feel</li>
+                    <li><strong>Story</strong> - Narrative and characters</li>
+                    <li><strong>Graphics</strong> - Visual presentation</li>
+                    <li><strong>Sound</strong> - Music and audio design</li>
+                    <li><strong>Replayability</strong> - Reason to return</li>
+                </ol>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Tip</div>
+                    <p>Write your thoughts immediately after a play session while they're fresh!</p>
+                </div>
+
+                <nav class="page-nav">
+                    <a href="backlog.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Backlog</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
