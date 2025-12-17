@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characters - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .character-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #6b7280;
+        }
+        .character-card.essential { border-left-color: #eab308; }
+        .character-card.marriageable { border-left-color: #ec4899; }
+        .character-card.follower { border-left-color: #22c55e; }
+        .character-card h4 {
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .character-card .location {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        .character-card .tags {
+            display: flex;
+            gap: 0.375rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .tag {
+            font-size: 0.6875rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .tag-follower { background: #dcfce7; color: #166534; }
+        .tag-marriageable { background: #fce7f3; color: #9d174d; }
+        .tag-essential { background: #fef3c7; color: #92400e; }
+        .tag-merchant { background: #dbeafe; color: #1e40af; }
+        .tag-trainer { background: #f3e8ff; color: #6b21a8; }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="my-playthrough.html">My Playthrough</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html">Daedric Quests</a></li>
+                        <li><a href="quests-side.html">Side Quests</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">World</div>
+                    <ul class="nav-list">
+                        <li><a href="locations.html">Locations</a></li>
+                        <li><a href="characters.html" class="active">Characters</a></li>
+                        <li><a href="lore.html">Lore & History</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="builds.html">Character Builds</a></li>
+                        <li><a href="items.html">Items & Equipment</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Skyrim</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Characters</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Characters</h1>
+                <p class="article-meta">NPCs, followers, and key figures of Skyrim</p>
+
+                <p>Skyrim is populated with hundreds of unique characters. This page covers the most important NPCs, potential followers, and marriage candidates.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Legend</div>
+                    <p>
+                        <span class="tag tag-follower">Follower</span> Can join you as a companion<br>
+                        <span class="tag tag-marriageable">Marriageable</span> Can be married with Amulet of Mara<br>
+                        <span class="tag tag-essential">Essential</span> Cannot be killed<br>
+                        <span class="tag tag-trainer">Trainer</span> Can train skills<br>
+                        <span class="tag tag-merchant">Merchant</span> Buys/sells goods
+                    </p>
+                </div>
+
+                <h2>Followers - Warriors</h2>
+
+                <div class="character-card follower">
+                    <h4>Lydia</h4>
+                    <div class="location">Dragonsreach / Breezehome, Whiterun</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                    </div>
+                    <p>Your first housecarl, assigned after becoming Thane of Whiterun. Heavy armor and one-handed specialist. The iconic "I am sworn to carry your burdens" companion.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Uthgerd the Unbroken</h4>
+                    <div class="location">The Bannered Mare, Whiterun</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                    </div>
+                    <p>Brawl her to earn her respect. Two-handed warrior who was rejected from the Companions for killing a boy during training.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Mjoll the Lioness</h4>
+                    <div class="location">Riften</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>Adventurer who lost her sword Grimsever in a Dwemer ruin. Retrieve it to recruit her. Cannot die, making her one of the best followers.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Vilkas</h4>
+                    <div class="location">Jorrvaskr, Whiterun</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                        <span class="tag tag-trainer">Trainer</span>
+                    </div>
+                    <p>Member of the Circle. Master Two-Handed trainer. Available after completing the Companions questline.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Farkas</h4>
+                    <div class="location">Jorrvaskr, Whiterun</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                        <span class="tag tag-trainer">Trainer</span>
+                    </div>
+                    <p>Vilkas's twin brother. Heavy Armor trainer. Your shield-brother during the Companions initiation.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Aela the Huntress</h4>
+                    <div class="location">Jorrvaskr, Whiterun</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                        <span class="tag tag-trainer">Trainer</span>
+                    </div>
+                    <p>Expert archer and werewolf. Archery trainer. Can restore your lycanthropy even after being cured.</p>
+                </div>
+
+                <h2>Followers - Mages</h2>
+
+                <div class="character-card follower">
+                    <h4>J'zargo</h4>
+                    <div class="location">College of Winterhold</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                    </div>
+                    <p>Ambitious Khajiit mage. Complete his flame cloak scroll quest to recruit. One of the few followers with no level cap.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Marcurio</h4>
+                    <div class="location">Bee and Barb, Riften</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                    </div>
+                    <p>Mercenary mage for hire (500 gold). Destruction specialist with witty dialogue. "I'm an apprentice wizard, not a pack mule!"</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Serana</h4>
+                    <div class="location">Dimhollow Crypt (Dawnguard DLC)</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>Ancient vampire and daughter of Lord Harkon. One of the most developed companions with unique dialogue. Can turn you into a vampire.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Teldryn Sero</h4>
+                    <div class="location">Retching Netch, Raven Rock (Dragonborn DLC)</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                    </div>
+                    <p>Dunmer spellsword mercenary (500 gold). Combines destruction magic with one-handed combat. Great dialogue.</p>
+                </div>
+
+                <h2>Followers - Stealth</h2>
+
+                <div class="character-card follower">
+                    <h4>Cicero</h4>
+                    <div class="location">Dawnstar Sanctuary</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>The Keeper of the Night Mother. Insane jester assassin. Spare him in the Dark Brotherhood questline to recruit.</p>
+                </div>
+
+                <div class="character-card follower">
+                    <h4>Jenassa</h4>
+                    <div class="location">The Drunken Huntsman, Whiterun</div>
+                    <div class="tags">
+                        <span class="tag tag-follower">Follower</span>
+                        <span class="tag tag-marriageable">Marriageable</span>
+                    </div>
+                    <p>Dunmer mercenary (500 gold). Archery and light armor specialist. "There is no hunt like the hunt for men."</p>
+                </div>
+
+                <h2>Jarls of Skyrim</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jarl</th>
+                            <th>Hold</th>
+                            <th>Allegiance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Balgruuf the Greater</strong></td>
+                            <td>Whiterun</td>
+                            <td>Neutral → Imperial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ulfric Stormcloak</strong></td>
+                            <td>Eastmarch (Windhelm)</td>
+                            <td>Stormcloak Leader</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Elisif the Fair</strong></td>
+                            <td>Haafingar (Solitude)</td>
+                            <td>Imperial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Igmund</strong></td>
+                            <td>The Reach (Markarth)</td>
+                            <td>Imperial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Laila Law-Giver</strong></td>
+                            <td>The Rift (Riften)</td>
+                            <td>Stormcloak</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Idgrod Ravencrone</strong></td>
+                            <td>Hjaalmarch (Morthal)</td>
+                            <td>Imperial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skald the Elder</strong></td>
+                            <td>The Pale (Dawnstar)</td>
+                            <td>Stormcloak</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Korir</strong></td>
+                            <td>Winterhold</td>
+                            <td>Stormcloak</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Siddgeir</strong></td>
+                            <td>Falkreath</td>
+                            <td>Imperial</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Key Story Characters</h2>
+
+                <div class="character-card essential">
+                    <h4>Paarthurnax</h4>
+                    <div class="location">Throat of the World</div>
+                    <div class="tags">
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>Ancient dragon and leader of the Greybeards. Brother of Alduin who turned against him. The Blades want him dead for his past crimes. "What is better - to be born good, or to overcome your evil nature through great effort?"</p>
+                </div>
+
+                <div class="character-card essential">
+                    <h4>Delphine</h4>
+                    <div class="location">Sleeping Giant Inn, Riverwood → Sky Haven Temple</div>
+                    <div class="tags">
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>Last of the Blades, dragon hunters who served the Dragonborn emperors. Paranoid but competent. Demands Paarthurnax's death.</p>
+                </div>
+
+                <div class="character-card essential">
+                    <h4>Esbern</h4>
+                    <div class="location">The Ratway, Riften → Sky Haven Temple</div>
+                    <div class="tags">
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>Blades loremaster hiding from the Thalmor. Expert on dragons and the prophecy of Alduin's return.</p>
+                </div>
+
+                <div class="character-card essential">
+                    <h4>Arngeir</h4>
+                    <div class="location">High Hrothgar</div>
+                    <div class="tags">
+                        <span class="tag tag-essential">Essential</span>
+                    </div>
+                    <p>Spokesperson for the Greybeards. Teaches the Dragonborn the Way of the Voice.</p>
+                </div>
+
+                <h2>Notable Merchants</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Merchant</th>
+                            <th>Location</th>
+                            <th>Specialty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Belethor</strong></td>
+                            <td>Whiterun</td>
+                            <td>General Goods</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eorlund Gray-Mane</strong></td>
+                            <td>Skyforge, Whiterun</td>
+                            <td>Weapons (best smith)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adrianne Avenicci</strong></td>
+                            <td>Warmaiden's, Whiterun</td>
+                            <td>Weapons & Armor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tonilia</strong></td>
+                            <td>The Ragged Flagon, Riften</td>
+                            <td>Fence (Thieves Guild)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enthir</strong></td>
+                            <td>College of Winterhold</td>
+                            <td>Fence, Daedra Hearts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Farengar Secret-Fire</strong></td>
+                            <td>Dragonsreach, Whiterun</td>
+                            <td>Spells, Soul Gems</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Marriage Candidates</h2>
+                <p>To marry, obtain the Amulet of Mara from Maramal in Riften (200 gold), wear it, and speak to eligible NPCs.</p>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Best Spouses</div>
+                    <p><strong>Mjoll the Lioness</strong> - Essential, powerful follower<br>
+                    <strong>Aela the Huntress</strong> - Can restore werewolf blood, trainer<br>
+                    <strong>Marcurio</strong> - Strong mage, good income from store<br>
+                    <strong>Ysolda</strong> - Runs profitable store (Whiterun)</p>
+                </div>
+
+                <h2>Trainers by Skill</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Trainer</th>
+                            <th>Location</th>
+                            <th>Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Archery</td>
+                            <td>Aela the Huntress</td>
+                            <td>Jorrvaskr</td>
+                            <td>Expert</td>
+                        </tr>
+                        <tr>
+                            <td>Smithing</td>
+                            <td>Eorlund Gray-Mane</td>
+                            <td>Skyforge</td>
+                            <td>Master</td>
+                        </tr>
+                        <tr>
+                            <td>Enchanting</td>
+                            <td>Sergius Turrianus</td>
+                            <td>College of Winterhold</td>
+                            <td>Expert</td>
+                        </tr>
+                        <tr>
+                            <td>Alchemy</td>
+                            <td>Babette</td>
+                            <td>Dark Brotherhood</td>
+                            <td>Master</td>
+                        </tr>
+                        <tr>
+                            <td>Sneak</td>
+                            <td>Delvin Mallory</td>
+                            <td>Thieves Guild</td>
+                            <td>Master</td>
+                        </tr>
+                        <tr>
+                            <td>Pickpocket</td>
+                            <td>Vipir the Fleet</td>
+                            <td>Thieves Guild</td>
+                            <td>Master</td>
+                        </tr>
+                        <tr>
+                            <td>Speech</td>
+                            <td>Giraud Gemane</td>
+                            <td>Bards College</td>
+                            <td>Master</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <nav class="page-nav">
+                    <a href="locations.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Locations</span>
+                    </a>
+                    <a href="lore.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Lore & History</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
