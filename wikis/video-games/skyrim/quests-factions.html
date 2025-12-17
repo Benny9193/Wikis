@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faction Quests - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .faction-header {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        .faction-header.companions { background: linear-gradient(135deg, #78350f 0%, #92400e 100%); }
+        .faction-header.thieves { background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%); }
+        .faction-header.brotherhood { background: linear-gradient(135deg, #1f1f1f 0%, #991b1b 100%); }
+        .faction-header.college { background: linear-gradient(135deg, #1e3a5f 0%, #7c3aed 100%); }
+        .faction-header h2 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1.5rem;
+        }
+        .faction-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .quest-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .quest-status.completed { background: #dcfce7; color: #166534; }
+        .quest-status.in-progress { background: #fef3c7; color: #92400e; }
+        .quest-status.not-started { background: #f3f4f6; color: #6b7280; }
+        .reward-tag {
+            display: inline-block;
+            padding: 0.125rem 0.375rem;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html" class="active">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html">Daedric Quests</a></li>
+                        <li><a href="quests-side.html">Side Quests</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">World</div>
+                    <ul class="nav-list">
+                        <li><a href="locations.html">Locations</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="lore.html">Lore & History</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="builds.html">Character Builds</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Skyrim</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Faction Quests</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Faction Quests</h1>
+                <p class="article-meta">Join the guilds and shape your destiny</p>
+
+                <p>Skyrim features four major factions, each with their own questline, rewards, and consequences. You can complete all faction questlines on a single character.</p>
+
+                <!-- THE COMPANIONS -->
+                <div class="faction-header companions">
+                    <h2>The Companions</h2>
+                    <p>Jorrvaskr, Whiterun &bull; Warriors Guild &bull; Werewolf Transformation</p>
+                </div>
+
+                <p>The Companions are Skyrim's premier warriors guild, descended from the Five Hundred Companions of Ysgramor. Their inner circle, The Circle, shares the secret of lycanthropy.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Joining</div>
+                    <p>Go to Jorrvaskr in Whiterun and speak to Kodlak Whitemane. Fight Vilkas in the courtyard to prove your worth.</p>
+                </div>
+
+                <h3>Companions Questline</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quest</th>
+                            <th>Objectives</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Take Up Arms</strong></td>
+                            <td>Join the Companions, train with Vilkas</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proving Honor</strong></td>
+                            <td>Retrieve fragment of Wuuthrad with Farkas</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Silver Hand</strong></td>
+                            <td>Become a werewolf, assault Silver Hand fort</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blood's Honor</strong></td>
+                            <td>Collect Glenmoril Witch heads</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Purity of Revenge</strong></td>
+                            <td>Avenge Kodlak, retrieve fragments</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Glory of the Dead</strong> <span class="reward-tag">Final</span></td>
+                            <td>Cure Kodlak's spirit in Ysgramor's Tomb</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Rewards</div>
+                    <p><strong>Wuuthrad</strong> - Ysgramor's legendary battleaxe<br>
+                    <strong>Lycanthropy</strong> - Beast Form power<br>
+                    <strong>Harbinger Title</strong> - Leader of the Companions</p>
+                </div>
+
+                <!-- THIEVES GUILD -->
+                <div class="faction-header thieves">
+                    <h2>Thieves Guild</h2>
+                    <p>The Ratway, Riften &bull; Criminal Organization &bull; Nightingale Powers</p>
+                </div>
+
+                <p>The Thieves Guild has fallen on hard times, suffering from a curse that brings bad luck to all their endeavors. Help restore the Guild to its former glory and uncover the source of their misfortune.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Joining</div>
+                    <p>Speak to Brynjolf in Riften's marketplace. Complete his "A Chance Arrangement" pickpocket job to get recruited.</p>
+                </div>
+
+                <h3>Thieves Guild Questline</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quest</th>
+                            <th>Objectives</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>A Chance Arrangement</strong></td>
+                            <td>Plant Madesi's ring on Brand-Shei</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taking Care of Business</strong></td>
+                            <td>Collect debts from three merchants</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loud and Clear</strong></td>
+                            <td>Burn Goldenglow Estate's bee hives</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dampened Spirits</strong></td>
+                            <td>Sabotage Honningbrew Meadery</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scoundrel's Folly</strong></td>
+                            <td>Interrogate Gulum-Ei in Solitude</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Speaking With Silence</strong></td>
+                            <td>Confront Karliah in Snow Veil Sanctum</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hard Answers</strong></td>
+                            <td>Translate Gallus's journal</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Pursuit</strong></td>
+                            <td>Infiltrate Mercer's house</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trinity Restored</strong></td>
+                            <td>Become a Nightingale</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blindsighted</strong></td>
+                            <td>Kill Mercer Frey in Irkngthand</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Darkness Returns</strong> <span class="reward-tag">Final</span></td>
+                            <td>Return the Skeleton Key to Nocturnal</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Rewards</div>
+                    <p><strong>Nightingale Armor</strong> - Leveled stealth armor set<br>
+                    <strong>Nightingale Blade</strong> - Absorbs health and stamina<br>
+                    <strong>Nightingale Bow</strong> - Frost and shock damage<br>
+                    <strong>Agent of Nocturnal</strong> - Choose Subterfuge, Shadow, or Strife power<br>
+                    <strong>Guild Master</strong> - Amulet of Articulation (100% persuasion)</p>
+                </div>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">Skeleton Key</div>
+                    <p>The Skeleton Key is an unbreakable lockpick. You can keep it indefinitely before completing "Darkness Returns," but this locks you out of the Nightingale powers.</p>
+                </div>
+
+                <!-- DARK BROTHERHOOD -->
+                <div class="faction-header brotherhood">
+                    <h2>Dark Brotherhood</h2>
+                    <p>Dawnstar Sanctuary &bull; Assassins &bull; Spectral Assassin</p>
+                </div>
+
+                <p>The Dark Brotherhood is a family of assassins who worship Sithis and follow the commands of the Night Mother. Their sanctuary has seen better days, but a new Listener may change their fate.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Joining</div>
+                    <p>Kill Grelod the Kind in Riften's orphanage (quest "Innocence Lost" from Aventus Aretino in Windhelm). Sleep anywhere to be abducted by Astrid.</p>
+                </div>
+
+                <h3>Dark Brotherhood Questline</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quest</th>
+                            <th>Objectives</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Innocence Lost</strong></td>
+                            <td>Kill Grelod the Kind</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>With Friends Like These...</strong></td>
+                            <td>Kill a captive in the Abandoned Shack</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sanctuary</strong></td>
+                            <td>Join the Dark Brotherhood</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sentenced to Death</strong></td>
+                            <td>Kill Narfi, Ennodius, Beitild</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Whispers in the Dark</strong></td>
+                            <td>Hide in the Night Mother's coffin</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Silence Has Been Broken</strong></td>
+                            <td>Speak to Amaund Motierre</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bound Until Death</strong></td>
+                            <td>Kill Vittoria Vici at her wedding</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Breaching Security</strong></td>
+                            <td>Kill Gaius Maro</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Cure for Madness</strong></td>
+                            <td>Pursue Cicero (spare or kill)</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recipe for Disaster</strong></td>
+                            <td>Kill the Gourmet, take his identity</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>To Kill an Empire</strong></td>
+                            <td>Poison the Emperor's meal</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Death Incarnate</strong></td>
+                            <td>Escape the destroyed Sanctuary</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hail Sithis!</strong> <span class="reward-tag">Final</span></td>
+                            <td>Kill Emperor Titus Mede II</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Rewards</div>
+                    <p><strong>Shrouded Armor</strong> - Assassination bonuses<br>
+                    <strong>Blade of Woe</strong> - Absorb 10 health per hit<br>
+                    <strong>Summon Spectral Assassin</strong> - Summon Lucien Lachance<br>
+                    <strong>20,000 Gold</strong> - Payment for the Emperor<br>
+                    <strong>Dawnstar Sanctuary</strong> - Upgradeable player home</p>
+                </div>
+
+                <!-- COLLEGE OF WINTERHOLD -->
+                <div class="faction-header college">
+                    <h2>College of Winterhold</h2>
+                    <p>Winterhold &bull; Mages Guild &bull; Archmage Robes</p>
+                </div>
+
+                <p>The College of Winterhold is Skyrim's center of magical learning, isolated on a cliff after the Great Collapse destroyed most of the city. Uncover the secrets of the Eye of Magnus and the Psijic Order.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Joining</div>
+                    <p>Speak to Faralda at the bridge to Winterhold. Demonstrate a spell (she'll teach you one if needed) to gain entry.</p>
+                </div>
+
+                <h3>College Questline</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quest</th>
+                            <th>Objectives</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>First Lessons</strong></td>
+                            <td>Gain admission to the College</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Under Saarthal</strong></td>
+                            <td>Explore Saarthal, find the Eye of Magnus</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hitting the Books</strong></td>
+                            <td>Find books in Fellglow Keep</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Good Intentions</strong></td>
+                            <td>Speak to the Augur of Dunlain</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Revealing the Unseen</strong></td>
+                            <td>Find the Staff of Magnus location</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Containment</strong></td>
+                            <td>Defend the College from Ancano</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Staff of Magnus</strong></td>
+                            <td>Retrieve the Staff from Labyrinthian</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Eye of Magnus</strong> <span class="reward-tag">Final</span></td>
+                            <td>Defeat Ancano, save the College</td>
+                            <td><span class="quest-status not-started">Not Started</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Rewards</div>
+                    <p><strong>Staff of Magnus</strong> - Absorbs magicka, then health<br>
+                    <strong>Archmage's Robes</strong> - +50 Magicka, -15% spell cost<br>
+                    <strong>Archmage's Quarters</strong> - Free housing with enchanter<br>
+                    <strong>Savos Aren's Amulet</strong> - +50 Magicka</p>
+                </div>
+
+                <h2>Faction Comparison</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Faction</th>
+                            <th>Best For</th>
+                            <th>Quests</th>
+                            <th>Unique Reward</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Companions</td>
+                            <td>Warriors</td>
+                            <td>6</td>
+                            <td>Lycanthropy</td>
+                        </tr>
+                        <tr>
+                            <td>Thieves Guild</td>
+                            <td>Stealth</td>
+                            <td>11</td>
+                            <td>Nightingale Powers</td>
+                        </tr>
+                        <tr>
+                            <td>Dark Brotherhood</td>
+                            <td>Assassins</td>
+                            <td>13</td>
+                            <td>Spectral Assassin</td>
+                        </tr>
+                        <tr>
+                            <td>College</td>
+                            <td>Mages</td>
+                            <td>8</td>
+                            <td>Staff of Magnus</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <nav class="page-nav">
+                    <a href="quests-main.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Main Quest</span>
+                    </a>
+                    <a href="quests-daedric.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Daedric Quests</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
