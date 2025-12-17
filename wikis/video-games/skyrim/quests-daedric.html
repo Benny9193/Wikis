@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daedric Quests - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .daedric-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            color: white;
+            border-left: 4px solid #9333ea;
+        }
+        .daedric-card h3 {
+            color: #c4b5fd;
+            margin-bottom: 0.25rem;
+            font-size: 1.25rem;
+        }
+        .daedric-card .sphere {
+            font-size: 0.875rem;
+            color: #a78bfa;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+        .daedric-card .quest-info {
+            background: rgba(255,255,255,0.1);
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin: 0.75rem 0;
+        }
+        .daedric-card .quest-info strong {
+            color: #fbbf24;
+        }
+        .daedric-card p {
+            color: #d1d5db;
+            margin-bottom: 0.5rem;
+        }
+        .artifact-box {
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-top: 0.75rem;
+        }
+        .artifact-box .artifact-name {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        .artifact-box .artifact-effect {
+            color: #d1d5db;
+            font-size: 0.875rem;
+        }
+        .quest-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .quest-status.completed { background: #dcfce7; color: #166534; }
+        .quest-status.not-started { background: rgba(255,255,255,0.2); color: #e5e7eb; }
+        .level-req {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            padding: 0.125rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html" class="active">Daedric Quests</a></li>
+                        <li><a href="quests-side.html">Side Quests</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">World</div>
+                    <ul class="nav-list">
+                        <li><a href="locations.html">Locations</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="lore.html">Lore & History</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="items.html">Items & Equipment</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Skyrim</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Daedric Quests</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Daedric Quests</h1>
+                <p class="article-meta">Serve the Daedric Princes for powerful artifacts</p>
+
+                <p>The Daedric Princes are god-like beings from Oblivion. Each has a quest in Skyrim that rewards a unique Daedric Artifact. Collecting 15 artifacts unlocks the "Oblivion Walker" achievement.</p>
+
+                <div class="info-box warning">
+                    <div class="info-box-title">Achievement Note</div>
+                    <p>For "Oblivion Walker," you need 15 artifacts. The Skeleton Key doesn't count, and some quests have choices that affect which artifact you receive. See individual quests for details.</p>
+                </div>
+
+                <h2>Artifact Collection Progress</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Artifacts Collected</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0 / 15</td>
+                            <td><span class="quest-status not-started">In Progress</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>The Daedric Princes</h2>
+
+                <div class="daedric-card">
+                    <h3>Azura <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of Dusk and Dawn, the Magic Between Day and Night</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Black Star<br>
+                        <strong>Start:</strong> Speak to Aranea Ienith at the Shrine of Azura (south of Winterhold)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Find the broken Azura's Star and choose whether to cleanse it for Azura or corrupt it for Nelacar.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Azura's Star / The Black Star</div>
+                        <div class="artifact-effect">Reusable soul gem. Azura's Star captures white souls only. The Black Star captures all souls (better choice).</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Boethiah <span class="level-req">Level 30+</span></h3>
+                    <div class="sphere">Prince of Deceit, Conspiracy, and Secret Plots of Murder</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> Boethiah's Calling<br>
+                        <strong>Start:</strong> Read "Boethiah's Proving" or find Sacellum of Boethiah (east of Windhelm)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Sacrifice a follower on Boethiah's altar, then kill the other cultists. Slay the current champion at Knifepoint Ridge.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Ebony Mail</div>
+                        <div class="artifact-effect">Heavy armor. Muffle effect, poisons nearby enemies (5 damage/sec).</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Clavicus Vile <span class="level-req">Level 10+</span></h3>
+                    <div class="sphere">Prince of Power, Trickery, Wishes, and Bargains</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> A Daedra's Best Friend<br>
+                        <strong>Start:</strong> Speak to Barbas (dog) outside Falkreath<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Reunite Barbas with Clavicus Vile. Choose to kill Barbas for the Rueful Axe or refuse for the Masque.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Masque of Clavicus Vile (Keep Barbas alive)</div>
+                        <div class="artifact-effect">+10 Speech, +10% better prices, Regenerate Magicka 5%. THIS is the artifact for the achievement!</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Hermaeus Mora <span class="level-req">Level 15+</span></h3>
+                    <div class="sphere">Prince of Knowledge, Memory, and Fate</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> Discerning the Transmundane<br>
+                        <strong>Start:</strong> Septimus Signus's Outpost (north of Winterhold)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Help Septimus open a Dwemer lockbox using blood from all mer races (Altmer, Bosmer, Dunmer, Falmer, Orsimer).</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Oghma Infinium</div>
+                        <div class="artifact-effect">Book that grants +5 to all skills in a path (Combat, Magic, or Stealth). One-time use.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Hircine <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of the Hunt, Sport, and the Great Game</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> Ill Met by Moonlight<br>
+                        <strong>Start:</strong> Speak to Sinding in Falkreath Jail<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Hunt Sinding the werewolf. Choose to kill him for the Savior's Hide or help him for the Ring of Hircine.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Savior's Hide / Ring of Hircine</div>
+                        <div class="artifact-effect">Hide: +15% Magic Resistance, +50% Poison Resistance. Ring: Extra werewolf transformation per day. Both count as artifacts!</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Malacath <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of the Spurned, Ostracized, and Bloody Oath</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Cursed Tribe<br>
+                        <strong>Start:</strong> Largashbur (Orc stronghold, The Rift)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Help the Orcs lift a curse by bringing Troll Fat and a Daedra Heart, then defeat the giant Yamarz was supposed to kill.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Volendrung</div>
+                        <div class="artifact-effect">Warhammer. Absorb 50 stamina per hit. Excellent for power attack builds.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Mehrunes Dagon <span class="level-req">Level 20+</span></h3>
+                    <div class="sphere">Prince of Destruction, Change, Revolution, and Ambition</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> Pieces of the Past<br>
+                        <strong>Start:</strong> Visit Silus Vesuius's museum in Dawnstar<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Collect the pieces of Mehrunes' Razor. At the shrine, kill Silus to receive the reforged dagger.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Mehrunes' Razor</div>
+                        <div class="artifact-effect">Dagger. 1.98% chance to instantly kill any enemy. Works on dragons!</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Mephala <span class="level-req">Level 20+</span></h3>
+                    <div class="sphere">Prince of Lies, Secrets, and Plots</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Whispering Door<br>
+                        <strong>Start:</strong> Ask innkeeper about Jarl Balgruuf's children (Whiterun)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Investigate Nelkir's strange behavior and obtain the key to the Whispering Door in Dragonsreach basement.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Ebony Blade</div>
+                        <div class="artifact-effect">Katana. Absorb 10-30 health (powered up by killing friends). Infinite charge, fast swing.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Meridia <span class="level-req">Level 12+</span></h3>
+                    <div class="sphere">Prince of Life, Light, and the Energies of Living Things</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Break of Dawn<br>
+                        <strong>Start:</strong> Find Meridia's Beacon (random loot) or visit her statue (west of Solitude)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Cleanse Meridia's temple of the necromancer Malkoran and his shades.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Dawnbreaker</div>
+                        <div class="artifact-effect">Sword. Burns for 10-25 fire damage. Chance to cause undead explosion. Amazing vs. draugr.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Molag Bal <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of Domination, Enslavement, and Vampirism</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The House of Horrors<br>
+                        <strong>Start:</strong> Speak to Vigilant Tyranus in Markarth<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Investigate the abandoned house, become trapped, and beat a priest into submission for Molag Bal.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Mace of Molag Bal</div>
+                        <div class="artifact-effect">Mace. Absorb 25 magicka and stamina, soul trap for 3 seconds.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Namira <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of the Ancient Darkness, Decay, and Cannibalism</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Taste of Death<br>
+                        <strong>Start:</strong> Speak to Eola in the Markarth Hall of the Dead<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Clear Reachcliff Cave and lure Brother Verulus to be sacrificed in a cannibalistic feast.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Ring of Namira</div>
+                        <div class="artifact-effect">+50 Stamina. Feeding on corpses restores 50 health and boosts health/stamina regen.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Nocturnal <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of Night, Darkness, Luck, and the Unknown</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> Thieves Guild Questline<br>
+                        <strong>Start:</strong> Complete the Thieves Guild (see Faction Quests)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Become a Nightingale and receive Nocturnal's blessing.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Skeleton Key (doesn't count for achievement)</div>
+                        <div class="artifact-effect">Unbreakable lockpick. Must return it to unlock Nightingale powers.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Peryite <span class="level-req">Level 12+</span></h3>
+                    <div class="sphere">Prince of Pestilence, Tasks, and Natural Order</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Only Cure<br>
+                        <strong>Start:</strong> Shrine of Peryite (The Reach, requires inhaling incense)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Kill the Afflicted's leader Orchendor in Bthardamz to end the plague.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Spellbreaker</div>
+                        <div class="artifact-effect">Shield. Creates a ward blocking 50 spell damage while blocking.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Sanguine <span class="level-req">Level 14+</span></h3>
+                    <div class="sphere">Prince of Debauchery, Hedonism, and Indulgence</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> A Night to Remember<br>
+                        <strong>Start:</strong> Meet Sam Guevenne at any tavern, win drinking contest<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Piece together a wild night of drunken adventures across Skyrim. One of the most entertaining quests!</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Sanguine Rose</div>
+                        <div class="artifact-effect">Staff. Summons a Dremora to fight for 60 seconds.</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Sheogorath <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of Madness, Creativity, and the Unpredictable</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> The Mind of Madness<br>
+                        <strong>Start:</strong> Speak to Dervenin in Solitude (near Bards College)<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Enter the mind of Pelagius the Mad and help Sheogorath escape by "treating" his insanity.</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Wabbajack</div>
+                        <div class="artifact-effect">Staff. Random transformation effects - can turn enemies into chickens, sweetrolls, or Dremora Lords!</div>
+                    </div>
+                </div>
+
+                <div class="daedric-card">
+                    <h3>Vaermina <span class="level-req">No Level Req</span></h3>
+                    <div class="sphere">Prince of Dreams, Nightmares, and Evil Omens</div>
+                    <div class="quest-info">
+                        <strong>Quest:</strong> Waking Nightmare<br>
+                        <strong>Start:</strong> Speak to Erandur in Dawnstar's inn about nightmares<br>
+                        <strong>Status:</strong> <span class="quest-status not-started">Not Started</span>
+                    </div>
+                    <p>Enter Nightcaller Temple to destroy the Skull of Corruption. Vaermina asks you to kill Erandur - obey her for the artifact!</p>
+                    <div class="artifact-box">
+                        <div class="artifact-name">Skull of Corruption (must kill Erandur)</div>
+                        <div class="artifact-effect">Staff. 20 damage, or 50 if charged by harvesting dreams from sleeping NPCs.</div>
+                    </div>
+                </div>
+
+                <h2>Quick Reference</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prince</th>
+                            <th>Artifact</th>
+                            <th>Type</th>
+                            <th>Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Azura</td><td>Azura's Star / Black Star</td><td>Soul Gem</td><td>Any</td></tr>
+                        <tr><td>Boethiah</td><td>Ebony Mail</td><td>Heavy Armor</td><td>30</td></tr>
+                        <tr><td>Clavicus Vile</td><td>Masque of Clavicus Vile</td><td>Helmet</td><td>10</td></tr>
+                        <tr><td>Hermaeus Mora</td><td>Oghma Infinium</td><td>Book</td><td>15</td></tr>
+                        <tr><td>Hircine</td><td>Savior's Hide / Ring</td><td>Armor / Ring</td><td>Any</td></tr>
+                        <tr><td>Malacath</td><td>Volendrung</td><td>Warhammer</td><td>Any</td></tr>
+                        <tr><td>Mehrunes Dagon</td><td>Mehrunes' Razor</td><td>Dagger</td><td>20</td></tr>
+                        <tr><td>Mephala</td><td>Ebony Blade</td><td>Sword</td><td>20</td></tr>
+                        <tr><td>Meridia</td><td>Dawnbreaker</td><td>Sword</td><td>12</td></tr>
+                        <tr><td>Molag Bal</td><td>Mace of Molag Bal</td><td>Mace</td><td>Any</td></tr>
+                        <tr><td>Namira</td><td>Ring of Namira</td><td>Ring</td><td>Any</td></tr>
+                        <tr><td>Peryite</td><td>Spellbreaker</td><td>Shield</td><td>12</td></tr>
+                        <tr><td>Sanguine</td><td>Sanguine Rose</td><td>Staff</td><td>14</td></tr>
+                        <tr><td>Sheogorath</td><td>Wabbajack</td><td>Staff</td><td>Any</td></tr>
+                        <tr><td>Vaermina</td><td>Skull of Corruption</td><td>Staff</td><td>Any</td></tr>
+                    </tbody>
+                </table>
+
+                <nav class="page-nav">
+                    <a href="quests-factions.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Faction Quests</span>
+                    </a>
+                    <a href="quests-side.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Side Quests</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
