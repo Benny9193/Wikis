@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lore & History - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .lore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .lore-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .lore-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(15, 52, 96, 0.4);
+        }
+
+        .lore-card h3 {
+            color: #e94560;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #0f3460;
+            padding-bottom: 0.5rem;
+        }
+
+        .lore-card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .divine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .divine-card {
+            background: linear-gradient(135deg, #2d1b4e 0%, #1a1040 100%);
+            border: 1px solid #6b3fa0;
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .divine-card.aedra {
+            background: linear-gradient(135deg, #1b3d4e 0%, #0a2530 100%);
+            border-color: #3fa0b5;
+        }
+
+        .divine-card h4 {
+            color: #c9a0dc;
+            margin-bottom: 0.5rem;
+        }
+
+        .divine-card.aedra h4 {
+            color: #7fdbec;
+        }
+
+        .divine-card .sphere {
+            color: #888;
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .divine-card p {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .race-section {
+            background: #1a1a2e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .race-section h3 {
+            color: #e94560;
+            margin-bottom: 1rem;
+        }
+
+        .race-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .race-item {
+            background: #16213e;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #0f3460;
+        }
+
+        .race-item.human { border-left-color: #f4a261; }
+        .race-item.mer { border-left-color: #2a9d8f; }
+        .race-item.beast { border-left-color: #8338ec; }
+
+        .race-item h4 {
+            color: #fff;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .race-item .origin {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 1.5rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #e94560, #0f3460);
+        }
+
+        .timeline-event {
+            position: relative;
+            padding: 1rem 0 1rem 20px;
+            border-bottom: 1px solid #0f3460;
+        }
+
+        .timeline-event:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 1.25rem;
+            width: 12px;
+            height: 12px;
+            background: #e94560;
+            border-radius: 50%;
+            border: 2px solid #1a1a2e;
+        }
+
+        .timeline-event .era {
+            color: #e94560;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-event h4 {
+            color: #fff;
+            margin: 0.25rem 0;
+        }
+
+        .timeline-event p {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .dragon-section {
+            background: linear-gradient(135deg, #2d1f1f 0%, #1a1212 100%);
+            border: 1px solid #8b0000;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .dragon-section h3 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .dragon-hierarchy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .dragon-rank {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: rgba(139, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+
+        .dragon-rank .rank-name {
+            color: #ff6b6b;
+            font-weight: bold;
+            min-width: 120px;
+        }
+
+        .dragon-rank .rank-desc {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .war-box {
+            background: linear-gradient(135deg, #1f2d1f 0%, #121a12 100%);
+            border: 1px solid #2d5a2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .war-box h3 {
+            color: #6bcb77;
+            margin-bottom: 1rem;
+        }
+
+        .faction-conflict {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+        .conflict-side {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(45, 90, 45, 0.2);
+            border-radius: 8px;
+        }
+
+        .conflict-side h4 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .conflict-side p {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .conflict-vs {
+            color: #6bcb77;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .myth-box {
+            background: linear-gradient(135deg, #1f1f2d 0%, #12121a 100%);
+            border: 1px solid #4a4a8a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .myth-box h3 {
+            color: #9d8cff;
+            margin-bottom: 1rem;
+        }
+
+        .myth-box blockquote {
+            border-left: 3px solid #9d8cff;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #c0c0c0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .faction-conflict {
+                grid-template-columns: 1fr;
+            }
+
+            .conflict-vs {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html">Skyrim Wiki</a>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="quests-main.html">Main Quest</a></li>
+            <li><a href="quests-factions.html">Faction Quests</a></li>
+            <li><a href="quests-daedric.html">Daedric Quests</a></li>
+            <li><a href="characters.html">Characters</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="shouts.html">Dragon Shouts</a></li>
+            <li><a href="builds.html">Character Builds</a></li>
+            <li><a href="items.html">Items & Equipment</a></li>
+            <li><a href="crafting.html">Crafting</a></li>
+            <li><a href="lore.html" class="active">Lore & History</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="../index.html">← Video Games</a>
+        </div>
+    </nav>
+
+    <main class="content">
+        <button class="sidebar-toggle">☰</button>
+
+        <nav class="breadcrumb">
+            <a href="../../../index.html">Wiki Hub</a> /
+            <a href="../index.html">Video Games</a> /
+            <a href="index.html">Skyrim</a> /
+            Lore & History
+        </nav>
+
+        <article>
+            <h1>Lore & History</h1>
+
+            <p class="intro">The Elder Scrolls universe contains thousands of years of history, mythology, and deep lore. This page covers the essential background knowledge for understanding Skyrim's world, from the creation of Mundus to the current civil war.</p>
+
+            <!-- Creation Myth -->
+            <section class="myth-box">
+                <h3>🌟 The Creation of Mundus</h3>
+                <p>In the beginning, there was only the Void. From it emerged two primordial forces: <strong>Anu</strong> (stasis, order) and <strong>Padomay</strong> (change, chaos). Their interplay created <strong>Aurbis</strong>, the universe.</p>
+
+                <blockquote>
+                    "Before the ages of man came the Dawn Era, when the Aedra and Daedra came to be."
+                </blockquote>
+
+                <p>From their conflict emerged:</p>
+                <ul>
+                    <li><strong>Anuiel</strong> - The soul of Anu, representing order</li>
+                    <li><strong>Sithis</strong> - The soul of Padomay, representing chaos and the Void</li>
+                    <li><strong>Et'Ada</strong> - The Original Spirits, who would become the Aedra and Daedra</li>
+                </ul>
+
+                <p><strong>Lorkhan</strong> (called Shor by the Nords) convinced some Et'Ada to create Mundus, the mortal plane. Those who sacrificed their power to create it became the <strong>Aedra</strong> ("Our Ancestors"). Those who refused became the <strong>Daedra</strong> ("Not Our Ancestors").</p>
+            </section>
+
+            <!-- Aedra and Daedra -->
+            <h2>The Eight Divines (Aedra)</h2>
+            <p>The Eight Divines are the Aedra who gave their power to create Mundus. Talos, a mortal who achieved apotheosis, was added as the Ninth Divine but his worship is now banned by the White-Gold Concordat.</p>
+
+            <div class="divine-grid">
+                <div class="divine-card aedra">
+                    <h4>Akatosh</h4>
+                    <div class="sphere">Dragon God of Time</div>
+                    <p>Chief deity of the Divines. Father of dragons. Created the barrier between Mundus and Oblivion. Blessed St. Alessia with the Amulet of Kings.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Arkay</h4>
+                    <div class="sphere">God of Life and Death</div>
+                    <p>Governs the cycle of birth and death. His blessing protects corpses from necromancy. Priests of Arkay tend to the dead.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Dibella</h4>
+                    <div class="sphere">Goddess of Beauty and Love</div>
+                    <p>Patron of artists and lovers. Her temples can be found throughout Skyrim, including a prominent one in Markarth.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Julianos</h4>
+                    <div class="sphere">God of Wisdom and Logic</div>
+                    <p>Patron of scholars and mages. Associated with literature, law, and contradiction. Revered at the College of Winterhold.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Kynareth</h4>
+                    <div class="sphere">Goddess of Air and Nature</div>
+                    <p>Also called Kyne by the Nords. Goddess of the sky, wind, and elements. Taught mortals the Thu'um. Major temple in Whiterun.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Mara</h4>
+                    <div class="sphere">Goddess of Love and Compassion</div>
+                    <p>Mother goddess of Nirn. Patron of marriage (Amulet of Mara). Her temple in Riften performs wedding ceremonies.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Stendarr</h4>
+                    <div class="sphere">God of Mercy and Justice</div>
+                    <p>Patron of righteous might. The Vigilants of Stendarr hunt Daedra worshippers, vampires, and werewolves in his name.</p>
+                </div>
+
+                <div class="divine-card aedra">
+                    <h4>Zenithar</h4>
+                    <div class="sphere">God of Work and Commerce</div>
+                    <p>Patron of merchants and craftsmen. Associated with honest trade and labor. His blessing aids smithing.</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="background: linear-gradient(135deg, #3d2d1f 0%, #2a1f12 100%); border-color: #c9a227;">
+                <h4 style="color: #c9a227;">⚔️ Talos - The Ninth Divine</h4>
+                <p><strong>Tiber Septim</strong>, born Hjalti Early-Beard (possibly also Zurin Arctus), was a mortal who united Tamriel and achieved apotheosis, becoming the god Talos. His worship was banned by the White-Gold Concordat to appease the Aldmeri Dominion, sparking the Skyrim Civil War.</p>
+                <p>The Thalmor believe Talos worship weakens the barrier between Mundus and Aetherius, threatening to unmake reality. Whether this is true or merely justification for persecution remains debated.</p>
+            </div>
+
+            <!-- Dragons and Dragon Cult -->
+            <section class="dragon-section">
+                <h3>🐉 Dragons and the Dragon Cult</h3>
+
+                <p>Dragons are immortal children of Akatosh, created in the Dawn Era. They ruled over mortals through the <strong>Dragon Cult</strong> in ancient Skyrim, with <strong>Dragon Priests</strong> serving as their intermediaries.</p>
+
+                <div class="dragon-hierarchy">
+                    <div class="dragon-rank">
+                        <span class="rank-name">Alduin</span>
+                        <span class="rank-desc">The World-Eater, firstborn of Akatosh. Destined to consume the world at the end of time. Not truly a god, but proclaimed himself one.</span>
+                    </div>
+                    <div class="dragon-rank">
+                        <span class="rank-name">Paarthurnax</span>
+                        <span class="rank-desc">Alduin's lieutenant who betrayed him. Taught mortals the Thu'um. Now meditates atop the Throat of the World.</span>
+                    </div>
+                    <div class="dragon-rank">
+                        <span class="rank-name">Named Dragons</span>
+                        <span class="rank-desc">Powerful unique dragons like Odahviing, Durnehviir, and Mirmulnir. Each has their own personality and history.</span>
+                    </div>
+                    <div class="dragon-rank">
+                        <span class="rank-name">Dragon Priests</span>
+                        <span class="rank-desc">Mortal servants granted power and immortality. Eight named priests guard Word Walls. Miraak was the first Dragonborn priest.</span>
+                    </div>
+                </div>
+
+                <h4 style="color: #ff6b6b; margin-top: 1.5rem;">The Dragon War</h4>
+                <p>When the dragons' rule became tyrannical, mortals rebelled in the <strong>Dragon War</strong>. Paarthurnax taught humans the Thu'um, allowing them to fight back. The ancient Nord heroes used the <strong>Elder Scroll</strong> to cast Alduin forward in time rather than kill him—leading directly to the events of Skyrim.</p>
+            </section>
+
+            <!-- The Races -->
+            <section class="race-section">
+                <h3>🌍 The Races of Tamriel</h3>
+
+                <h4>Races of Men</h4>
+                <div class="race-list">
+                    <div class="race-item human">
+                        <h4>Nords</h4>
+                        <div class="origin">Native to Skyrim, originally from Atmora</div>
+                    </div>
+                    <div class="race-item human">
+                        <h4>Imperials</h4>
+                        <div class="origin">Native to Cyrodiil</div>
+                    </div>
+                    <div class="race-item human">
+                        <h4>Bretons</h4>
+                        <div class="origin">High Rock, human-elven ancestry</div>
+                    </div>
+                    <div class="race-item human">
+                        <h4>Redguards</h4>
+                        <div class="origin">Hammerfell, originally from Yokuda</div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 1.5rem;">Mer (Elves)</h4>
+                <div class="race-list">
+                    <div class="race-item mer">
+                        <h4>Altmer (High Elves)</h4>
+                        <div class="origin">Summerset Isles, closest to Aldmer ancestors</div>
+                    </div>
+                    <div class="race-item mer">
+                        <h4>Bosmer (Wood Elves)</h4>
+                        <div class="origin">Valenwood, bound by the Green Pact</div>
+                    </div>
+                    <div class="race-item mer">
+                        <h4>Dunmer (Dark Elves)</h4>
+                        <div class="origin">Morrowind, cursed/blessed by Azura</div>
+                    </div>
+                    <div class="race-item mer">
+                        <h4>Orsimer (Orcs)</h4>
+                        <div class="origin">Orsinium, followers of Malacath</div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 1.5rem;">Beast Races</h4>
+                <div class="race-list">
+                    <div class="race-item beast">
+                        <h4>Khajiit</h4>
+                        <div class="origin">Elsweyr, descended from ancient Aldmer</div>
+                    </div>
+                    <div class="race-item beast">
+                        <h4>Argonians</h4>
+                        <div class="origin">Black Marsh, connected to the Hist trees</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline -->
+            <h2>Historical Timeline</h2>
+
+            <div class="timeline">
+                <div class="timeline-event">
+                    <span class="era">Dawn Era</span>
+                    <h4>Creation of Mundus</h4>
+                    <p>The Aedra sacrifice their power to create the mortal plane. Dragons and other beings come into existence.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <span class="era">Merethic Era</span>
+                    <h4>Elven Dominance</h4>
+                    <p>The Aldmer spread across Tamriel. Ysgramor leads the Five Hundred Companions to Skyrim. The Dragon Cult rises and falls.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <span class="era">First Era (1E 0 - 1E 2920)</span>
+                    <h4>The Alessian Empire</h4>
+                    <p>St. Alessia leads the slave rebellion against the Ayleids. The First Empire of Cyrodiil is established. Skyrim is united under High King Harald.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <span class="era">Second Era (2E 0 - 2E 896)</span>
+                    <h4>The Interregnum</h4>
+                    <p>The Akaviri Potentate rules, then falls. Tamriel fragments into warring states. Tiber Septim conquers all of Tamriel, ending the Era.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <span class="era">Third Era (3E 0 - 3E 433)</span>
+                    <h4>Septim Dynasty</h4>
+                    <p>The Septim Empire rules Tamriel. Ends with the Oblivion Crisis when Martin Septim sacrifices himself to stop Mehrunes Dagon.</p>
+                </div>
+
+                <div class="timeline-event">
+                    <span class="era">Fourth Era (4E 0 - Present)</span>
+                    <h4>The Current Age</h4>
+                    <p>The Mede Dynasty takes power. The Great War with the Aldmeri Dominion. Skyrim begins in 4E 201, 200 years after the Oblivion Crisis.</p>
+                </div>
+            </div>
+
+            <!-- The Great War -->
+            <section class="war-box">
+                <h3>⚔️ The Great War (4E 171 - 4E 175)</h3>
+
+                <p>The defining conflict that shaped the political landscape of Skyrim. The Aldmeri Dominion demanded the Empire ban Talos worship and cede territory. When Emperor Titus Mede II refused, war began.</p>
+
+                <div class="faction-conflict">
+                    <div class="conflict-side">
+                        <h4>The Empire</h4>
+                        <p>Cyrodiil, High Rock, and Skyrim (reluctantly)</p>
+                    </div>
+                    <span class="conflict-vs">VS</span>
+                    <div class="conflict-side">
+                        <h4>Aldmeri Dominion</h4>
+                        <p>Summerset Isles, Valenwood, and Elsweyr</p>
+                    </div>
+                </div>
+
+                <h4 style="color: #6bcb77;">Key Events:</h4>
+                <ul>
+                    <li><strong>4E 174:</strong> The Imperial City falls to the Dominion</li>
+                    <li><strong>4E 175:</strong> Battle of the Red Ring - Empire retakes the Imperial City</li>
+                    <li><strong>4E 175:</strong> White-Gold Concordat signed - war ends in uneasy peace</li>
+                </ul>
+
+                <h4 style="color: #6bcb77;">The White-Gold Concordat:</h4>
+                <ul>
+                    <li>Talos worship is banned throughout the Empire</li>
+                    <li>The Blades are disbanded</li>
+                    <li>Thalmor Justiciars may enforce the ban within Imperial territory</li>
+                    <li>Hammerfell is released from the Empire (they refused to sign)</li>
+                </ul>
+            </section>
+
+            <!-- Civil War -->
+            <section class="war-box" style="background: linear-gradient(135deg, #2d1f1f 0%, #1a1212 100%); border-color: #8b4513;">
+                <h3 style="color: #cd853f;">🛡️ The Skyrim Civil War</h3>
+
+                <p>The ongoing conflict when the game begins. Sparked when Jarl Ulfric Stormcloak killed High King Torygg using the Thu'um, claiming it was a legitimate challenge for the throne.</p>
+
+                <div class="faction-conflict">
+                    <div class="conflict-side" style="background: rgba(139, 69, 19, 0.2);">
+                        <h4>Imperial Legion</h4>
+                        <p>General Tullius, Jarls of Solitude, Markarth, Falkreath, Morthal</p>
+                    </div>
+                    <span class="conflict-vs" style="color: #cd853f;">VS</span>
+                    <div class="conflict-side" style="background: rgba(139, 69, 19, 0.2);">
+                        <h4>Stormcloaks</h4>
+                        <p>Ulfric Stormcloak, Jarls of Windhelm, Riften, Dawnstar, Winterhold</p>
+                    </div>
+                </div>
+
+                <h4 style="color: #cd853f;">The Stakes:</h4>
+                <ul>
+                    <li><strong>Stormcloak Victory:</strong> Skyrim gains independence, Talos worship is restored, but the Empire is weakened against the Dominion</li>
+                    <li><strong>Imperial Victory:</strong> Skyrim remains in the Empire, providing unity against the Thalmor, but Talos worship remains banned</li>
+                </ul>
+
+                <p style="color: #888; font-style: italic;">Note: The player can join either faction and determine the outcome of the war.</p>
+            </section>
+
+            <!-- Important Lore Concepts -->
+            <h2>Key Lore Concepts</h2>
+
+            <div class="lore-grid">
+                <div class="lore-card">
+                    <h3>The Thu'um (Voice)</h3>
+                    <p>The art of using dragon language to project power. Dragons use it naturally; mortals must spend years learning each Word. The Dragonborn can absorb dragon souls to learn instantly. The Greybeards dedicate their lives to its study.</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>Dragonborn (Dovahkiin)</h3>
+                    <p>Mortals born with the soul of a dragon, blessed by Akatosh. They can absorb dragon souls and learn Shouts instantly. Previous Dragonborn include Tiber Septim, the Septim bloodline, and Miraak (the first).</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>The Elder Scrolls</h3>
+                    <p>Artifacts of unknown origin that contain prophecy and infinite knowledge. Reading them causes blindness over time. The Moth Priests dedicate their lives to reading them. One was used to banish Alduin through time.</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>CHIM</h3>
+                    <p>A state of enlightenment where one realizes they exist within a dream (the Godhead's dream) yet maintains individual existence. Vivec and possibly Tiber Septim achieved CHIM. Most who attempt it zero-sum (cease to exist).</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>Mantling</h3>
+                    <p>"Walk like them until they walk like you." A method of achieving divinity by perfectly emulating a god until the universe can't tell the difference. The Champion of Cyrodiil mantled Sheogorath.</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>Towers</h3>
+                    <p>Metaphysical structures that anchor reality. The Adamantine Tower is the oldest. The Throat of the World may be Snow-Throat, Skyrim's tower. The Thalmor may seek to deactivate all towers to unmake reality.</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>Kalpas</h3>
+                    <p>Cycles of time. Alduin is meant to end each kalpa by eating the world, allowing a new one to begin. His desire to rule instead of destroy is why the current kalpa persists—and why he must be stopped.</p>
+                </div>
+
+                <div class="lore-card">
+                    <h3>Sovngarde</h3>
+                    <p>The Nordic afterlife, created by Shor (Lorkhan) for brave warriors. Located in Aetherius. Those who die valiantly in battle are taken there by Tsun. Alduin feeds on souls there during the events of Skyrim.</p>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <h2>Quick Reference</h2>
+
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mundus</strong></td>
+                        <td>The mortal plane, containing Nirn and its moons</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nirn</strong></td>
+                        <td>The planet where Tamriel exists</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tamriel</strong></td>
+                        <td>The continent where the games take place</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Oblivion</strong></td>
+                        <td>The realm of the Daedra, containing infinite planes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Aetherius</strong></td>
+                        <td>The realm of the Aedra, source of magic</td>
+                    </tr>
+                    <tr>
+                        <td><strong>The Void</strong></td>
+                        <td>Nothingness outside of existence, realm of Sithis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Daedric Princes</strong></td>
+                        <td>Powerful Daedra with their own realms (see Daedric Quests)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dwemer</strong></td>
+                        <td>The "Deep Elves" who vanished, leaving ruins across Skyrim</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Falmer</strong></td>
+                        <td>Corrupted Snow Elves, now blind and hostile</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thalmor</strong></td>
+                        <td>Altmer supremacist faction ruling the Aldmeri Dominion</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <h4>📚 Further Reading</h4>
+                <p>The in-game books provide extensive lore. Key texts include:</p>
+                <ul>
+                    <li><em>The Book of the Dragonborn</em> - Prophecy of the Last Dragonborn</li>
+                    <li><em>The Monomyth</em> - Creation myths from various cultures</li>
+                    <li><em>Songs of Skyrim</em> - Nordic history through poetry</li>
+                    <li><em>The Real Barenziah</em> - History of a famous queen</li>
+                    <li><em>The Alduin/Akatosh Dichotomy</em> - Scholarly debate on dragon gods</li>
+                    <li><em>36 Lessons of Vivec</em> - Cryptic metaphysical texts (very deep lore)</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        // Sidebar toggle
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

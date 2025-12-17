@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crafting - Skyrim Wiki</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .craft-section {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 2rem 0 1rem 0;
+        }
+        .craft-section h2 {
+            margin: 0;
+            font-size: 1.375rem;
+            border: none;
+            padding: 0;
+        }
+        .craft-section p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+            font-size: 0.9375rem;
+        }
+        .recipe-card {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .recipe-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+        }
+        .recipe-card .ingredients {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+        .recipe-card .effect {
+            font-size: 0.875rem;
+            color: #7c3aed;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        .perk-path {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .perk-node {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.375rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .perk-arrow {
+            color: #9ca3af;
+        }
+        .loop-diagram {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        .loop-diagram h4 {
+            color: #92400e;
+            margin: 0 0 0.75rem 0;
+        }
+        .loop-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .loop-step .num {
+            background: #f59e0b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .material-table td:first-child {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="builds.html">Character Builds</a></li>
+                        <li><a href="items.html">Items & Equipment</a></li>
+                        <li><a href="crafting.html" class="active">Crafting</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html">Daedric Quests</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="index.html">Skyrim</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Crafting</span>
+            </nav>
+
+            <article class="wiki-article">
+                <h1>Crafting</h1>
+                <p class="article-meta">Smithing, Alchemy, and Enchanting</p>
+
+                <p>The three crafting skills form the backbone of character power in Skyrim. Combined, they create a feedback loop that can produce gear far beyond anything found in the world.</p>
+
+                <div class="loop-diagram">
+                    <h4>The Crafting Loop (Resto-Loop)</h4>
+                    <div class="loop-step">
+                        <span class="num">1</span>
+                        <span>Create Fortify Alchemy gear with Enchanting</span>
+                    </div>
+                    <div class="loop-step">
+                        <span class="num">2</span>
+                        <span>Wear gear, make Fortify Enchanting potions</span>
+                    </div>
+                    <div class="loop-step">
+                        <span class="num">3</span>
+                        <span>Drink potion, create stronger Fortify Alchemy gear</span>
+                    </div>
+                    <div class="loop-step">
+                        <span class="num">4</span>
+                        <span>Repeat until satisfied, then make Fortify Smithing potions</span>
+                    </div>
+                    <div class="loop-step">
+                        <span class="num">5</span>
+                        <span>Wear Fortify Smithing gear + drink potion, improve weapons/armor</span>
+                    </div>
+                </div>
+
+                <div class="craft-section">
+                    <h2>Smithing</h2>
+                    <p>Forge weapons and armor, then improve them at a grindstone or workbench</p>
+                </div>
+
+                <h3>Smithing Perk Paths</h3>
+                <p>Choose one path to reach the best materials:</p>
+
+                <p><strong>Heavy Armor Path:</strong></p>
+                <div class="perk-path">
+                    <span class="perk-node">Steel</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Dwarven</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Orcish</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Ebony</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Daedric</span>
+                </div>
+
+                <p><strong>Light Armor Path:</strong></p>
+                <div class="perk-path">
+                    <span class="perk-node">Steel</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Elven</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Advanced</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Glass</span>
+                    <span class="perk-arrow">→</span>
+                    <span class="perk-node">Dragon</span>
+                </div>
+
+                <h3>Material Requirements</h3>
+                <table class="material-table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Skill Req</th>
+                            <th>Key Ingredients</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Iron/Steel</td><td>15/20</td><td>Iron Ingots, Leather Strips</td></tr>
+                        <tr><td>Dwarven</td><td>30</td><td>Dwarven Metal Ingots (smelt scrap)</td></tr>
+                        <tr><td>Elven</td><td>30</td><td>Refined Moonstone, Quicksilver</td></tr>
+                        <tr><td>Orcish</td><td>50</td><td>Orichalcum Ingots</td></tr>
+                        <tr><td>Glass</td><td>70</td><td>Refined Malachite, Moonstone</td></tr>
+                        <tr><td>Ebony</td><td>80</td><td>Ebony Ingots</td></tr>
+                        <tr><td>Daedric</td><td>90</td><td>Ebony Ingots + Daedra Hearts</td></tr>
+                        <tr><td>Dragonbone</td><td>100</td><td>Dragon Bones, Dragon Scales</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Power Leveling Smithing</div>
+                    <p><strong>Early:</strong> Craft Leather Bracers or Iron Daggers<br>
+                    <strong>Mid:</strong> Craft Dwarven Bows (Dwarven ruins = infinite metal)<br>
+                    <strong>Late:</strong> Craft Gold Rings (Transmute iron ore to gold)</p>
+                </div>
+
+                <div class="craft-section">
+                    <h2>Alchemy</h2>
+                    <p>Create potions and poisons at an alchemy lab</p>
+                </div>
+
+                <h3>Essential Potions</h3>
+
+                <div class="recipe-card">
+                    <h4>Fortify Smithing</h4>
+                    <div class="ingredients">Blisterwort + Glowing Mushroom + Sabre Cat Tooth</div>
+                    <div class="effect">Improves Smithing by X% for 30 seconds</div>
+                </div>
+
+                <div class="recipe-card">
+                    <h4>Fortify Enchanting</h4>
+                    <div class="ingredients">Blue Butterfly Wing + Hagraven Claw + Snowberries</div>
+                    <div class="effect">Enchantments are X% stronger for 30 seconds</div>
+                </div>
+
+                <div class="recipe-card">
+                    <h4>Fortify Health</h4>
+                    <div class="ingredients">Giant's Toe + Wheat + Creep Cluster</div>
+                    <div class="effect">Massive health boost (Giant's Toe multiplier)</div>
+                </div>
+
+                <div class="recipe-card">
+                    <h4>Invisibility</h4>
+                    <div class="ingredients">Luna Moth Wing + Vampire Dust + Chaurus Eggs</div>
+                    <div class="effect">Invisible for X seconds</div>
+                </div>
+
+                <div class="recipe-card">
+                    <h4>Paralysis Poison</h4>
+                    <div class="ingredients">Canis Root + Imp Stool + Swamp Fungal Pod</div>
+                    <div class="effect">Target is paralyzed for X seconds</div>
+                </div>
+
+                <div class="recipe-card">
+                    <h4>Slow Poison</h4>
+                    <div class="ingredients">Deathbell + River Betty + Salt Pile</div>
+                    <div class="effect">Slows target by 50% + damage</div>
+                </div>
+
+                <h3>Valuable Potions (For Gold)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Potion</th>
+                            <th>Ingredients</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Paralysis + Damage Health</td><td>Human Flesh + Imp Stool + Canis Root</td><td>~700+</td></tr>
+                        <tr><td>Slow + Lingering Damage</td><td>Deathbell + River Betty + Salt</td><td>~500+</td></tr>
+                        <tr><td>Fortify Health</td><td>Giant's Toe + Creep Cluster + Wheat</td><td>~800+</td></tr>
+                        <tr><td>Damage Magicka Regen</td><td>Glow Dust + Hanging Moss + Luna Wing</td><td>~400+</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Ingredient Farming</div>
+                    <p><strong>Giant's Toes:</strong> Giant camps respawn<br>
+                    <strong>Creep Cluster:</strong> Volcanic areas near Windhelm<br>
+                    <strong>Wheat:</strong> Farms (Whiterun, Rorikstead)</p>
+                </div>
+
+                <div class="craft-section">
+                    <h2>Enchanting</h2>
+                    <p>Add magical effects to weapons, armor, and jewelry</p>
+                </div>
+
+                <h3>Best Enchantments</h3>
+
+                <h4>Weapons</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enchantment</th>
+                            <th>Effect</th>
+                            <th>Learn From</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Absorb Health</strong></td><td>Steal HP per hit</td><td>Blade of Woe, rare weapons</td></tr>
+                        <tr><td><strong>Fiery Soul Trap</strong></td><td>Soul trap + fire damage</td><td>Steel Battleaxe (Ironbind Barrow)</td></tr>
+                        <tr><td><strong>Chaos Damage</strong></td><td>50% chance each element</td><td>Dragonborn DLC weapons</td></tr>
+                        <tr><td><strong>Paralyze</strong></td><td>Chance to paralyze</td><td>Rare enchanted weapons</td></tr>
+                        <tr><td><strong>Banish</strong></td><td>Banish summoned (high value)</td><td>Rare weapons</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>Armor</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enchantment</th>
+                            <th>Slot</th>
+                            <th>Max Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Fortify [Skill]</strong></td><td>Varies</td><td>+40% (47% with perks)</td></tr>
+                        <tr><td><strong>Fortify Health</strong></td><td>Chest, Ring, Necklace</td><td>+62 HP each</td></tr>
+                        <tr><td><strong>Fortify Carry Weight</strong></td><td>Gloves, Ring, Necklace</td><td>+37 each</td></tr>
+                        <tr><td><strong>Magic Resistance</strong></td><td>Shield, Ring, Necklace</td><td>+20% (cap: 85%)</td></tr>
+                        <tr><td><strong>Muffle</strong></td><td>Boots</td><td>100% (no perk scaling)</td></tr>
+                        <tr><td><strong>Waterbreathing</strong></td><td>Head, Ring, Necklace</td><td>Infinite underwater</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>100% Cost Reduction</h3>
+                <p>With Extra Effect perk and maxed Enchanting, you can achieve 100% spell cost reduction for any magic school:</p>
+                <ul>
+                    <li><strong>Head:</strong> Fortify [School] + Fortify [School 2] = -50%</li>
+                    <li><strong>Chest:</strong> Fortify [School] + Fortify [School 2] = -50%</li>
+                    <li><strong>Ring:</strong> Fortify [School] + Fortify [School 2]</li>
+                    <li><strong>Necklace:</strong> Fortify [School] + Fortify [School 2]</li>
+                </ul>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Enchanting Tips</div>
+                    <p>• Use Grand or Black Soul Gems for maximum power<br>
+                    • Azura's Star/Black Star = infinite reusable soul gem<br>
+                    • Disenchant everything new to learn effects<br>
+                    • Fortify Alchemy only goes on Head, Gloves, Ring, Necklace</p>
+                </div>
+
+                <h3>Power Leveling Enchanting</h3>
+                <ol>
+                    <li>Gather iron daggers or leather bracers</li>
+                    <li>Fill soul gems (Soul Trap or bound weapons)</li>
+                    <li>Enchant with Banish (highest XP) or any effect</li>
+                    <li>Sell for profit (Banish daggers sell for 1000+ gold)</li>
+                </ol>
+
+                <h2>Crafting Locations</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Forge</th>
+                            <th>Alchemy</th>
+                            <th>Enchanter</th>
+                            <th>Smelter</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Whiterun (Warmaiden's)</td><td>✓</td><td></td><td></td><td></td></tr>
+                        <tr><td>Whiterun (Dragonsreach)</td><td></td><td>✓</td><td>✓</td><td></td></tr>
+                        <tr><td>College of Winterhold</td><td></td><td>✓</td><td>✓</td><td></td></tr>
+                        <tr><td>Archmage's Quarters</td><td></td><td>✓</td><td>✓</td><td></td></tr>
+                        <tr><td>Player Homes (upgraded)</td><td></td><td>✓</td><td>✓</td><td></td></tr>
+                        <tr><td>Riften (Scorched Hammer)</td><td>✓</td><td></td><td></td><td>✓</td></tr>
+                        <tr><td>Markarth (Understone Keep)</td><td>✓</td><td>✓</td><td></td><td>✓</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box tip">
+                    <div class="info-box-title">Best All-in-One Location</div>
+                    <p>After becoming Archmage, your quarters have an enchanter and alchemy lab. Combined with Whiterun's forge (quick carriage ride), you have everything needed.</p>
+                </div>
+
+                <nav class="page-nav">
+                    <a href="items.html" class="page-nav-link prev">
+                        <span class="page-nav-label">Previous</span>
+                        <span class="page-nav-title">Items & Equipment</span>
+                    </a>
+                    <a href="shouts.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Dragon Shouts</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
