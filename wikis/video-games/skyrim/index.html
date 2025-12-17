@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyrim Wiki - The Elder Scrolls V</title>
+    <link rel="stylesheet" href="../../../assets/css/wiki.css">
+    <style>
+        .skyrim-banner {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #c9a227;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .skyrim-banner h1 {
+            font-family: 'Times New Roman', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .skyrim-banner p {
+            color: #a0a0a0;
+            font-style: italic;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-box .label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+        .stat-box .value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body>
+    <div class="wiki-layout">
+        <aside class="wiki-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z"/>
+                    </svg>
+                    Skyrim
+                </a>
+                <a href="../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    Video Games
+                </a>
+                <a href="../../../index.html" class="sidebar-home">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Back to Hub
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="my-playthrough.html">My Playthrough</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Quests</div>
+                    <ul class="nav-list">
+                        <li><a href="quests-main.html">Main Quest</a></li>
+                        <li><a href="quests-factions.html">Faction Quests</a></li>
+                        <li><a href="quests-daedric.html">Daedric Quests</a></li>
+                        <li><a href="quests-side.html">Side Quests</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">World</div>
+                    <ul class="nav-list">
+                        <li><a href="locations.html">Locations</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="lore.html">Lore & History</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gameplay</div>
+                    <ul class="nav-list">
+                        <li><a href="skills.html">Skills & Perks</a></li>
+                        <li><a href="builds.html">Character Builds</a></li>
+                        <li><a href="items.html">Items & Equipment</a></li>
+                        <li><a href="crafting.html">Crafting</a></li>
+                        <li><a href="shouts.html">Dragon Shouts</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Guides</div>
+                    <ul class="nav-list">
+                        <li><a href="tips.html">Tips & Tricks</a></li>
+                        <li><a href="mods.html">Recommended Mods</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="wiki-main">
+            <nav class="breadcrumb">
+                <a href="../../../index.html">Hub</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html">Video Games</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Skyrim</span>
+            </nav>
+
+            <article class="wiki-article">
+                <div class="skyrim-banner">
+                    <h1>The Elder Scrolls V: Skyrim</h1>
+                    <p>"Fus Ro Dah!" - The Dragonborn</p>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <div class="label">Release</div>
+                        <div class="value">2011</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Developer</div>
+                        <div class="value">Bethesda</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Genre</div>
+                        <div class="value">Action RPG</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="label">Platform</div>
+                        <div class="value">PC</div>
+                    </div>
+                </div>
+
+                <h2>About This Wiki</h2>
+                <p>This is a personal Skyrim wiki for tracking quests, characters, locations, and lore. Use it to document your journey through the frozen province of Skyrim as the legendary Dragonborn.</p>
+
+                <h2>The Story</h2>
+                <p>The Elder Scrolls V: Skyrim is set 200 years after the events of Oblivion, in the northern province of Skyrim. The player takes on the role of the Dragonborn, a mortal with the soul of a dragon, destined to defeat Alduin the World-Eater and save Tamriel from destruction.</p>
+
+                <div class="info-box note">
+                    <div class="info-box-title">Setting</div>
+                    <p><strong>Location:</strong> Skyrim, northernmost province of Tamriel<br>
+                    <strong>Era:</strong> Fourth Era, Year 201<br>
+                    <strong>Conflict:</strong> Civil War between Imperials and Stormcloaks, Dragon Crisis</p>
+                </div>
+
+                <h2>Major Factions</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Faction</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>The Companions</strong></td>
+                            <td>Warriors Guild</td>
+                            <td>Jorrvaskr, Whiterun</td>
+                        </tr>
+                        <tr>
+                            <td><strong>College of Winterhold</strong></td>
+                            <td>Mages Guild</td>
+                            <td>Winterhold</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thieves Guild</strong></td>
+                            <td>Criminal</td>
+                            <td>The Ratway, Riften</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dark Brotherhood</strong></td>
+                            <td>Assassins</td>
+                            <td>Dawnstar Sanctuary</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Imperial Legion</strong></td>
+                            <td>Military</td>
+                            <td>Castle Dour, Solitude</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stormcloaks</strong></td>
+                            <td>Rebellion</td>
+                            <td>Palace of the Kings, Windhelm</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>The Nine Holds</h2>
+                <p>Skyrim is divided into nine holds, each with its own capital city and Jarl:</p>
+                <ul>
+                    <li><strong>Whiterun Hold</strong> - Whiterun (central hub)</li>
+                    <li><strong>Haafingar</strong> - Solitude (Imperial capital)</li>
+                    <li><strong>Eastmarch</strong> - Windhelm (Stormcloak capital)</li>
+                    <li><strong>The Reach</strong> - Markarth (Dwemer ruins)</li>
+                    <li><strong>The Rift</strong> - Riften (Thieves Guild)</li>
+                    <li><strong>Falkreath Hold</strong> - Falkreath</li>
+                    <li><strong>Hjaalmarch</strong> - Morthal</li>
+                    <li><strong>The Pale</strong> - Dawnstar</li>
+                    <li><strong>Winterhold</strong> - Winterhold (College)</li>
+                </ul>
+
+                <h2>Quick Links</h2>
+                <div class="info-box tip">
+                    <div class="info-box-title">Getting Started</div>
+                    <p>New to Skyrim? Check out the <a href="getting-started.html">Getting Started</a> guide for tips on character creation, early game strategies, and essential knowledge.</p>
+                </div>
+
+                <nav class="page-nav">
+                    <a href="getting-started.html" class="page-nav-link next">
+                        <span class="page-nav-label">Next</span>
+                        <span class="page-nav-title">Getting Started</span>
+                    </a>
+                </nav>
+            </article>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" onclick="document.querySelector('.wiki-sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    </button>
+</body>
+</html>
