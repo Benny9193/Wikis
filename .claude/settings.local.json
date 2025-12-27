@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(git clone:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(cat:*)"
     ]
   }
 }

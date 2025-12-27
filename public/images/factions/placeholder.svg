@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#1a1a1a"/>
+  <polygon points="200,40 250,120 330,120 265,170 290,250 200,200 110,250 135,170 70,120 150,120" fill="#0a4b8c" stroke="#ffb000" stroke-width="4"/>
+  <circle cx="200" cy="140" r="30" fill="#1a1a1a" stroke="#ffb000" stroke-width="3"/>
+  <text x="200" y="145" fill="#ffb000" font-family="sans-serif" font-size="24" text-anchor="middle" font-weight="bold">F</text>
+  <text x="200" y="280" fill="#888" font-family="sans-serif" font-size="14" text-anchor="middle">Faction Emblem</text>
+</svg>

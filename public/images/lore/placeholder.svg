@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#1a1a1a"/>
+  <rect x="120" y="50" width="160" height="180" rx="5" fill="#8b4513" stroke="#ffb000" stroke-width="3"/>
+  <rect x="130" y="60" width="140" height="160" fill="#3d3225"/>
+  <line x1="145" y1="90" x2="255" y2="90" stroke="#888" stroke-width="2"/>
+  <line x1="145" y1="110" x2="255" y2="110" stroke="#888" stroke-width="1"/>
+  <line x1="145" y1="125" x2="255" y2="125" stroke="#888" stroke-width="1"/>
+  <line x1="145" y1="140" x2="255" y2="140" stroke="#888" stroke-width="1"/>
+  <line x1="145" y1="155" x2="255" y2="155" stroke="#888" stroke-width="1"/>
+  <line x1="145" y1="170" x2="230" y2="170" stroke="#888" stroke-width="1"/>
+  <circle cx="200" cy="200" r="20" fill="#ffb000" opacity="0.3"/>
+  <text x="200" y="206" fill="#ffb000" font-family="serif" font-size="20" text-anchor="middle">☢</text>
+  <text x="200" y="280" fill="#888" font-family="sans-serif" font-size="14" text-anchor="middle">Lore Entry</text>
+</svg>

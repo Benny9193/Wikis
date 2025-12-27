@@ -50,7 +50,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <li><a href="/perks">Perks</a></li>
         </ul>
         <div class="search-box">
-          <input type="search" placeholder="Search the Wasteland..." />
+          <form action="/search" method="get">
+            <input type="search" name="q" placeholder="Search the Wasteland..." />
+          </form>
         </div>
       </nav>
     </header>

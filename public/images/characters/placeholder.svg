@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#1a1a1a"/>
+  <circle cx="200" cy="100" r="50" fill="#3d3225" stroke="#18ff6d" stroke-width="3"/>
+  <ellipse cx="200" cy="230" rx="80" ry="60" fill="#3d3225" stroke="#18ff6d" stroke-width="3"/>
+  <circle cx="180" cy="90" r="8" fill="#18ff6d"/>
+  <circle cx="220" cy="90" r="8" fill="#18ff6d"/>
+  <path d="M185 115 Q200 130 215 115" stroke="#18ff6d" stroke-width="3" fill="none"/>
+  <text x="200" y="280" fill="#888" font-family="sans-serif" font-size="14" text-anchor="middle">Character Portrait</text>
+</svg>

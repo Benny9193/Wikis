@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#1a1a1a"/>
+  <rect x="60" y="120" width="80" height="100" fill="#3d3225" stroke="#18ff6d" stroke-width="2"/>
+  <rect x="160" y="80" width="80" height="140" fill="#3d3225" stroke="#18ff6d" stroke-width="2"/>
+  <rect x="260" y="100" width="80" height="120" fill="#3d3225" stroke="#18ff6d" stroke-width="2"/>
+  <rect x="85" y="150" width="30" height="40" fill="#0a4b8c"/>
+  <rect x="185" y="110" width="30" height="40" fill="#0a4b8c"/>
+  <rect x="285" y="130" width="30" height="40" fill="#0a4b8c"/>
+  <line x1="0" y1="220" x2="400" y2="220" stroke="#18ff6d" stroke-width="2"/>
+  <circle cx="350" cy="60" r="25" fill="#ffb000" opacity="0.8"/>
+  <text x="200" y="280" fill="#888" font-family="sans-serif" font-size="14" text-anchor="middle">Location</text>
+</svg>

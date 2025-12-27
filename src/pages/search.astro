@@ -1,0 +1,445 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all collections
+const games = await getCollection('games', ({ data }) => !data.draft);
+const characters = await getCollection('characters', ({ data }) => !data.draft);
+const factions = await getCollection('factions', ({ data }) => !data.draft);
+const locations = await getCollection('locations', ({ data }) => !data.draft);
+const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+const armor = await getCollection('armor', ({ data }) => !data.draft);
+const items = await getCollection('items', ({ data }) => !data.draft);
+const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+const quests = await getCollection('quests', ({ data }) => !data.draft);
+const lore = await getCollection('lore', ({ data }) => !data.draft);
+const perks = await getCollection('perks', ({ data }) => !data.draft);
+
+// Build search index
+const searchIndex = [
+  ...games.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'games',
+    url: `/games/${entry.slug}`
+  })),
+  ...characters.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'characters',
+    url: `/characters/${entry.slug}`
+  })),
+  ...factions.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'factions',
+    url: `/factions/${entry.slug}`
+  })),
+  ...locations.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'locations',
+    url: `/locations/${entry.slug}`
+  })),
+  ...weapons.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'weapons',
+    url: `/weapons/${entry.slug}`
+  })),
+  ...armor.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'armor',
+    url: `/armor/${entry.slug}`
+  })),
+  ...items.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'items',
+    url: `/items/${entry.slug}`
+  })),
+  ...creatures.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'creatures',
+    url: `/creatures/${entry.slug}`
+  })),
+  ...quests.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'quests',
+    url: `/quests/${entry.slug}`
+  })),
+  ...lore.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'lore',
+    url: `/lore/${entry.slug}`
+  })),
+  ...perks.map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description,
+    slug: entry.slug,
+    category: 'perks',
+    url: `/perks/${entry.slug}`
+  })),
+];
+---
+
+<BaseLayout title="Search" description="Search the Fallout Wiki">
+  <div class="search-page">
+    <h1>Search the Wasteland</h1>
+
+    <div class="search-container">
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search for articles..."
+        autofocus
+      />
+      <div class="search-filters">
+        <label>
+          <input type="checkbox" class="category-filter" value="all" checked />
+          All
+        </label>
+        <label>
+          <input type="checkbox" class="category-filter" value="games" />
+          Games
+        </label>
+        <label>
+          <input type="checkbox" class="category-filter" value="characters" />
+          Characters
+        </label>
+        <label>
+          <input type="checkbox" class="category-filter" value="locations" />
+          Locations
+        </label>
+        <label>
+          <input type="checkbox" class="category-filter" value="weapons" />
+          Weapons
+        </label>
+        <label>
+          <input type="checkbox" class="category-filter" value="quests" />
+          Quests
+        </label>
+        <label>
+          <input type="checkbox" class="category-filter" value="creatures" />
+          Creatures
+        </label>
+      </div>
+    </div>
+
+    <div id="search-results" class="search-results">
+      <p class="search-hint">Enter a search term to find articles</p>
+    </div>
+
+    <div id="all-articles" class="all-articles">
+      <h2>All Articles ({searchIndex.length})</h2>
+      <div class="articles-grid">
+        {searchIndex.sort((a, b) => a.title.localeCompare(b.title)).map(article => (
+          <a href={article.url} class="article-link" data-category={article.category}>
+            <span class="article-category">{article.category}</span>
+            <span class="article-title">{article.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ searchIndex }}>
+    const input = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
+    const allArticles = document.getElementById('all-articles');
+    const categoryFilters = document.querySelectorAll('.category-filter');
+
+    let activeCategories = ['all'];
+
+    // Handle category filter changes
+    categoryFilters.forEach(filter => {
+      filter.addEventListener('change', (e) => {
+        if (e.target.value === 'all' && e.target.checked) {
+          // Uncheck all others when "All" is checked
+          categoryFilters.forEach(f => {
+            if (f.value !== 'all') f.checked = false;
+          });
+          activeCategories = ['all'];
+        } else if (e.target.value !== 'all') {
+          // Uncheck "All" when a specific category is checked
+          const allFilter = document.querySelector('.category-filter[value="all"]');
+          allFilter.checked = false;
+
+          // Update active categories
+          activeCategories = Array.from(categoryFilters)
+            .filter(f => f.checked && f.value !== 'all')
+            .map(f => f.value);
+
+          // If nothing selected, select "All"
+          if (activeCategories.length === 0) {
+            allFilter.checked = true;
+            activeCategories = ['all'];
+          }
+        }
+
+        // Re-run search with new filters
+        performSearch(input.value);
+      });
+    });
+
+    function performSearch(query) {
+      const trimmedQuery = query.trim().toLowerCase();
+
+      if (trimmedQuery.length < 2) {
+        resultsContainer.innerHTML = '<p class="search-hint">Enter at least 2 characters to search</p>';
+        allArticles.style.display = 'block';
+        return;
+      }
+
+      allArticles.style.display = 'none';
+
+      let results = searchIndex.filter(article => {
+        const matchesQuery = article.title.toLowerCase().includes(trimmedQuery) ||
+                            article.description.toLowerCase().includes(trimmedQuery);
+
+        const matchesCategory = activeCategories.includes('all') ||
+                               activeCategories.includes(article.category);
+
+        return matchesQuery && matchesCategory;
+      });
+
+      // Sort by title match first, then description match
+      results.sort((a, b) => {
+        const aTitle = a.title.toLowerCase().includes(trimmedQuery);
+        const bTitle = b.title.toLowerCase().includes(trimmedQuery);
+        if (aTitle && !bTitle) return -1;
+        if (!aTitle && bTitle) return 1;
+        return a.title.localeCompare(b.title);
+      });
+
+      if (results.length === 0) {
+        resultsContainer.innerHTML = `
+          <p class="no-results">No results found for "${query}"</p>
+          <p class="search-suggestion">Try different keywords or check the spelling</p>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = `
+        <p class="results-count">${results.length} result${results.length !== 1 ? 's' : ''} found</p>
+        <div class="results-list">
+          ${results.map(article => `
+            <a href="${article.url}" class="result-item">
+              <span class="result-category">${article.category}</span>
+              <span class="result-title">${highlightMatch(article.title, trimmedQuery)}</span>
+              <span class="result-description">${highlightMatch(article.description, trimmedQuery)}</span>
+            </a>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function highlightMatch(text, query) {
+      const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    function escapeRegex(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // Debounce search input
+    let debounceTimer;
+    input.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        performSearch(e.target.value);
+      }, 200);
+    });
+
+    // Handle URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryParam = urlParams.get('q');
+    if (queryParam) {
+      input.value = queryParam;
+      performSearch(queryParam);
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .search-page {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .search-page h1 {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .search-container {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  #search-input {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: 1.25rem;
+    background: var(--color-bg-darker);
+    border: 2px solid var(--color-pip-green);
+    border-radius: 8px;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+  }
+
+  #search-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--color-pip-green);
+  }
+
+  .search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .search-filters label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    transition: all 0.2s;
+  }
+
+  .search-filters label:hover {
+    border-color: var(--color-pip-green);
+  }
+
+  .search-filters input:checked + span {
+    color: var(--color-pip-green);
+  }
+
+  .search-results {
+    min-height: 200px;
+  }
+
+  .search-hint,
+  .no-results {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: var(--spacing-xl);
+  }
+
+  .search-suggestion {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .results-count {
+    color: var(--color-pip-green);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .results-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .result-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .result-item:hover {
+    border-color: var(--color-pip-green);
+    transform: translateX(4px);
+  }
+
+  .result-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-pip-amber);
+    letter-spacing: 0.05em;
+  }
+
+  .result-title {
+    font-size: 1.125rem;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .result-description {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .result-item :global(mark) {
+    background: var(--color-pip-amber);
+    color: var(--color-bg-dark);
+    padding: 0 2px;
+    border-radius: 2px;
+  }
+
+  .all-articles h2 {
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-sm);
+  }
+
+  .article-link {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .article-link:hover {
+    border-color: var(--color-pip-green);
+    text-decoration: none;
+  }
+
+  .article-category {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--color-pip-amber);
+    letter-spacing: 0.05em;
+  }
+
+  .article-title {
+    color: var(--color-text);
+  }
+</style>

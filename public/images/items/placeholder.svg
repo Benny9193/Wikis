@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#1a1a1a"/>
+  <rect x="140" y="80" width="120" height="140" rx="10" fill="#3d3225" stroke="#18ff6d" stroke-width="3"/>
+  <rect x="160" y="60" width="80" height="30" rx="5" fill="#3d3225" stroke="#18ff6d" stroke-width="2"/>
+  <text x="200" y="140" fill="#e31c23" font-family="sans-serif" font-size="16" text-anchor="middle" font-weight="bold">NUKA</text>
+  <text x="200" y="165" fill="#e31c23" font-family="sans-serif" font-size="14" text-anchor="middle">COLA</text>
+  <ellipse cx="200" cy="195" rx="40" ry="15" fill="#e31c23" opacity="0.5"/>
+  <text x="200" y="280" fill="#888" font-family="sans-serif" font-size="14" text-anchor="middle">Item</text>
+</svg>
