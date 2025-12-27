@@ -45,6 +45,7 @@ After the Great War, Power Armor became rare and valuable. The Brotherhood of St
 ### T-45 Power Armor
 
 The first widely-deployed Power Armor model.
+
 - Standard issue for Anchorage Campaign
 - Lower protection than later models
 - More common in the wasteland
@@ -52,6 +53,7 @@ The first widely-deployed Power Armor model.
 ### T-51 Power Armor
 
 The most iconic Power Armor design.
+
 - Peak pre-war Power Armor technology
 - Excellent protection and reliability
 - Featured on game covers and promotional material
@@ -59,6 +61,7 @@ The most iconic Power Armor design.
 ### T-60 Power Armor
 
 The last model produced before the war.
+
 - Standard issue for U.S. Army at war's end
 - Improved protection over T-51
 - Common among Brotherhood of Steel
@@ -66,6 +69,7 @@ The last model produced before the war.
 ### X-01 Power Armor
 
 Experimental advanced Power Armor.
+
 - Highest protection available
 - Rare and difficult to find
 - Post-war prototypes may exist
@@ -73,6 +77,7 @@ Experimental advanced Power Armor.
 ### Raider Power Armor (Fallout 4)
 
 Improvised Power Armor built from scrap.
+
 - Used by Commonwealth raiders
 - Lower protection but more common
 - Can be upgraded
@@ -96,6 +101,7 @@ Improvised Power Armor built from scrap.
 ## Components (Fallout 4/76)
 
 Power Armor consists of:
+
 - **Frame** - Base exoskeleton
 - **Helmet** - Head protection, HUD
 - **Torso** - Core protection, jetpack slot
@@ -105,6 +111,7 @@ Power Armor consists of:
 ## Fusion Cores
 
 Modern Power Armor requires Fusion Cores:
+
 - Found in generators and military facilities
 - Sold by vendors
 - Drain faster when sprinting or using VATS
@@ -113,31 +120,38 @@ Modern Power Armor requires Fusion Cores:
 ## Modifications
 
 ### Armor Mods
+
 - Material upgrades (better resistance)
 - Misc mods (carry weight, stealth)
 
 ### Special Mods
+
 - Jetpack (torso)
 - Targeting HUD (helmet)
 - Tesla Coils (torso)
 - Kinetic Servos (legs)
 
 ### Paint Jobs
+
 - Various faction paints available
 - Some provide stat bonuses
 
 ## Factions
 
 ### Brotherhood of Steel
+
 Primary users and collectors of Power Armor.
 
 ### Enclave
+
 Use advanced Power Armor variants.
 
 ### NCR
+
 Salvaged T-45 suits (armor only, no power).
 
 ### Atom Cats
+
 Fallout 4 gang specializing in Power Armor customization.
 
 ## Trivia

@@ -1,0 +1,45 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const armor = await getCollection('armor');
+  return armor.map(item => ({
+    params: { slug: item.slug },
+    props: { armor: item },
+  }));
+}
+
+const { armor } = Astro.props;
+const { Content } = await armor.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': armor.data.type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+};
+
+if (armor.data.damage_resistance) {
+  infobox['Damage Resistance'] = armor.data.damage_resistance;
+}
+
+if (armor.data.weight !== undefined) {
+  infobox['Weight'] = `${armor.data.weight} lbs`;
+}
+
+if (armor.data.value !== undefined) {
+  infobox['Value'] = `${armor.data.value} caps`;
+}
+
+infobox['Unique'] = armor.data.unique ? 'Yes' : 'No';
+---
+
+<WikiArticle
+  title={armor.data.title}
+  description={armor.data.description}
+  image={armor.data.image}
+  games={armor.data.games}
+  tags={armor.data.tags}
+  infobox={infobox}
+  category="armor"
+>
+  <Content />
+</WikiArticle>

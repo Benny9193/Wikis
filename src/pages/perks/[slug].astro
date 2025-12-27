@@ -1,0 +1,43 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const perks = await getCollection('perks');
+  return perks.map(perk => ({
+    params: { slug: perk.slug },
+    props: { perk },
+  }));
+}
+
+const { perk } = Astro.props;
+const { Content } = await perk.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': perk.data.type.charAt(0).toUpperCase() + perk.data.type.slice(1),
+};
+
+if (perk.data.requirements) {
+  infobox['Requirements'] = perk.data.requirements;
+}
+
+if (perk.data.ranks) {
+  infobox['Ranks'] = `${perk.data.ranks}`;
+}
+
+if (perk.data.effects && perk.data.effects.length > 0) {
+  infobox['Effects'] = perk.data.effects;
+}
+---
+
+<WikiArticle
+  title={perk.data.title}
+  description={perk.data.description}
+  image={perk.data.image}
+  games={perk.data.games}
+  tags={perk.data.tags}
+  infobox={infobox}
+  category="perks"
+>
+  <Content />
+</WikiArticle>
