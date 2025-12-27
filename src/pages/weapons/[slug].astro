@@ -3,14 +3,66 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const weapons = await getCollection('weapons');
-  return weapons.map(weapon => ({
-    params: { slug: weapon.slug },
-    props: { weapon },
-  }));
+  const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+  const allWeapons = await getCollection('weapons', ({ data }) => !data.draft);
+  const armor = await getCollection('armor', ({ data }) => !data.draft);
+  const perks = await getCollection('perks', ({ data }) => !data.draft);
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+
+  return weapons.map(weapon => {
+    const weaponGames = weapon.data.games || [];
+    const weaponType = weapon.data.type;
+
+    // Related weapons from same game or same type
+    const relatedWeapons = allWeapons
+      .filter(w => w.slug !== weapon.slug)
+      .filter(w => {
+        const sameGame = (w.data.games || []).some(g => weaponGames.includes(g));
+        const sameType = w.data.type === weaponType;
+        return sameGame || sameType;
+      })
+      .slice(0, 3)
+      .map(w => ({
+        title: w.data.title,
+        url: `/weapons/${w.slug}`,
+        category: 'weapons',
+        description: w.data.description,
+      }));
+
+    const relatedArmor = armor
+      .filter(a => (a.data.games || []).some(g => weaponGames.includes(g)))
+      .slice(0, 2)
+      .map(a => ({
+        title: a.data.title,
+        url: `/armor/${a.slug}`,
+        category: 'armor',
+        description: a.data.description,
+      }));
+
+    const relatedPerks = perks
+      .filter(p => (p.data.games || []).some(g => weaponGames.includes(g)))
+      .slice(0, 2)
+      .map(p => ({
+        title: p.data.title,
+        url: `/perks/${p.slug}`,
+        category: 'perks',
+        description: p.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedWeapons,
+      ...relatedArmor,
+      ...relatedPerks,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: weapon.slug },
+      props: { weapon, relatedArticles },
+    };
+  });
 }
 
-const { weapon } = Astro.props;
+const { weapon, relatedArticles } = Astro.props;
 const { Content } = await weapon.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -44,6 +96,7 @@ infobox['Unique'] = weapon.data.unique ? 'Yes' : 'No';
   tags={weapon.data.tags}
   infobox={infobox}
   category="weapons"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>
