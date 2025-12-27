@@ -1,0 +1,66 @@
+---
+interface Props {
+  games: string[];
+}
+
+const { games } = Astro.props;
+
+const gameLabels: Record<string, string> = {
+  'fallout1': 'Fallout',
+  'fallout2': 'Fallout 2',
+  'fallout3': 'Fallout 3',
+  'fallout-new-vegas': 'New Vegas',
+  'fallout4': 'Fallout 4',
+  'fallout76': 'Fallout 76',
+  'fallout-tactics': 'Tactics',
+  'fallout-shelter': 'Shelter',
+  'fallout-brotherhood': 'Brotherhood',
+};
+
+const sortedGames = [...games].sort();
+---
+
+<div class="game-filter">
+  <label for="game-filter">Filter by Game:</label>
+  <select id="game-filter" class="game-select">
+    <option value="all">All Games</option>
+    {sortedGames.map(game => (
+      <option value={game}>{gameLabels[game] || game}</option>
+    ))}
+  </select>
+</div>
+
+<style>
+  .game-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .game-filter label {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .game-select {
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    min-width: 150px;
+  }
+
+  .game-select:focus {
+    outline: none;
+    border-color: var(--color-pip-green);
+  }
+
+  .game-select option {
+    background: var(--color-bg-darker);
+    color: var(--color-text);
+  }
+</style>
