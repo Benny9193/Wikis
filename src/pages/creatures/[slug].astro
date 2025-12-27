@@ -3,14 +3,65 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const creatures = await getCollection('creatures');
-  return creatures.map(creature => ({
-    params: { slug: creature.slug },
-    props: { creature },
-  }));
+  const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+  const allCreatures = await getCollection('creatures', ({ data }) => !data.draft);
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+  const quests = await getCollection('quests', ({ data }) => !data.draft);
+
+  return creatures.map(creature => {
+    const creatureGames = creature.data.games || [];
+    const creatureType = creature.data.type;
+
+    const relatedCreatures = allCreatures
+      .filter(c => c.slug !== creature.slug)
+      .filter(c => {
+        const sameGame = (c.data.games || []).some(g => creatureGames.includes(g));
+        const sameType = c.data.type === creatureType;
+        return sameGame || sameType;
+      })
+      .slice(0, 3)
+      .map(c => ({
+        title: c.data.title,
+        url: `/creatures/${c.slug}`,
+        category: 'creatures',
+        description: c.data.description,
+      }));
+
+    const relatedLocations = locations
+      .filter(l => (l.data.games || []).some(g => creatureGames.includes(g)))
+      .slice(0, 2)
+      .map(l => ({
+        title: l.data.title,
+        url: `/locations/${l.slug}`,
+        category: 'locations',
+        description: l.data.description,
+      }));
+
+    const relatedWeapons = weapons
+      .filter(w => (w.data.games || []).some(g => creatureGames.includes(g)))
+      .slice(0, 2)
+      .map(w => ({
+        title: w.data.title,
+        url: `/weapons/${w.slug}`,
+        category: 'weapons',
+        description: w.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedCreatures,
+      ...relatedLocations,
+      ...relatedWeapons,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: creature.slug },
+      props: { creature, relatedArticles },
+    };
+  });
 }
 
-const { creature } = Astro.props;
+const { creature, relatedArticles } = Astro.props;
 const { Content } = await creature.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -31,6 +82,7 @@ if (creature.data.variants?.length > 0) {
   tags={creature.data.tags}
   infobox={infobox}
   category="creatures"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>

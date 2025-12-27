@@ -3,14 +3,71 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const factions = await getCollection('factions');
-  return factions.map(faction => ({
-    params: { slug: faction.slug },
-    props: { faction },
-  }));
+  const factions = await getCollection('factions', ({ data }) => !data.draft);
+  const allFactions = await getCollection('factions', ({ data }) => !data.draft);
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const quests = await getCollection('quests', ({ data }) => !data.draft);
+
+  return factions.map(faction => {
+    const factionGames = faction.data.games || [];
+
+    const relatedFactions = allFactions
+      .filter(f => f.slug !== faction.slug)
+      .filter(f => (f.data.games || []).some(g => factionGames.includes(g)))
+      .slice(0, 2)
+      .map(f => ({
+        title: f.data.title,
+        url: `/factions/${f.slug}`,
+        category: 'factions',
+        description: f.data.description,
+      }));
+
+    const relatedCharacters = characters
+      .filter(c => (c.data.games || []).some(g => factionGames.includes(g)))
+      .slice(0, 2)
+      .map(c => ({
+        title: c.data.title,
+        url: `/characters/${c.slug}`,
+        category: 'characters',
+        description: c.data.description,
+      }));
+
+    const relatedLocations = locations
+      .filter(l => (l.data.games || []).some(g => factionGames.includes(g)))
+      .slice(0, 2)
+      .map(l => ({
+        title: l.data.title,
+        url: `/locations/${l.slug}`,
+        category: 'locations',
+        description: l.data.description,
+      }));
+
+    const relatedQuests = quests
+      .filter(q => (q.data.games || []).some(g => factionGames.includes(g)))
+      .slice(0, 2)
+      .map(q => ({
+        title: q.data.title,
+        url: `/quests/${q.slug}`,
+        category: 'quests',
+        description: q.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedFactions,
+      ...relatedCharacters,
+      ...relatedLocations,
+      ...relatedQuests,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: faction.slug },
+      props: { faction, relatedArticles },
+    };
+  });
 }
 
-const { faction } = Astro.props;
+const { faction, relatedArticles } = Astro.props;
 const { Content } = await faction.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -42,6 +99,7 @@ if (faction.data.enemies?.length > 0) {
   tags={faction.data.tags}
   infobox={infobox}
   category="factions"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>
