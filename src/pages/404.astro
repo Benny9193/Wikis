@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist">
+  <div class="error-page">
+    <div class="error-container">
+      <div class="error-icon">☢</div>
+      <h1>404</h1>
+      <h2>Page Not Found</h2>
+      <p class="error-message">
+        Looks like this page got lost in the Wasteland...
+      </p>
+      <div class="error-terminal">
+        <div class="terminal-header">
+          <span class="terminal-title">ROBCO INDUSTRIES (TM) TERMLINK</span>
+        </div>
+        <div class="terminal-content">
+          <p>> ACCESSING VAULT-TEC DATABASE...</p>
+          <p>> ERROR: FILE NOT FOUND</p>
+          <p>> LOCATION: UNKNOWN</p>
+          <p>> STATUS: <span class="error-text">MISSING</span></p>
+          <p class="blink">> _</p>
+        </div>
+      </div>
+      <div class="error-actions">
+        <a href="/" class="btn-primary">Return to Safety</a>
+        <a href="/search" class="btn-secondary">Search the Wasteland</a>
+      </div>
+      <div class="error-suggestions">
+        <p>Perhaps you were looking for:</p>
+        <ul>
+          <li><a href="/games">Games</a></li>
+          <li><a href="/characters">Characters</a></li>
+          <li><a href="/locations">Locations</a></li>
+          <li><a href="/weapons">Weapons</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    text-align: center;
+  }
+
+  .error-container {
+    max-width: 600px;
+    padding: var(--spacing-xl);
+  }
+
+  .error-icon {
+    font-size: 5rem;
+    color: var(--color-pip-amber);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  h1 {
+    font-size: 6rem;
+    color: var(--color-nuka-red);
+    margin: 0;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(227, 28, 35, 0.5);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: var(--color-pip-amber);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .error-message {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .error-terminal {
+    background: var(--color-bg-darker);
+    border: 2px solid var(--color-pip-green);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg);
+    text-align: left;
+    font-family: 'Courier New', monospace;
+  }
+
+  .terminal-header {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  .terminal-content {
+    padding: var(--spacing-md);
+    color: var(--color-pip-green);
+    font-size: 0.9rem;
+  }
+
+  .terminal-content p {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .error-text {
+    color: var(--color-nuka-red);
+  }
+
+  .blink {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .error-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-pip-amber);
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-pip-green);
+    border: 2px solid var(--color-pip-green);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+    text-decoration: none;
+  }
+
+  .error-suggestions {
+    color: var(--color-text-muted);
+  }
+
+  .error-suggestions p {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .error-suggestions ul {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .error-suggestions a {
+    color: var(--color-pip-green);
+  }
+
+  .error-suggestions a:hover {
+    color: var(--color-pip-amber);
+  }
+</style>

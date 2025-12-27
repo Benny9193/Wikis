@@ -3,14 +3,65 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const lore = await getCollection('lore');
-  return lore.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  const lore = await getCollection('lore', ({ data }) => !data.draft);
+  const allLore = await getCollection('lore', ({ data }) => !data.draft);
+  const factions = await getCollection('factions', ({ data }) => !data.draft);
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+
+  return lore.map(entry => {
+    const loreGames = entry.data.games || [];
+    const loreCategory = entry.data.category;
+
+    const relatedLore = allLore
+      .filter(l => l.slug !== entry.slug)
+      .filter(l => {
+        const sameGame = (l.data.games || []).some(g => loreGames.includes(g));
+        const sameCategory = l.data.category === loreCategory;
+        return sameGame || sameCategory;
+      })
+      .slice(0, 3)
+      .map(l => ({
+        title: l.data.title,
+        url: `/lore/${l.slug}`,
+        category: 'lore',
+        description: l.data.description,
+      }));
+
+    const relatedFactions = factions
+      .filter(f => (f.data.games || []).some(g => loreGames.includes(g)))
+      .slice(0, 2)
+      .map(f => ({
+        title: f.data.title,
+        url: `/factions/${f.slug}`,
+        category: 'factions',
+        description: f.data.description,
+      }));
+
+    const relatedLocations = locations
+      .filter(l => (l.data.games || []).some(g => loreGames.includes(g)))
+      .slice(0, 2)
+      .map(l => ({
+        title: l.data.title,
+        url: `/locations/${l.slug}`,
+        category: 'locations',
+        description: l.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedLore,
+      ...relatedFactions,
+      ...relatedLocations,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: entry.slug },
+      props: { entry, relatedArticles },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, relatedArticles } = Astro.props;
 const { Content } = await entry.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -26,6 +77,7 @@ const infobox: Record<string, string | string[]> = {
   tags={entry.data.tags}
   infobox={infobox}
   category="lore"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>

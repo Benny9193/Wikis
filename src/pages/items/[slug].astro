@@ -3,14 +3,65 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const items = await getCollection('items');
-  return items.map(item => ({
-    params: { slug: item.slug },
-    props: { item },
-  }));
+  const items = await getCollection('items', ({ data }) => !data.draft);
+  const allItems = await getCollection('items', ({ data }) => !data.draft);
+  const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+  const armor = await getCollection('armor', ({ data }) => !data.draft);
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+
+  return items.map(item => {
+    const itemGames = item.data.games || [];
+    const itemType = item.data.type;
+
+    const relatedItems = allItems
+      .filter(i => i.slug !== item.slug)
+      .filter(i => {
+        const sameGame = (i.data.games || []).some(g => itemGames.includes(g));
+        const sameType = i.data.type === itemType;
+        return sameGame || sameType;
+      })
+      .slice(0, 3)
+      .map(i => ({
+        title: i.data.title,
+        url: `/items/${i.slug}`,
+        category: 'items',
+        description: i.data.description,
+      }));
+
+    const relatedWeapons = weapons
+      .filter(w => (w.data.games || []).some(g => itemGames.includes(g)))
+      .slice(0, 2)
+      .map(w => ({
+        title: w.data.title,
+        url: `/weapons/${w.slug}`,
+        category: 'weapons',
+        description: w.data.description,
+      }));
+
+    const relatedArmor = armor
+      .filter(a => (a.data.games || []).some(g => itemGames.includes(g)))
+      .slice(0, 2)
+      .map(a => ({
+        title: a.data.title,
+        url: `/armor/${a.slug}`,
+        category: 'armor',
+        description: a.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedItems,
+      ...relatedWeapons,
+      ...relatedArmor,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: item.slug },
+      props: { item, relatedArticles },
+    };
+  });
 }
 
-const { item } = Astro.props;
+const { item, relatedArticles } = Astro.props;
 const { Content } = await item.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -38,6 +89,7 @@ if (item.data.value) {
   tags={item.data.tags}
   infobox={infobox}
   category="items"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>
