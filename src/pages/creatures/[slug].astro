@@ -1,0 +1,36 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const creatures = await getCollection('creatures');
+  return creatures.map(creature => ({
+    params: { slug: creature.slug },
+    props: { creature },
+  }));
+}
+
+const { creature } = Astro.props;
+const { Content } = await creature.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': creature.data.type.charAt(0).toUpperCase() + creature.data.type.slice(1),
+  'Hostile': creature.data.hostile ? 'Yes' : 'No',
+};
+
+if (creature.data.variants?.length > 0) {
+  infobox['Variants'] = creature.data.variants;
+}
+---
+
+<WikiArticle
+  title={creature.data.title}
+  description={creature.data.description}
+  image={creature.data.image}
+  games={creature.data.games}
+  tags={creature.data.tags}
+  infobox={infobox}
+  category="creatures"
+>
+  <Content />
+</WikiArticle>

@@ -1,0 +1,238 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const games = await getCollection('games');
+const characters = await getCollection('characters', ({ data }) => !data.draft);
+const factions = await getCollection('factions', ({ data }) => !data.draft);
+
+// Get featured/recent content
+const featuredCharacters = characters.slice(0, 4);
+const featuredFactions = factions.slice(0, 4);
+---
+
+<BaseLayout title="Home" description="Welcome to the Fallout Wiki - Your comprehensive guide to the post-apocalyptic wasteland">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to the Wasteland</h1>
+      <p class="hero-tagline">Your comprehensive guide to the Fallout universe</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">{games.length}</span>
+          <span class="stat-label">Games</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{characters.length}</span>
+          <span class="stat-label">Characters</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">{factions.length}</span>
+          <span class="stat-label">Factions</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <h2>Explore the Wiki</h2>
+    <div class="category-grid">
+      <a href="/games" class="category-card">
+        <span class="category-icon">🎮</span>
+        <h3>Games</h3>
+        <p>All Fallout titles from 1997 to present</p>
+      </a>
+      <a href="/characters" class="category-card">
+        <span class="category-icon">👤</span>
+        <h3>Characters</h3>
+        <p>NPCs, companions, and protagonists</p>
+      </a>
+      <a href="/factions" class="category-card">
+        <span class="category-icon">⚔️</span>
+        <h3>Factions</h3>
+        <p>NCR, Brotherhood of Steel, and more</p>
+      </a>
+      <a href="/locations" class="category-card">
+        <span class="category-icon">🗺️</span>
+        <h3>Locations</h3>
+        <p>Vaults, cities, and landmarks</p>
+      </a>
+      <a href="/weapons" class="category-card">
+        <span class="category-icon">🔫</span>
+        <h3>Weapons</h3>
+        <p>From pipe pistols to Fat Man</p>
+      </a>
+      <a href="/armor" class="category-card">
+        <span class="category-icon">🛡️</span>
+        <h3>Armor</h3>
+        <p>Power Armor and protective gear</p>
+      </a>
+      <a href="/items" class="category-card">
+        <span class="category-icon">💊</span>
+        <h3>Items</h3>
+        <p>Stimpaks, Nuka-Cola, and chems</p>
+      </a>
+      <a href="/creatures" class="category-card">
+        <span class="category-icon">🦎</span>
+        <h3>Creatures</h3>
+        <p>Deathclaws, Radscorpions, and mutants</p>
+      </a>
+      <a href="/quests" class="category-card">
+        <span class="category-icon">📜</span>
+        <h3>Quests</h3>
+        <p>Main stories and side adventures</p>
+      </a>
+      <a href="/lore" class="category-card">
+        <span class="category-icon">📖</span>
+        <h3>Lore</h3>
+        <p>History, timeline, and world-building</p>
+      </a>
+      <a href="/perks" class="category-card">
+        <span class="category-icon">⭐</span>
+        <h3>Perks</h3>
+        <p>Abilities, traits, and skills</p>
+      </a>
+    </div>
+  </section>
+
+  {featuredCharacters.length > 0 && (
+    <section class="featured">
+      <h2>Featured Characters</h2>
+      <div class="article-grid">
+        {featuredCharacters.map(char => (
+          <ArticleCard
+            title={char.data.title}
+            description={char.data.description}
+            href={`/characters/${char.slug}`}
+            image={char.data.image}
+            games={char.data.games}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {featuredFactions.length > 0 && (
+    <section class="featured">
+      <h2>Major Factions</h2>
+      <div class="article-grid">
+        {featuredFactions.map(faction => (
+          <ArticleCard
+            title={faction.data.title}
+            description={faction.data.description}
+            href={`/factions/${faction.slug}`}
+            image={faction.data.image}
+            games={faction.data.games}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, var(--color-vault-blue), var(--color-bg-darker));
+    border: 2px solid var(--color-pip-green);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-pip-green);
+  }
+
+  .stat-label {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    font-size: 0.875rem;
+  }
+
+  .categories {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .categories h2 {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .category-card {
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-pip-green);
+    text-decoration: none;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .category-card h3 {
+    color: var(--color-pip-amber);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .category-card p {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  .featured {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .featured h2 {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+  }
+</style>

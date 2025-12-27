@@ -1,0 +1,49 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const weapons = await getCollection('weapons');
+  return weapons.map(weapon => ({
+    params: { slug: weapon.slug },
+    props: { weapon },
+  }));
+}
+
+const { weapon } = Astro.props;
+const { Content } = await weapon.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': weapon.data.type.charAt(0).toUpperCase() + weapon.data.type.slice(1),
+};
+
+if (weapon.data.damage) {
+  infobox['Damage'] = weapon.data.damage;
+}
+
+if (weapon.data.ammo_type) {
+  infobox['Ammo Type'] = weapon.data.ammo_type;
+}
+
+if (weapon.data.weight) {
+  infobox['Weight'] = `${weapon.data.weight} lbs`;
+}
+
+if (weapon.data.value) {
+  infobox['Value'] = `${weapon.data.value} caps`;
+}
+
+infobox['Unique'] = weapon.data.unique ? 'Yes' : 'No';
+---
+
+<WikiArticle
+  title={weapon.data.title}
+  description={weapon.data.description}
+  image={weapon.data.image}
+  games={weapon.data.games}
+  tags={weapon.data.tags}
+  infobox={infobox}
+  category="weapons"
+>
+  <Content />
+</WikiArticle>

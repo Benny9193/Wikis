@@ -1,0 +1,47 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const factions = await getCollection('factions');
+  return factions.map(faction => ({
+    params: { slug: faction.slug },
+    props: { faction },
+  }));
+}
+
+const { faction } = Astro.props;
+const { Content } = await faction.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': faction.data.type.charAt(0).toUpperCase() + faction.data.type.slice(1),
+};
+
+if (faction.data.headquarters) {
+  infobox['Headquarters'] = faction.data.headquarters;
+}
+
+if (faction.data.leaders?.length > 0) {
+  infobox['Leaders'] = faction.data.leaders;
+}
+
+if (faction.data.allies?.length > 0) {
+  infobox['Allies'] = faction.data.allies;
+}
+
+if (faction.data.enemies?.length > 0) {
+  infobox['Enemies'] = faction.data.enemies;
+}
+---
+
+<WikiArticle
+  title={faction.data.title}
+  description={faction.data.description}
+  image={faction.data.image}
+  games={faction.data.games}
+  tags={faction.data.tags}
+  infobox={infobox}
+  category="factions"
+>
+  <Content />
+</WikiArticle>

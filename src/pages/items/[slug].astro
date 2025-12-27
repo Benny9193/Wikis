@@ -1,0 +1,43 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('items');
+  return items.map(item => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': item.data.type.charAt(0).toUpperCase() + item.data.type.slice(1),
+};
+
+if (item.data.effects?.length > 0) {
+  infobox['Effects'] = item.data.effects;
+}
+
+if (item.data.weight) {
+  infobox['Weight'] = `${item.data.weight} lbs`;
+}
+
+if (item.data.value) {
+  infobox['Value'] = `${item.data.value} caps`;
+}
+---
+
+<WikiArticle
+  title={item.data.title}
+  description={item.data.description}
+  image={item.data.image}
+  games={item.data.games}
+  tags={item.data.tags}
+  infobox={infobox}
+  category="items"
+>
+  <Content />
+</WikiArticle>

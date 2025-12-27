@@ -1,0 +1,89 @@
+---
+interface Props {
+  title: string;
+  image?: string;
+  data: Record<string, string | string[]>;
+}
+
+const { title, image, data } = Astro.props;
+---
+
+<div class="infobox">
+  <div class="infobox-header">
+    <h3>{title}</h3>
+  </div>
+
+  {image && (
+    <div class="infobox-image">
+      <img src={image} alt={title} />
+    </div>
+  )}
+
+  <dl class="infobox-data">
+    {Object.entries(data).map(([key, value]) => (
+      <>
+        <dt>{key}</dt>
+        <dd>
+          {Array.isArray(value)
+            ? value.join(', ')
+            : value
+          }
+        </dd>
+      </>
+    ))}
+  </dl>
+</div>
+
+<style>
+  .infobox {
+    background: var(--color-bg-dark);
+    border: 2px solid var(--color-pip-green);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .infobox-header {
+    background: var(--color-vault-blue);
+    padding: var(--spacing-md);
+    text-align: center;
+  }
+
+  .infobox-header h3 {
+    margin: 0;
+    color: var(--color-pip-amber);
+  }
+
+  .infobox-image {
+    padding: var(--spacing-md);
+    text-align: center;
+    background: var(--color-bg-darker);
+  }
+
+  .infobox-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .infobox-data {
+    padding: var(--spacing-md);
+  }
+
+  .infobox-data dt {
+    color: var(--color-pip-amber);
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
+  }
+
+  .infobox-data dt:first-child {
+    margin-top: 0;
+  }
+
+  .infobox-data dd {
+    color: var(--color-text);
+    margin-left: 0;
+    padding-left: var(--spacing-sm);
+    border-left: 2px solid var(--color-border);
+  }
+</style>

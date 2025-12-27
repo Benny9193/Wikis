@@ -1,0 +1,182 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import InfoBox from '../components/InfoBox.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  games?: string[];
+  tags?: string[];
+  infobox?: Record<string, string | string[]>;
+  category: string;
+}
+
+const { title, description, image, games = [], tags = [], infobox, category } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={image}>
+  <article class="wiki-article">
+    <div class="article-header">
+      <nav class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href={`/${category}`}>{category.charAt(0).toUpperCase() + category.slice(1)}</a> &gt;
+        <span>{title}</span>
+      </nav>
+      <h1>{title}</h1>
+      {games.length > 0 && (
+        <div class="game-tags">
+          {games.map(game => (
+            <span class="game-tag">{game}</span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="article-layout">
+      <aside class="article-sidebar">
+        {infobox && <InfoBox title={title} image={image} data={infobox} />}
+        <TableOfContents />
+      </aside>
+
+      <div class="article-content">
+        <slot />
+
+        {tags.length > 0 && (
+          <div class="article-tags">
+            <h3>Tags</h3>
+            <div class="tag-list">
+              {tags.map(tag => (
+                <a href={`/tags/${tag}`} class="tag">{tag}</a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .wiki-article {
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .article-header {
+    background: linear-gradient(135deg, var(--color-vault-blue), var(--color-bg-darker));
+    padding: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .breadcrumbs {
+    font-size: 0.875rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumbs a {
+    color: var(--color-pip-green);
+  }
+
+  .breadcrumbs span {
+    color: var(--color-text);
+  }
+
+  .game-tags {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-md);
+  }
+
+  .game-tag {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .article-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  @media (max-width: 900px) {
+    .article-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .article-sidebar {
+      order: -1;
+    }
+  }
+
+  .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .article-content {
+    min-width: 0;
+  }
+
+  .article-content :global(h2) {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+  }
+
+  .article-content :global(h3) {
+    margin-top: var(--spacing-md);
+  }
+
+  .article-content :global(ul),
+  .article-content :global(ol) {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .article-content :global(blockquote) {
+    border-left: 4px solid var(--color-pip-amber);
+    padding-left: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  .article-tags {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tag-list {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--color-wasteland-brown);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+
+  .tag:hover {
+    background: var(--color-pip-amber);
+    color: var(--color-bg-dark);
+    text-decoration: none;
+  }
+</style>

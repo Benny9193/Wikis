@@ -1,0 +1,84 @@
+---
+// Table of Contents - populated via client-side JavaScript
+---
+
+<nav class="toc" id="table-of-contents">
+  <h3>Contents</h3>
+  <ol class="toc-list" id="toc-list">
+    <!-- Populated by JavaScript -->
+  </ol>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocList = document.getElementById('toc-list');
+    const articleContent = document.querySelector('.article-content');
+
+    if (!tocList || !articleContent) return;
+
+    const headings = articleContent.querySelectorAll('h2, h3');
+
+    headings.forEach((heading, index) => {
+      // Add ID to heading if it doesn't have one
+      if (!heading.id) {
+        heading.id = `section-${index}`;
+      }
+
+      const li = document.createElement('li');
+      li.className = heading.tagName === 'H3' ? 'toc-item-sub' : 'toc-item';
+
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent;
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // Hide TOC if no headings
+    if (headings.length === 0) {
+      const toc = document.getElementById('table-of-contents');
+      if (toc) toc.style.display = 'none';
+    }
+  });
+</script>
+
+<style>
+  .toc {
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+  }
+
+  .toc h3 {
+    color: var(--color-pip-amber);
+    margin-bottom: var(--spacing-md);
+    font-size: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .toc-list {
+    list-style: decimal;
+    margin-left: var(--spacing-md);
+  }
+
+  .toc-item {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .toc-item-sub {
+    margin-left: var(--spacing-md);
+    list-style-type: lower-alpha;
+    font-size: 0.875rem;
+  }
+
+  .toc-list a {
+    color: var(--color-text);
+  }
+
+  .toc-list a:hover {
+    color: var(--color-pip-green);
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const lore = await getCollection('lore');
+  return lore.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Category': entry.data.category.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+};
+---
+
+<WikiArticle
+  title={entry.data.title}
+  description={entry.data.description}
+  image={entry.data.image}
+  games={entry.data.games}
+  tags={entry.data.tags}
+  infobox={infobox}
+  category="lore"
+>
+  <Content />
+</WikiArticle>

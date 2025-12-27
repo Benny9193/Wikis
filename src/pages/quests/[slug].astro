@@ -1,0 +1,47 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const quests = await getCollection('quests');
+  return quests.map(quest => ({
+    params: { slug: quest.slug },
+    props: { quest },
+  }));
+}
+
+const { quest } = Astro.props;
+const { Content } = await quest.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': quest.data.type.charAt(0).toUpperCase() + quest.data.type.slice(1),
+};
+
+if (quest.data.quest_giver) {
+  infobox['Quest Giver'] = quest.data.quest_giver;
+}
+
+if (quest.data.location) {
+  infobox['Location'] = quest.data.location;
+}
+
+if (quest.data.prerequisites?.length > 0) {
+  infobox['Prerequisites'] = quest.data.prerequisites;
+}
+
+if (quest.data.rewards?.length > 0) {
+  infobox['Rewards'] = quest.data.rewards;
+}
+---
+
+<WikiArticle
+  title={quest.data.title}
+  description={quest.data.description}
+  image={quest.data.image}
+  games={quest.data.games}
+  tags={quest.data.tags}
+  infobox={infobox}
+  category="quests"
+>
+  <Content />
+</WikiArticle>
