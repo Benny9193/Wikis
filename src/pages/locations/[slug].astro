@@ -3,14 +3,71 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const locations = await getCollection('locations');
-  return locations.map(location => ({
-    params: { slug: location.slug },
-    props: { location },
-  }));
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const allLocations = await getCollection('locations', ({ data }) => !data.draft);
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+  const quests = await getCollection('quests', ({ data }) => !data.draft);
+  const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+
+  return locations.map(location => {
+    const locGames = location.data.games || [];
+
+    const relatedLocations = allLocations
+      .filter(l => l.slug !== location.slug)
+      .filter(l => (l.data.games || []).some(g => locGames.includes(g)))
+      .slice(0, 2)
+      .map(l => ({
+        title: l.data.title,
+        url: `/locations/${l.slug}`,
+        category: 'locations',
+        description: l.data.description,
+      }));
+
+    const relatedCharacters = characters
+      .filter(c => (c.data.games || []).some(g => locGames.includes(g)))
+      .slice(0, 2)
+      .map(c => ({
+        title: c.data.title,
+        url: `/characters/${c.slug}`,
+        category: 'characters',
+        description: c.data.description,
+      }));
+
+    const relatedQuests = quests
+      .filter(q => (q.data.games || []).some(g => locGames.includes(g)))
+      .slice(0, 2)
+      .map(q => ({
+        title: q.data.title,
+        url: `/quests/${q.slug}`,
+        category: 'quests',
+        description: q.data.description,
+      }));
+
+    const relatedCreatures = creatures
+      .filter(c => (c.data.games || []).some(g => locGames.includes(g)))
+      .slice(0, 2)
+      .map(c => ({
+        title: c.data.title,
+        url: `/creatures/${c.slug}`,
+        category: 'creatures',
+        description: c.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedLocations,
+      ...relatedCharacters,
+      ...relatedQuests,
+      ...relatedCreatures,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: location.slug },
+      props: { location, relatedArticles },
+    };
+  });
 }
 
-const { location } = Astro.props;
+const { location, relatedArticles } = Astro.props;
 const { Content } = await location.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -36,6 +93,7 @@ if (location.data.quests?.length > 0) {
   tags={location.data.tags}
   infobox={infobox}
   category="locations"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>

@@ -1,11 +1,37 @@
 ---
+interface InfoBoxLink {
+  text: string;
+  url: string;
+}
+
+type InfoBoxValue = string | string[] | InfoBoxLink | InfoBoxLink[];
+
 interface Props {
   title: string;
   image?: string;
-  data: Record<string, string | string[]>;
+  data: Record<string, InfoBoxValue>;
 }
 
 const { title, image, data } = Astro.props;
+
+function isLink(val: unknown): val is InfoBoxLink {
+  return typeof val === 'object' && val !== null && 'text' in val && 'url' in val;
+}
+
+function renderValue(value: InfoBoxValue): string {
+  if (Array.isArray(value)) {
+    return value.map(v => {
+      if (isLink(v)) {
+        return `<a href="${v.url}">${v.text}</a>`;
+      }
+      return String(v);
+    }).join(', ');
+  }
+  if (isLink(value)) {
+    return `<a href="${value.url}">${value.text}</a>`;
+  }
+  return String(value);
+}
 ---
 
 <div class="infobox">
@@ -13,22 +39,15 @@ const { title, image, data } = Astro.props;
     <h3>{title}</h3>
   </div>
 
-  {image && (
-    <div class="infobox-image">
-      <img src={image} alt={title} />
-    </div>
-  )}
+  <div class="infobox-image">
+    <img src={image || "/images/placeholder.svg"} alt={title} />
+  </div>
 
   <dl class="infobox-data">
     {Object.entries(data).map(([key, value]) => (
       <>
         <dt>{key}</dt>
-        <dd>
-          {Array.isArray(value)
-            ? value.join(', ')
-            : value
-          }
-        </dd>
+        <dd set:html={renderValue(value)} />
       </>
     ))}
   </dl>

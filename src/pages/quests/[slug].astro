@@ -3,14 +3,60 @@ import WikiArticle from '../../layouts/WikiArticle.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const quests = await getCollection('quests');
-  return quests.map(quest => ({
-    params: { slug: quest.slug },
-    props: { quest },
-  }));
+  const quests = await getCollection('quests', ({ data }) => !data.draft);
+  const allQuests = await getCollection('quests', ({ data }) => !data.draft);
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+
+  return quests.map(quest => {
+    const questGames = quest.data.games || [];
+
+    const relatedQuests = allQuests
+      .filter(q => q.slug !== quest.slug)
+      .filter(q => (q.data.games || []).some(g => questGames.includes(g)))
+      .slice(0, 3)
+      .map(q => ({
+        title: q.data.title,
+        url: `/quests/${q.slug}`,
+        category: 'quests',
+        description: q.data.description,
+      }));
+
+    const relatedCharacters = characters
+      .filter(c => (c.data.games || []).some(g => questGames.includes(g)))
+      .slice(0, 2)
+      .map(c => ({
+        title: c.data.title,
+        url: `/characters/${c.slug}`,
+        category: 'characters',
+        description: c.data.description,
+      }));
+
+    const relatedLocations = locations
+      .filter(l => (l.data.games || []).some(g => questGames.includes(g)))
+      .slice(0, 2)
+      .map(l => ({
+        title: l.data.title,
+        url: `/locations/${l.slug}`,
+        category: 'locations',
+        description: l.data.description,
+      }));
+
+    const relatedArticles = [
+      ...relatedQuests,
+      ...relatedCharacters,
+      ...relatedLocations,
+    ].slice(0, 6);
+
+    return {
+      params: { slug: quest.slug },
+      props: { quest, relatedArticles },
+    };
+  });
 }
 
-const { quest } = Astro.props;
+const { quest, relatedArticles } = Astro.props;
 const { Content } = await quest.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -42,6 +88,7 @@ if (quest.data.rewards?.length > 0) {
   tags={quest.data.tags}
   infobox={infobox}
   category="quests"
+  relatedArticles={relatedArticles}
 >
   <Content />
 </WikiArticle>
