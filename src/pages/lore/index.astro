@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
 const lore = await getCollection('lore', ({ data }) => !data.draft);
 const sortedLore = lore.sort((a, b) => a.data.title.localeCompare(b.data.title));
+const allGames = [...new Set(lore.flatMap(l => l.data.games || []))];
 ---
 
 <BaseLayout title="Lore" description="History, timeline, and world-building of the Fallout universe">
@@ -13,15 +15,19 @@ const sortedLore = lore.sort((a, b) => a.data.title.localeCompare(b.data.title))
     <p>The history, timeline, and deep lore of the Fallout universe.</p>
   </div>
 
-  <div class="article-grid">
+  <GameFilter games={allGames} />
+
+  <div class="article-grid" id="articles-grid">
     {sortedLore.map(entry => (
-      <ArticleCard
-        title={entry.data.title}
-        description={entry.data.description}
-        href={`/lore/${entry.slug}`}
-        image={entry.data.image}
-        games={entry.data.games}
-      />
+      <div class="article-wrapper" data-games={JSON.stringify(entry.data.games || [])}>
+        <ArticleCard
+          title={entry.data.title}
+          description={entry.data.description}
+          href={`/lore/${entry.slug}`}
+          image={entry.data.image}
+          games={entry.data.games}
+        />
+      </div>
     ))}
   </div>
 
@@ -34,9 +40,7 @@ const sortedLore = lore.sort((a, b) => a.data.title.localeCompare(b.data.title))
 
 <style>
   .category-header {
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 2px solid var(--color-pip-green);
+    margin-bottom: var(--spacing-lg);
   }
 
   .category-header p {
@@ -50,9 +54,58 @@ const sortedLore = lore.sort((a, b) => a.data.title.localeCompare(b.data.title))
     gap: var(--spacing-lg);
   }
 
-  .empty-state {
+  .article-wrapper {
+    display: block;
+  }
+
+  .article-wrapper.hidden {
+    display: none;
+  }
+
+  .empty-state,
+  .no-results {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+    grid-column: 1 / -1;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gameSelect = document.getElementById('game-filter') as HTMLSelectElement;
+    const articlesGrid = document.getElementById('articles-grid');
+    const articles = articlesGrid?.querySelectorAll('.article-wrapper');
+
+    if (!gameSelect || !articles) return;
+
+    gameSelect.addEventListener('change', () => {
+      const selectedGame = gameSelect.value;
+
+      articles.forEach(article => {
+        const wrapper = article as HTMLElement;
+        const games = JSON.parse(wrapper.dataset.games || '[]');
+
+        if (selectedGame === 'all' || games.includes(selectedGame)) {
+          wrapper.classList.remove('hidden');
+        } else {
+          wrapper.classList.add('hidden');
+        }
+      });
+
+      const visibleArticles = articlesGrid?.querySelectorAll('.article-wrapper:not(.hidden)');
+      const existingNoResults = articlesGrid?.querySelector('.no-results');
+
+      if (visibleArticles?.length === 0) {
+        if (!existingNoResults) {
+          const noResults = document.createElement('div');
+          noResults.className = 'no-results';
+          noResults.textContent = 'No articles found for this game.';
+          articlesGrid?.appendChild(noResults);
+        }
+      } else {
+        existingNoResults?.remove();
+      }
+    });
+  });
+</script>

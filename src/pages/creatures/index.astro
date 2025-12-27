@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
 const creatures = await getCollection('creatures', ({ data }) => !data.draft);
 const sortedCreatures = creatures.sort((a, b) => a.data.title.localeCompare(b.data.title));
+const allGames = [...new Set(creatures.flatMap(c => c.data.games || []))];
 ---
 
 <BaseLayout title="Creatures" description="Mutants, animals, and abominations of the wasteland">
@@ -13,15 +15,19 @@ const sortedCreatures = creatures.sort((a, b) => a.data.title.localeCompare(b.da
     <p>Deathclaws, Radscorpions, Super Mutants, and other dangers of the wasteland.</p>
   </div>
 
-  <div class="article-grid">
+  <GameFilter games={allGames} />
+
+  <div class="article-grid" id="articles-grid">
     {sortedCreatures.map(creature => (
-      <ArticleCard
-        title={creature.data.title}
-        description={creature.data.description}
-        href={`/creatures/${creature.slug}`}
-        image={creature.data.image}
-        games={creature.data.games}
-      />
+      <div class="article-wrapper" data-games={JSON.stringify(creature.data.games || [])}>
+        <ArticleCard
+          title={creature.data.title}
+          description={creature.data.description}
+          href={`/creatures/${creature.slug}`}
+          image={creature.data.image}
+          games={creature.data.games}
+        />
+      </div>
     ))}
   </div>
 
@@ -34,9 +40,7 @@ const sortedCreatures = creatures.sort((a, b) => a.data.title.localeCompare(b.da
 
 <style>
   .category-header {
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
-    border-bottom: 2px solid var(--color-pip-green);
+    margin-bottom: var(--spacing-lg);
   }
 
   .category-header p {
@@ -50,9 +54,58 @@ const sortedCreatures = creatures.sort((a, b) => a.data.title.localeCompare(b.da
     gap: var(--spacing-lg);
   }
 
-  .empty-state {
+  .article-wrapper {
+    display: block;
+  }
+
+  .article-wrapper.hidden {
+    display: none;
+  }
+
+  .empty-state,
+  .no-results {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+    grid-column: 1 / -1;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gameSelect = document.getElementById('game-filter') as HTMLSelectElement;
+    const articlesGrid = document.getElementById('articles-grid');
+    const articles = articlesGrid?.querySelectorAll('.article-wrapper');
+
+    if (!gameSelect || !articles) return;
+
+    gameSelect.addEventListener('change', () => {
+      const selectedGame = gameSelect.value;
+
+      articles.forEach(article => {
+        const wrapper = article as HTMLElement;
+        const games = JSON.parse(wrapper.dataset.games || '[]');
+
+        if (selectedGame === 'all' || games.includes(selectedGame)) {
+          wrapper.classList.remove('hidden');
+        } else {
+          wrapper.classList.add('hidden');
+        }
+      });
+
+      const visibleArticles = articlesGrid?.querySelectorAll('.article-wrapper:not(.hidden)');
+      const existingNoResults = articlesGrid?.querySelector('.no-results');
+
+      if (visibleArticles?.length === 0) {
+        if (!existingNoResults) {
+          const noResults = document.createElement('div');
+          noResults.className = 'no-results';
+          noResults.textContent = 'No articles found for this game.';
+          articlesGrid?.appendChild(noResults);
+        }
+      } else {
+        existingNoResults?.remove();
+      }
+    });
+  });
+</script>
