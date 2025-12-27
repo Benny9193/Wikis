@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Get all collections
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+  const factions = await getCollection('factions', ({ data }) => !data.draft);
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+  const armor = await getCollection('armor', ({ data }) => !data.draft);
+  const items = await getCollection('items', ({ data }) => !data.draft);
+  const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+  const quests = await getCollection('quests', ({ data }) => !data.draft);
+  const lore = await getCollection('lore', ({ data }) => !data.draft);
+  const perks = await getCollection('perks', ({ data }) => !data.draft);
+
+  // Create entries with category info
+  const allEntries = [
+    ...characters.map(e => ({ ...e, category: 'characters' })),
+    ...factions.map(e => ({ ...e, category: 'factions' })),
+    ...locations.map(e => ({ ...e, category: 'locations' })),
+    ...weapons.map(e => ({ ...e, category: 'weapons' })),
+    ...armor.map(e => ({ ...e, category: 'armor' })),
+    ...items.map(e => ({ ...e, category: 'items' })),
+    ...creatures.map(e => ({ ...e, category: 'creatures' })),
+    ...quests.map(e => ({ ...e, category: 'quests' })),
+    ...lore.map(e => ({ ...e, category: 'lore' })),
+    ...perks.map(e => ({ ...e, category: 'perks' })),
+  ];
+
+  // Get all unique tags
+  const allTags = new Set<string>();
+  allEntries.forEach(entry => {
+    const tags = entry.data.tags || [];
+    tags.forEach((tag: string) => allTags.add(tag));
+  });
+
+  // Generate paths for each tag
+  return Array.from(allTags).map(tag => {
+    const taggedEntries = allEntries.filter(entry =>
+      (entry.data.tags || []).includes(tag)
+    );
+
+    return {
+      params: { tag },
+      props: {
+        tag,
+        entries: taggedEntries.map(e => ({
+          title: e.data.title,
+          description: e.data.description,
+          slug: e.slug,
+          category: e.category,
+          image: e.data.image,
+          games: e.data.games,
+        })),
+      },
+    };
+  });
+}
+
+interface Entry {
+  title: string;
+  description: string;
+  slug: string;
+  category: string;
+  image?: string;
+  games?: string[];
+}
+
+const { tag, entries } = Astro.props as { tag: string; entries: Entry[] };
+
+// Group entries by category
+const groupedEntries = entries.reduce((acc, entry) => {
+  if (!acc[entry.category]) {
+    acc[entry.category] = [];
+  }
+  acc[entry.category].push(entry);
+  return acc;
+}, {} as Record<string, Entry[]>);
+
+const categoryLabels: Record<string, string> = {
+  characters: 'Characters',
+  factions: 'Factions',
+  locations: 'Locations',
+  weapons: 'Weapons',
+  armor: 'Armor',
+  items: 'Items',
+  creatures: 'Creatures',
+  quests: 'Quests',
+  lore: 'Lore',
+  perks: 'Perks',
+};
+---
+
+<BaseLayout title={`Tag: ${tag}`} description={`Browse all articles tagged with "${tag}"`}>
+  <div class="tag-page">
+    <div class="page-header">
+      <a href="/tags" class="back-link">&larr; All Tags</a>
+      <h1>
+        <span class="tag-label">Tag:</span>
+        <span class="tag-name">{tag}</span>
+      </h1>
+      <p>{entries.length} article{entries.length !== 1 ? 's' : ''} tagged with "{tag}"</p>
+    </div>
+
+    {Object.entries(groupedEntries).map(([category, categoryEntries]) => (
+      <section class="category-section">
+        <h2>{categoryLabels[category] || category}</h2>
+        <div class="article-grid">
+          {categoryEntries.map(entry => (
+            <ArticleCard
+              title={entry.title}
+              description={entry.description}
+              href={`/${entry.category}/${entry.slug}`}
+              image={entry.image}
+              games={entry.games}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-page {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-pip-green);
+    margin-bottom: var(--spacing-md);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--color-pip-amber);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .tag-label {
+    color: var(--color-text-muted);
+    font-weight: normal;
+  }
+
+  .tag-name {
+    color: var(--color-pip-green);
+    background: var(--color-bg-darker);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    border: 1px solid var(--color-pip-green);
+  }
+
+  .page-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .category-section {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .category-section h2 {
+    color: var(--color-pip-amber);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+</style>
