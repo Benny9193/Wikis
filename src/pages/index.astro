@@ -10,6 +10,10 @@ const locations = await getCollection('locations', ({ data }) => !data.draft);
 const weapons = await getCollection('weapons', ({ data }) => !data.draft);
 const quests = await getCollection('quests', ({ data }) => !data.draft);
 const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+const armor = await getCollection('armor', ({ data }) => !data.draft);
+const items = await getCollection('items', ({ data }) => !data.draft);
+const lore = await getCollection('lore', ({ data }) => !data.draft);
+const perks = await getCollection('perks', ({ data }) => !data.draft);
 
 // Build featured articles from across all categories
 interface FeaturedArticle {
@@ -64,6 +68,73 @@ const featuredArticles: FeaturedArticle[] = [
 // Get featured/recent content
 const featuredCharacters = characters.slice(0, 4);
 const featuredFactions = factions.slice(0, 4);
+
+// Build "Recently Updated" - pulling latest from each category
+// In a real scenario, you'd sort by lastUpdated date
+interface RecentArticle {
+  title: string;
+  description: string;
+  slug: string;
+  category: string;
+  categoryLabel: string;
+  image?: string;
+}
+
+const recentArticles: RecentArticle[] = [
+  ...quests.slice(-1).map(q => ({
+    title: q.data.title,
+    description: q.data.description,
+    slug: q.slug,
+    category: 'quests',
+    categoryLabel: 'Quest',
+    image: q.data.image,
+  })),
+  ...armor.slice(-1).map(a => ({
+    title: a.data.title,
+    description: a.data.description,
+    slug: a.slug,
+    category: 'armor',
+    categoryLabel: 'Armor',
+    image: a.data.image,
+  })),
+  ...items.slice(-1).map(i => ({
+    title: i.data.title,
+    description: i.data.description,
+    slug: i.slug,
+    category: 'items',
+    categoryLabel: 'Item',
+    image: i.data.image,
+  })),
+  ...lore.slice(-1).map(l => ({
+    title: l.data.title,
+    description: l.data.description,
+    slug: l.slug,
+    category: 'lore',
+    categoryLabel: 'Lore',
+    image: l.data.image,
+  })),
+  ...perks.slice(-1).map(p => ({
+    title: p.data.title,
+    description: p.data.description,
+    slug: p.slug,
+    category: 'perks',
+    categoryLabel: 'Perk',
+    image: p.data.image,
+  })),
+  ...factions.slice(-1).map(f => ({
+    title: f.data.title,
+    description: f.data.description,
+    slug: f.slug,
+    category: 'factions',
+    categoryLabel: 'Faction',
+    image: f.data.image,
+  })),
+].slice(0, 6);
+
+// Count total articles
+const totalArticles = characters.length + factions.length + locations.length +
+  weapons.length + armor.length + items.length + creatures.length +
+  quests.length + lore.length + perks.length;
 ---
 
 <BaseLayout title="Home" description="Welcome to the Fallout Wiki - Your comprehensive guide to the post-apocalyptic wasteland">
@@ -77,12 +148,12 @@ const featuredFactions = factions.slice(0, 4);
           <span class="stat-label">Games</span>
         </div>
         <div class="stat">
-          <span class="stat-number">{characters.length}</span>
-          <span class="stat-label">Characters</span>
+          <span class="stat-number">{totalArticles}</span>
+          <span class="stat-label">Articles</span>
         </div>
         <div class="stat">
-          <span class="stat-number">{factions.length}</span>
-          <span class="stat-label">Factions</span>
+          <span class="stat-number">11</span>
+          <span class="stat-label">Categories</span>
         </div>
       </div>
     </div>
@@ -170,6 +241,20 @@ const featuredFactions = factions.slice(0, 4);
                 </div>
               )}
             </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {recentArticles.length > 0 && (
+    <section class="recent-updates">
+      <h2>Recently Updated</h2>
+      <div class="recent-grid">
+        {recentArticles.map(article => (
+          <a href={`/${article.category}/${article.slug}`} class="recent-card">
+            <span class="recent-category">{article.categoryLabel}</span>
+            <span class="recent-title">{article.title}</span>
           </a>
         ))}
       </div>
@@ -301,6 +386,54 @@ const featuredFactions = factions.slice(0, 4);
     color: var(--color-text-muted);
     font-size: 0.875rem;
     margin: 0;
+  }
+
+  .recent-updates {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .recent-updates h2 {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .recent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .recent-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-pip-green);
+    padding: var(--spacing-md);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .recent-card:hover {
+    border-color: var(--color-pip-green);
+    background: rgba(24, 255, 109, 0.05);
+    text-decoration: none;
+  }
+
+  .recent-category {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--color-pip-green);
+    margin-bottom: var(--spacing-xs);
+    font-weight: bold;
+  }
+
+  .recent-title {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .recent-card:hover .recent-title {
+    color: var(--color-pip-amber);
   }
 
   .featured {

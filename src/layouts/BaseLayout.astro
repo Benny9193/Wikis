@@ -48,6 +48,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <li><a href="/quests">Quests</a></li>
           <li><a href="/lore">Lore</a></li>
           <li><a href="/perks">Perks</a></li>
+          <li><a href="/tags" class="nav-tags">Tags</a></li>
         </ul>
         <div class="search-box">
           <form action="/search" method="get">
@@ -196,6 +197,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   .nav-links a:hover {
     background-color: var(--color-vault-blue);
     text-decoration: none;
+  }
+
+  .nav-links .nav-tags {
+    border: 1px solid var(--color-pip-green);
+    color: var(--color-pip-green);
+  }
+
+  .nav-links .nav-tags:hover {
+    background-color: var(--color-pip-green);
+    color: var(--color-bg-dark);
   }
 
   .search-box {

@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import InfoBox from '../components/InfoBox.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 
 interface RelatedArticle {
   title: string;
@@ -23,21 +24,46 @@ interface Props {
 }
 
 const { title, description, image, games = [], tags = [], infobox, category, relatedArticles = [] } = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+  characters: 'Characters',
+  factions: 'Factions',
+  locations: 'Locations',
+  weapons: 'Weapons',
+  armor: 'Armor',
+  items: 'Items',
+  creatures: 'Creatures',
+  quests: 'Quests',
+  lore: 'Lore',
+  perks: 'Perks',
+  games: 'Games',
+};
+
+const gameLabels: Record<string, string> = {
+  'fallout1': 'Fallout',
+  'fallout2': 'Fallout 2',
+  'fallout3': 'Fallout 3',
+  'fallout-new-vegas': 'New Vegas',
+  'fallout4': 'Fallout 4',
+  'fallout76': 'Fallout 76',
+  'fallout-tactics': 'Tactics',
+  'fallout-shelter': 'Shelter',
+  'fallout-brotherhood': 'Brotherhood',
+};
 ---
 
 <BaseLayout title={title} description={description} image={image}>
   <article class="wiki-article">
     <div class="article-header">
-      <nav class="breadcrumbs">
-        <a href="/">Home</a> &gt;
-        <a href={`/${category}`}>{category.charAt(0).toUpperCase() + category.slice(1)}</a> &gt;
-        <span>{title}</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: categoryLabels[category] || category, href: `/${category}` },
+        { label: title }
+      ]} />
       <h1>{title}</h1>
       {games.length > 0 && (
         <div class="game-tags">
           {games.map(game => (
-            <span class="game-tag">{game}</span>
+            <a href={`/games/${game}`} class="game-tag">{gameLabels[game] || game}</a>
           ))}
         </div>
       )}
@@ -83,20 +109,6 @@ const { title, description, image, games = [], tags = [], infobox, category, rel
     border-bottom: 2px solid var(--color-pip-green);
   }
 
-  .breadcrumbs {
-    font-size: 0.875rem;
-    margin-bottom: var(--spacing-md);
-    color: var(--color-text-muted);
-  }
-
-  .breadcrumbs a {
-    color: var(--color-pip-green);
-  }
-
-  .breadcrumbs span {
-    color: var(--color-text);
-  }
-
   .game-tags {
     display: flex;
     gap: var(--spacing-sm);
@@ -112,6 +124,13 @@ const { title, description, image, games = [], tags = [], infobox, category, rel
     font-size: 0.75rem;
     font-weight: bold;
     text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+
+  .game-tag:hover {
+    background: var(--color-pip-amber);
+    text-decoration: none;
   }
 
   .article-layout {
