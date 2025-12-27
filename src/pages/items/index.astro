@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const items = await getCollection('items', ({ data }) => !data.draft);
+const sortedItems = items.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Items" description="Consumables, chems, collectibles, and miscellaneous items">
+  <div class="category-header">
+    <h1>Items</h1>
+    <p>Stimpaks, Nuka-Cola, chems, and other essential supplies for wasteland survival.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedItems.map(item => (
+      <ArticleCard
+        title={item.data.title}
+        description={item.data.description}
+        href={`/items/${item.slug}`}
+        image={item.data.image}
+        games={item.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedItems.length === 0 && (
+    <div class="empty-state">
+      <p>No items found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

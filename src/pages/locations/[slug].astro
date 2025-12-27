@@ -1,0 +1,41 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const locations = await getCollection('locations');
+  return locations.map(location => ({
+    params: { slug: location.slug },
+    props: { location },
+  }));
+}
+
+const { location } = Astro.props;
+const { Content } = await location.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Type': location.data.type.charAt(0).toUpperCase() + location.data.type.slice(1),
+};
+
+if (location.data.region) {
+  infobox['Region'] = location.data.region;
+}
+
+infobox['Map Marker'] = location.data.map_marker ? 'Yes' : 'No';
+
+if (location.data.quests?.length > 0) {
+  infobox['Related Quests'] = location.data.quests;
+}
+---
+
+<WikiArticle
+  title={location.data.title}
+  description={location.data.description}
+  image={location.data.image}
+  games={location.data.games}
+  tags={location.data.tags}
+  infobox={infobox}
+  category="locations"
+>
+  <Content />
+</WikiArticle>

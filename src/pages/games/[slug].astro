@@ -1,0 +1,32 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  return games.map(game => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+const { Content } = await game.render();
+
+const infobox = {
+  'Release Date': game.data.releaseDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+  'Developer': game.data.developer,
+  'Publisher': game.data.publisher,
+  'Platforms': game.data.platforms,
+};
+---
+
+<WikiArticle
+  title={game.data.title}
+  description={game.data.description}
+  image={game.data.image}
+  infobox={infobox}
+  category="games"
+>
+  <Content />
+</WikiArticle>

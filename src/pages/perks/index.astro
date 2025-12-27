@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const perks = await getCollection('perks', ({ data }) => !data.draft);
+const sortedPerks = perks.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Perks" description="Perks, traits, and abilities for character builds">
+  <div class="category-header">
+    <h1>Perks & Traits</h1>
+    <p>Special abilities, traits, and perks to customize your wasteland survivor.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedPerks.map(perk => (
+      <ArticleCard
+        title={perk.data.title}
+        description={perk.data.description}
+        href={`/perks/${perk.slug}`}
+        image={perk.data.image}
+        games={perk.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedPerks.length === 0 && (
+    <div class="empty-state">
+      <p>No perks found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

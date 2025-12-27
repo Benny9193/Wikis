@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const locations = await getCollection('locations', ({ data }) => !data.draft);
+const sortedLocations = locations.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Locations" description="Vaults, cities, settlements, and landmarks of the wasteland">
+  <div class="category-header">
+    <h1>Locations</h1>
+    <p>Explore the vaults, cities, ruins, and landmarks scattered across the wasteland.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedLocations.map(location => (
+      <ArticleCard
+        title={location.data.title}
+        description={location.data.description}
+        href={`/locations/${location.slug}`}
+        image={location.data.image}
+        games={location.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedLocations.length === 0 && (
+    <div class="empty-state">
+      <p>No locations found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

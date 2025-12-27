@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const armor = await getCollection('armor', ({ data }) => !data.draft);
+const sortedArmor = armor.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Armor" description="Power Armor, combat gear, and protective equipment">
+  <div class="category-header">
+    <h1>Armor</h1>
+    <p>Power Armor, combat armor, and protective gear for surviving the wasteland.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedArmor.map(item => (
+      <ArticleCard
+        title={item.data.title}
+        description={item.data.description}
+        href={`/armor/${item.slug}`}
+        image={item.data.image}
+        games={item.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedArmor.length === 0 && (
+    <div class="empty-state">
+      <p>No armor found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

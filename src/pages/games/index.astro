@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const games = await getCollection('games', ({ data }) => !data.draft);
+const sortedGames = games.sort((a, b) =>
+  new Date(b.data.releaseDate).getTime() - new Date(a.data.releaseDate).getTime()
+);
+---
+
+<BaseLayout title="Games" description="All Fallout games from the classic originals to the modern era">
+  <div class="category-header">
+    <h1>Fallout Games</h1>
+    <p>From the original 1997 classic to the latest entries, explore the complete Fallout series.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedGames.map(game => (
+      <ArticleCard
+        title={game.data.title}
+        description={game.data.description}
+        href={`/games/${game.slug}`}
+        image={game.data.image}
+      />
+    ))}
+  </div>
+
+  {sortedGames.length === 0 && (
+    <div class="empty-state">
+      <p>No games found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

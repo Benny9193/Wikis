@@ -1,0 +1,126 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  image?: string;
+  games?: string[];
+}
+
+const { title, description, href, image, games = [] } = Astro.props;
+---
+
+<a href={href} class="article-card">
+  {image ? (
+    <div class="card-image">
+      <img src={image} alt={title} />
+    </div>
+  ) : (
+    <div class="card-image placeholder">
+      <span class="placeholder-icon">☢</span>
+    </div>
+  )}
+
+  <div class="card-content">
+    <h3 class="card-title">{title}</h3>
+    <p class="card-description">{description}</p>
+
+    {games.length > 0 && (
+      <div class="card-games">
+        {games.slice(0, 3).map(game => (
+          <span class="game-badge">{game}</span>
+        ))}
+        {games.length > 3 && (
+          <span class="game-badge more">+{games.length - 3}</span>
+        )}
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+
+  .article-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-pip-green);
+    text-decoration: none;
+  }
+
+  .card-image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-bg-dark);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-image.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-vault-blue), var(--color-bg-darker));
+  }
+
+  .placeholder-icon {
+    font-size: 3rem;
+    opacity: 0.5;
+  }
+
+  .card-content {
+    padding: var(--spacing-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    color: var(--color-pip-amber);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.125rem;
+  }
+
+  .card-description {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-games {
+    display: flex;
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-sm);
+  }
+
+  .game-badge {
+    background: var(--color-wasteland-brown);
+    color: var(--color-text);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+
+  .game-badge.more {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+  }
+</style>

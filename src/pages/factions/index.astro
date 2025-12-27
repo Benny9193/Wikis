@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const factions = await getCollection('factions', ({ data }) => !data.draft);
+const sortedFactions = factions.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Factions" description="Organizations, groups, and powers vying for control of the wasteland">
+  <div class="category-header">
+    <h1>Factions</h1>
+    <p>From the Brotherhood of Steel to Caesar's Legion, discover the groups shaping the wasteland.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedFactions.map(faction => (
+      <ArticleCard
+        title={faction.data.title}
+        description={faction.data.description}
+        href={`/factions/${faction.slug}`}
+        image={faction.data.image}
+        games={faction.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedFactions.length === 0 && (
+    <div class="empty-state">
+      <p>No factions found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

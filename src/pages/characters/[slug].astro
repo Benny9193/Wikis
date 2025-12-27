@@ -1,0 +1,40 @@
+---
+import WikiArticle from '../../layouts/WikiArticle.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const characters = await getCollection('characters');
+  return characters.map(character => ({
+    params: { slug: character.slug },
+    props: { character },
+  }));
+}
+
+const { character } = Astro.props;
+const { Content } = await character.render();
+
+const infobox: Record<string, string | string[]> = {
+  'Race': character.data.race.charAt(0).toUpperCase() + character.data.race.slice(1).replace('-', ' '),
+  'Status': character.data.status.charAt(0).toUpperCase() + character.data.status.slice(1),
+};
+
+if (character.data.affiliation?.length > 0) {
+  infobox['Affiliation'] = character.data.affiliation;
+}
+
+if (character.data.voice_actor) {
+  infobox['Voice Actor'] = character.data.voice_actor;
+}
+---
+
+<WikiArticle
+  title={character.data.title}
+  description={character.data.description}
+  image={character.data.image}
+  games={character.data.games}
+  tags={character.data.tags}
+  infobox={infobox}
+  category="characters"
+>
+  <Content />
+</WikiArticle>

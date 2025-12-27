@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const quests = await getCollection('quests', ({ data }) => !data.draft);
+const sortedQuests = quests.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Quests" description="Main quests, side missions, and faction storylines">
+  <div class="category-header">
+    <h1>Quests</h1>
+    <p>Main storylines, side missions, companion quests, and faction adventures.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedQuests.map(quest => (
+      <ArticleCard
+        title={quest.data.title}
+        description={quest.data.description}
+        href={`/quests/${quest.slug}`}
+        image={quest.data.image}
+        games={quest.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedQuests.length === 0 && (
+    <div class="empty-state">
+      <p>No quests found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>

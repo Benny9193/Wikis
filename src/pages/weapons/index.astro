@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+const sortedWeapons = weapons.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<BaseLayout title="Weapons" description="Firearms, energy weapons, melee weapons, and explosives">
+  <div class="category-header">
+    <h1>Weapons</h1>
+    <p>From pipe pistols to plasma rifles, discover the arsenal of the wasteland.</p>
+  </div>
+
+  <div class="article-grid">
+    {sortedWeapons.map(weapon => (
+      <ArticleCard
+        title={weapon.data.title}
+        description={weapon.data.description}
+        href={`/weapons/${weapon.slug}`}
+        image={weapon.data.image}
+        games={weapon.data.games}
+      />
+    ))}
+  </div>
+
+  {sortedWeapons.length === 0 && (
+    <div class="empty-state">
+      <p>No weapons found. Check back soon!</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>
