@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
+import SortFilter from '../../components/SortFilter.astro';
 import { getCollection } from 'astro:content';
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -29,7 +30,10 @@ const allGames = [...new Set(allCharacters.flatMap(c => c.data.games || []))].so
     <span class="article-count">{page.total} articles</span>
   </div>
 
-  <GameFilter games={allGames} />
+  <div class="filters-row">
+    <GameFilter games={allGames} />
+    <SortFilter />
+  </div>
 
   <div class="article-grid" id="articles-grid">
     {page.data.map(character => (
@@ -76,6 +80,16 @@ const allGames = [...new Set(allCharacters.flatMap(c => c.data.games || []))].so
     border-radius: 4px;
     font-size: 0.875rem;
     margin-top: var(--spacing-sm);
+  }
+
+  .filters-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .article-grid {

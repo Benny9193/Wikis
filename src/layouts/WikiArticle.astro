@@ -4,12 +4,21 @@ import TableOfContents from '../components/TableOfContents.astro';
 import InfoBox from '../components/InfoBox.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
+import ArticleNavigation from '../components/ArticleNavigation.astro';
+import FavoriteButton from '../components/FavoriteButton.astro';
+
+const currentUrl = Astro.url.pathname;
 
 interface RelatedArticle {
   title: string;
   url: string;
   category: string;
   description?: string;
+}
+
+interface NavArticle {
+  title: string;
+  slug: string;
 }
 
 interface Props {
@@ -21,9 +30,11 @@ interface Props {
   infobox?: Record<string, string | string[]>;
   category: string;
   relatedArticles?: RelatedArticle[];
+  previousArticle?: NavArticle | null;
+  nextArticle?: NavArticle | null;
 }
 
-const { title, description, image, games = [], tags = [], infobox, category, relatedArticles = [] } = Astro.props;
+const { title, description, image, games = [], tags = [], infobox, category, relatedArticles = [], previousArticle, nextArticle } = Astro.props;
 
 const categoryLabels: Record<string, string> = {
   characters: 'Characters',
@@ -59,7 +70,10 @@ const gameLabels: Record<string, string> = {
         { label: categoryLabels[category] || category, href: `/${category}` },
         { label: title }
       ]} />
-      <h1>{title}</h1>
+      <div class="title-row">
+        <h1>{title}</h1>
+        <FavoriteButton articleUrl={currentUrl} articleTitle={title} />
+      </div>
       {games.length > 0 && (
         <div class="game-tags">
           {games.map(game => (
@@ -90,6 +104,12 @@ const gameLabels: Record<string, string> = {
         )}
 
         <RelatedArticles articles={relatedArticles} />
+
+        <ArticleNavigation
+          previous={previousArticle}
+          next={nextArticle}
+          category={category}
+        />
       </div>
     </div>
   </article>
@@ -107,6 +127,18 @@ const gameLabels: Record<string, string> = {
     background: linear-gradient(135deg, var(--color-vault-blue), var(--color-bg-darker));
     padding: var(--spacing-lg);
     border-bottom: 2px solid var(--color-pip-green);
+  }
+
+  .title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  .title-row h1 {
+    margin: 0;
   }
 
   .game-tags {

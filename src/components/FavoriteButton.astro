@@ -1,0 +1,123 @@
+---
+interface Props {
+  articleUrl: string;
+  articleTitle: string;
+}
+
+const { articleUrl, articleTitle } = Astro.props;
+---
+
+<button
+  class="favorite-btn"
+  data-url={articleUrl}
+  data-title={articleTitle}
+  aria-label="Add to favorites"
+  title="Add to favorites"
+>
+  <span class="favorite-icon">☆</span>
+  <span class="favorite-text">Favorite</span>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.favorite-btn');
+
+    // Get favorites from localStorage
+    const getFavorites = (): { url: string; title: string }[] => {
+      try {
+        return JSON.parse(localStorage.getItem('fallout-wiki-favorites') || '[]');
+      } catch {
+        return [];
+      }
+    };
+
+    // Save favorites to localStorage
+    const saveFavorites = (favorites: { url: string; title: string }[]) => {
+      localStorage.setItem('fallout-wiki-favorites', JSON.stringify(favorites));
+    };
+
+    // Check if article is favorited
+    const isFavorited = (url: string): boolean => {
+      const favorites = getFavorites();
+      return favorites.some(f => f.url === url);
+    };
+
+    // Update button state
+    const updateButtonState = (btn: HTMLButtonElement, favorited: boolean) => {
+      const icon = btn.querySelector('.favorite-icon');
+      const text = btn.querySelector('.favorite-text');
+
+      if (favorited) {
+        btn.classList.add('favorited');
+        btn.setAttribute('aria-label', 'Remove from favorites');
+        btn.setAttribute('title', 'Remove from favorites');
+        if (icon) icon.textContent = '★';
+        if (text) text.textContent = 'Favorited';
+      } else {
+        btn.classList.remove('favorited');
+        btn.setAttribute('aria-label', 'Add to favorites');
+        btn.setAttribute('title', 'Add to favorites');
+        if (icon) icon.textContent = '☆';
+        if (text) text.textContent = 'Favorite';
+      }
+    };
+
+    // Initialize buttons
+    buttons.forEach(button => {
+      const btn = button as HTMLButtonElement;
+      const url = btn.dataset.url || '';
+
+      // Set initial state
+      updateButtonState(btn, isFavorited(url));
+
+      // Handle click
+      btn.addEventListener('click', () => {
+        const favorites = getFavorites();
+        const title = btn.dataset.title || '';
+
+        if (isFavorited(url)) {
+          // Remove from favorites
+          const newFavorites = favorites.filter(f => f.url !== url);
+          saveFavorites(newFavorites);
+          updateButtonState(btn, false);
+        } else {
+          // Add to favorites
+          favorites.push({ url, title });
+          saveFavorites(favorites);
+          updateButtonState(btn, true);
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .favorite-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .favorite-btn:hover {
+    border-color: var(--color-pip-amber);
+    color: var(--color-pip-amber);
+  }
+
+  .favorite-btn.favorited {
+    border-color: var(--color-pip-amber);
+    background: rgba(255, 176, 0, 0.1);
+    color: var(--color-pip-amber);
+  }
+
+  .favorite-icon {
+    font-size: 1rem;
+  }
+</style>

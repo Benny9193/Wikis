@@ -1,0 +1,145 @@
+---
+interface Article {
+  title: string;
+  slug: string;
+}
+
+interface Props {
+  previous?: Article;
+  next?: Article;
+  category: string;
+}
+
+const { previous, next, category } = Astro.props;
+---
+
+{(previous || next) && (
+  <nav class="article-navigation" aria-label="Article navigation">
+    <div class="nav-item prev">
+      {previous ? (
+        <a href={`/${category}/${previous.slug}`}>
+          <span class="nav-direction">&larr; Previous</span>
+          <span class="nav-title">{previous.title}</span>
+        </a>
+      ) : (
+        <span class="nav-placeholder"></span>
+      )}
+    </div>
+
+    <a href={`/${category}`} class="nav-back">
+      View All
+    </a>
+
+    <div class="nav-item next">
+      {next ? (
+        <a href={`/${category}/${next.slug}`}>
+          <span class="nav-direction">Next &rarr;</span>
+          <span class="nav-title">{next.title}</span>
+        </a>
+      ) : (
+        <span class="nav-placeholder"></span>
+      )}
+    </div>
+  </nav>
+)}
+
+<style>
+  .article-navigation {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid var(--color-pip-green);
+  }
+
+  .nav-item {
+    display: flex;
+  }
+
+  .nav-item.prev {
+    justify-content: flex-start;
+  }
+
+  .nav-item.next {
+    justify-content: flex-end;
+  }
+
+  .nav-item a {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    max-width: 250px;
+  }
+
+  .nav-item a:hover {
+    border-color: var(--color-pip-green);
+    background: rgba(24, 255, 109, 0.05);
+    text-decoration: none;
+  }
+
+  .nav-direction {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-pip-green);
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .nav-title {
+    color: var(--color-text);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav-item a:hover .nav-title {
+    color: var(--color-pip-amber);
+  }
+
+  .nav-back {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-vault-blue);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .nav-back:hover {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+    text-decoration: none;
+  }
+
+  .nav-placeholder {
+    display: block;
+  }
+
+  @media (max-width: 700px) {
+    .article-navigation {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .nav-back {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      justify-self: center;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .nav-item a {
+      max-width: none;
+    }
+  }
+</style>

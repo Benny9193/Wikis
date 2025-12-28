@@ -9,7 +9,12 @@ export async function getStaticPaths() {
   const locations = await getCollection('locations', ({ data }) => !data.draft);
   const quests = await getCollection('quests', ({ data }) => !data.draft);
 
+  const sortedFactions = [...factions].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
   return factions.map(faction => {
+    const currentIndex = sortedFactions.findIndex(f => f.slug === faction.slug);
+    const previousArticle = currentIndex > 0 ? sortedFactions[currentIndex - 1] : null;
+    const nextArticle = currentIndex < sortedFactions.length - 1 ? sortedFactions[currentIndex + 1] : null;
     const factionGames = faction.data.games || [];
 
     const relatedFactions = allFactions
@@ -62,12 +67,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: faction.slug },
-      props: { faction, relatedArticles },
+      props: {
+        faction,
+        relatedArticles,
+        previousArticle: previousArticle ? { title: previousArticle.data.title, slug: previousArticle.slug } : null,
+        nextArticle: nextArticle ? { title: nextArticle.data.title, slug: nextArticle.slug } : null,
+      },
     };
   });
 }
 
-const { faction, relatedArticles } = Astro.props;
+const { faction, relatedArticles, previousArticle, nextArticle } = Astro.props;
 const { Content } = await faction.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -100,6 +110,8 @@ if (faction.data.enemies?.length > 0) {
   infobox={infobox}
   category="factions"
   relatedArticles={relatedArticles}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
 >
   <Content />
 </WikiArticle>

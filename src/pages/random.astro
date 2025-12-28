@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+
+// Fetch all articles from all collections
+const characters = await getCollection('characters', ({ data }) => !data.draft);
+const factions = await getCollection('factions', ({ data }) => !data.draft);
+const locations = await getCollection('locations', ({ data }) => !data.draft);
+const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+const armor = await getCollection('armor', ({ data }) => !data.draft);
+const items = await getCollection('items', ({ data }) => !data.draft);
+const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+const quests = await getCollection('quests', ({ data }) => !data.draft);
+const lore = await getCollection('lore', ({ data }) => !data.draft);
+const perks = await getCollection('perks', ({ data }) => !data.draft);
+
+// Build list of all article URLs
+const allArticles = [
+  ...characters.map(c => `/characters/${c.slug}`),
+  ...factions.map(f => `/factions/${f.slug}`),
+  ...locations.map(l => `/locations/${l.slug}`),
+  ...weapons.map(w => `/weapons/${w.slug}`),
+  ...armor.map(a => `/armor/${a.slug}`),
+  ...items.map(i => `/items/${i.slug}`),
+  ...creatures.map(c => `/creatures/${c.slug}`),
+  ...quests.map(q => `/quests/${q.slug}`),
+  ...lore.map(l => `/lore/${l.slug}`),
+  ...perks.map(p => `/perks/${p.slug}`),
+];
+
+// For static generation, we'll use client-side redirect
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Article | Fallout Wiki</title>
+    <style>
+      body {
+        background: #1a1a1a;
+        color: #e0e0e0;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .loading {
+        text-align: center;
+      }
+      .loading-icon {
+        font-size: 3rem;
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      .loading-text {
+        color: #18ff6d;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <div class="loading-icon">☢</div>
+      <p class="loading-text">Finding a random article...</p>
+    </div>
+
+    <script define:vars={{ allArticles }}>
+      // Pick a random article and redirect
+      const randomIndex = Math.floor(Math.random() * allArticles.length);
+      const randomUrl = allArticles[randomIndex];
+      window.location.href = randomUrl;
+    </script>
+  </body>
+</html>

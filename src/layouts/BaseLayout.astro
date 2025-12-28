@@ -1,4 +1,6 @@
 ---
+import SearchModal from '../components/SearchModal.astro';
+
 interface Props {
   title: string;
   description?: string;
@@ -49,12 +51,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           <li><a href="/lore">Lore</a></li>
           <li><a href="/perks">Perks</a></li>
           <li><a href="/tags" class="nav-tags">Tags</a></li>
+          <li><a href="/favorites" class="nav-favorites" title="Your Favorites">★</a></li>
+          <li><a href="/random" class="nav-random" title="Random Article">🎲</a></li>
         </ul>
-        <div class="search-box">
-          <form action="/search" method="get">
-            <input type="search" name="q" placeholder="Search the Wasteland..." />
-          </form>
-        </div>
+        <button class="search-trigger" onclick="window.openSearch()" type="button">
+          <span class="search-icon">🔍</span>
+          <span class="search-text">Search...</span>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
       </nav>
     </header>
 
@@ -71,6 +75,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         </p>
       </div>
     </footer>
+
+    <SearchModal />
   </body>
 </html>
 
@@ -209,21 +215,62 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     color: var(--color-bg-dark);
   }
 
-  .search-box {
-    margin-left: auto;
+  .nav-links .nav-favorites {
+    border: 1px solid var(--color-pip-amber);
+    color: var(--color-pip-amber);
+    font-size: 1rem;
   }
 
-  .search-box input {
+  .nav-links .nav-favorites:hover {
+    background-color: var(--color-pip-amber);
+    color: var(--color-bg-dark);
+  }
+
+  .nav-links .nav-random {
+    border: 1px solid var(--color-pip-green);
+    color: var(--color-pip-green);
+    font-size: 1rem;
+  }
+
+  .nav-links .nav-random:hover {
+    background-color: var(--color-pip-green);
+    color: var(--color-bg-dark);
+  }
+
+  .search-trigger {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
     background: var(--color-bg-dark);
     border: 1px solid var(--color-pip-green);
-    color: var(--color-text);
+    color: var(--color-text-muted);
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: 4px;
-    width: 250px;
+    cursor: pointer;
+    transition: all 0.2s;
   }
 
-  .search-box input::placeholder {
-    color: var(--color-text-muted);
+  .search-trigger:hover {
+    border-color: var(--color-pip-amber);
+    color: var(--color-text);
+  }
+
+  .search-icon {
+    font-size: 0.875rem;
+  }
+
+  .search-text {
+    font-size: 0.875rem;
+  }
+
+  .search-kbd {
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-family: inherit;
   }
 
   .site-footer {

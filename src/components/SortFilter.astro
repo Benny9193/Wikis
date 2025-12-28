@@ -1,0 +1,79 @@
+---
+interface Props {
+  defaultSort?: 'title' | 'newest';
+}
+
+const { defaultSort = 'title' } = Astro.props;
+---
+
+<div class="sort-filter">
+  <label for="sort-select">Sort by:</label>
+  <select id="sort-select" class="sort-select">
+    <option value="title" selected={defaultSort === 'title'}>A-Z</option>
+    <option value="title-desc">Z-A</option>
+  </select>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+    const articlesGrid = document.getElementById('articles-grid');
+
+    if (!sortSelect || !articlesGrid) return;
+
+    sortSelect.addEventListener('change', () => {
+      const sortValue = sortSelect.value;
+      const articles = Array.from(articlesGrid.querySelectorAll('.article-wrapper'));
+
+      articles.sort((a, b) => {
+        const titleA = (a as HTMLElement).querySelector('.article-card h3, .article-title')?.textContent || '';
+        const titleB = (b as HTMLElement).querySelector('.article-card h3, .article-title')?.textContent || '';
+
+        if (sortValue === 'title') {
+          return titleA.localeCompare(titleB);
+        } else if (sortValue === 'title-desc') {
+          return titleB.localeCompare(titleA);
+        }
+        return 0;
+      });
+
+      // Re-append sorted articles
+      articles.forEach(article => {
+        articlesGrid.appendChild(article);
+      });
+    });
+  });
+</script>
+
+<style>
+  .sort-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .sort-filter label {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .sort-select {
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+
+  .sort-select:focus {
+    outline: none;
+    border-color: var(--color-pip-green);
+  }
+
+  .sort-select option {
+    background: var(--color-bg-darker);
+    color: var(--color-text);
+  }
+</style>

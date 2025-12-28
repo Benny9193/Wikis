@@ -10,7 +10,14 @@ export async function getStaticPaths() {
   const factions = await getCollection('factions', ({ data }) => !data.draft);
   const weapons = await getCollection('weapons', ({ data }) => !data.draft);
 
+  // Sort alphabetically for prev/next navigation
+  const sortedCharacters = [...characters].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
   return characters.map(character => {
+    // Find current index in sorted list
+    const currentIndex = sortedCharacters.findIndex(c => c.slug === character.slug);
+    const previousArticle = currentIndex > 0 ? sortedCharacters[currentIndex - 1] : null;
+    const nextArticle = currentIndex < sortedCharacters.length - 1 ? sortedCharacters[currentIndex + 1] : null;
     // Find related articles by shared games or tags
     const charGames = character.data.games || [];
     const charTags = character.data.tags || [];
@@ -80,12 +87,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: character.slug },
-      props: { character, relatedArticles },
+      props: {
+        character,
+        relatedArticles,
+        previousArticle: previousArticle ? { title: previousArticle.data.title, slug: previousArticle.slug } : null,
+        nextArticle: nextArticle ? { title: nextArticle.data.title, slug: nextArticle.slug } : null,
+      },
     };
   });
 }
 
-const { character, relatedArticles } = Astro.props;
+const { character, relatedArticles, previousArticle, nextArticle } = Astro.props;
 const { Content } = await character.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -111,6 +123,8 @@ if (character.data.voice_actor) {
   infobox={infobox}
   category="characters"
   relatedArticles={relatedArticles}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
 >
   <Content />
 </WikiArticle>
