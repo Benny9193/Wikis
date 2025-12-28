@@ -1,5 +1,8 @@
 ---
-import WikiArticle from '../../layouts/WikiArticle.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InfoBox from '../../components/InfoBox.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,6 +15,19 @@ export async function getStaticPaths() {
 
 const { game } = Astro.props;
 const { Content } = await game.render();
+const gameSlug = game.slug;
+
+// Fetch all content that includes this game
+const characters = await getCollection('characters', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const factions = await getCollection('factions', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const locations = await getCollection('locations', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const weapons = await getCollection('weapons', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const armor = await getCollection('armor', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const items = await getCollection('items', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const creatures = await getCollection('creatures', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const quests = await getCollection('quests', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const lore = await getCollection('lore', ({ data }) => !data.draft && data.games?.includes(gameSlug));
+const perks = await getCollection('perks', ({ data }) => !data.draft && data.games?.includes(gameSlug));
 
 const infobox = {
   'Release Date': game.data.releaseDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
@@ -19,14 +35,256 @@ const infobox = {
   'Publisher': game.data.publisher,
   'Platforms': game.data.platforms,
 };
+
+interface ContentSection {
+  title: string;
+  category: string;
+  items: Array<{ slug: string; data: { title: string; description: string; image?: string } }>;
+}
+
+const contentSections: ContentSection[] = [
+  { title: 'Characters', category: 'characters', items: characters.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Factions', category: 'factions', items: factions.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Locations', category: 'locations', items: locations.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Weapons', category: 'weapons', items: weapons.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Armor', category: 'armor', items: armor.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Items', category: 'items', items: items.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Creatures', category: 'creatures', items: creatures.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Quests', category: 'quests', items: quests.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Lore', category: 'lore', items: lore.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+  { title: 'Perks', category: 'perks', items: perks.sort((a, b) => a.data.title.localeCompare(b.data.title)) },
+].filter(section => section.items.length > 0);
+
+const totalArticles = characters.length + factions.length + locations.length + weapons.length +
+  armor.length + items.length + creatures.length + quests.length + lore.length + perks.length;
 ---
 
-<WikiArticle
-  title={game.data.title}
-  description={game.data.description}
-  image={game.data.image}
-  infobox={infobox}
-  category="games"
->
-  <Content />
-</WikiArticle>
+<BaseLayout title={game.data.title} description={game.data.description} image={game.data.image}>
+  <article class="game-page">
+    <div class="game-header">
+      <Breadcrumb items={[
+        { label: 'Games', href: '/games' },
+        { label: game.data.title }
+      ]} />
+      <h1>{game.data.title}</h1>
+      <p class="game-tagline">{game.data.description}</p>
+      <div class="game-stats">
+        <span class="stat">{totalArticles} articles</span>
+        <span class="stat">{contentSections.length} categories</span>
+      </div>
+    </div>
+
+    <div class="game-layout">
+      <aside class="game-sidebar">
+        <InfoBox title={game.data.title} image={game.data.image} data={infobox} />
+
+        {contentSections.length > 0 && (
+          <nav class="content-nav">
+            <h3>Content</h3>
+            <ul>
+              {contentSections.map(section => (
+                <li>
+                  <a href={`#${section.category}`}>
+                    {section.title}
+                    <span class="count">{section.items.length}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+      </aside>
+
+      <div class="game-content">
+        <section class="game-description">
+          <h2>Overview</h2>
+          <Content />
+        </section>
+
+        {contentSections.map(section => (
+          <section class="content-section" id={section.category}>
+            <h2>{section.title} <span class="section-count">({section.items.length})</span></h2>
+            <div class="article-grid">
+              {section.items.slice(0, 8).map(item => (
+                <ArticleCard
+                  title={item.data.title}
+                  description={item.data.description}
+                  href={`/${section.category}/${item.slug}`}
+                  image={item.data.image}
+                />
+              ))}
+            </div>
+            {section.items.length > 8 && (
+              <a href={`/${section.category}`} class="view-all">
+                View all {section.items.length} {section.title.toLowerCase()} &rarr;
+              </a>
+            )}
+          </section>
+        ))}
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .game-page {
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .game-header {
+    background: linear-gradient(135deg, var(--color-vault-blue), var(--color-bg-darker));
+    padding: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-pip-green);
+    text-align: center;
+  }
+
+  .game-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .game-tagline {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .game-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+  }
+
+  .game-stats .stat {
+    background: var(--color-pip-green);
+    color: var(--color-bg-dark);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+
+  .game-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  @media (max-width: 900px) {
+    .game-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .game-sidebar {
+      order: -1;
+    }
+  }
+
+  .game-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .content-nav {
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+  }
+
+  .content-nav h3 {
+    color: var(--color-pip-amber);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+
+  .content-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .content-nav li {
+    margin: 0;
+  }
+
+  .content-nav a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .content-nav a:hover {
+    background: rgba(24, 255, 109, 0.1);
+    text-decoration: none;
+  }
+
+  .content-nav .count {
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+
+  .game-content {
+    min-width: 0;
+  }
+
+  .game-description {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .game-description h2 {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .content-section {
+    margin-bottom: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .content-section h2 {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .section-count {
+    color: var(--color-text-muted);
+    font-weight: normal;
+    font-size: 1rem;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .view-all {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    color: var(--color-pip-green);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .view-all:hover {
+    color: var(--color-pip-amber);
+    text-decoration: none;
+  }
+</style>

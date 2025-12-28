@@ -1,41 +1,61 @@
 ---
+import type { GetStaticPaths, Page } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
-const armor = await getCollection('armor', ({ data }) => !data.draft);
-const sortedArmor = armor.sort((a, b) => a.data.title.localeCompare(b.data.title));
-const allGames = [...new Set(armor.flatMap(a => a.data.games || []))];
+export const getStaticPaths = (async ({ paginate }) => {
+  const locations = await getCollection('locations', ({ data }) => !data.draft);
+  const sortedLocations = locations.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedLocations, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allLocations = await getCollection('locations', ({ data }) => !data.draft);
+const allGames = [...new Set(allLocations.flatMap(l => l.data.games || []))].sort();
 ---
 
-<BaseLayout title="Armor" description="Power Armor, combat gear, and protective equipment">
+<BaseLayout title={`Locations${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Vaults, settlements, and landmarks of the wasteland">
   <div class="category-header">
-    <h1>Armor</h1>
-    <p>Power Armor, combat armor, and protective gear for surviving the wasteland.</p>
+    <h1>Locations</h1>
+    <p>Explore the vaults, settlements, and landmarks scattered across the wasteland.</p>
+    <span class="article-count">{page.total} articles</span>
   </div>
 
   <GameFilter games={allGames} />
 
   <div class="article-grid" id="articles-grid">
-    {sortedArmor.map(item => (
-      <div class="article-wrapper" data-games={JSON.stringify(item.data.games || [])}>
+    {page.data.map(location => (
+      <div class="article-wrapper" data-games={JSON.stringify(location.data.games || [])}>
         <ArticleCard
-          title={item.data.title}
-          description={item.data.description}
-          href={`/armor/${item.slug}`}
-          image={item.data.image}
-          games={item.data.games}
+          title={location.data.title}
+          description={location.data.description}
+          href={`/locations/${location.slug}`}
+          image={location.data.image}
+          games={location.data.games}
         />
       </div>
     ))}
   </div>
 
-  {sortedArmor.length === 0 && (
+  {page.data.length === 0 && (
     <div class="empty-state">
-      <p>No armor found. Check back soon!</p>
+      <p>No locations found. Check back soon!</p>
     </div>
   )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/locations"
+  />
 </BaseLayout>
 
 <style>
@@ -46,6 +66,16 @@ const allGames = [...new Set(armor.flatMap(a => a.data.games || []))];
   .category-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
   }
 
   .article-grid {
@@ -62,12 +92,17 @@ const allGames = [...new Set(armor.flatMap(a => a.data.games || []))];
     display: none;
   }
 
-  .empty-state,
-  .no-results {
+  .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+  }
+
+  .no-results {
     grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
   }
 </style>
 

@@ -1,24 +1,38 @@
 ---
+import type { GetStaticPaths, Page } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
-const items = await getCollection('items', ({ data }) => !data.draft);
-const sortedItems = items.sort((a, b) => a.data.title.localeCompare(b.data.title));
-const allGames = [...new Set(items.flatMap(i => i.data.games || []))];
+export const getStaticPaths = (async ({ paginate }) => {
+  const items = await getCollection('items', ({ data }) => !data.draft);
+  const sortedItems = items.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedItems, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allItems = await getCollection('items', ({ data }) => !data.draft);
+const allGames = [...new Set(allItems.flatMap(i => i.data.games || []))].sort();
 ---
 
-<BaseLayout title="Items" description="Consumables, chems, collectibles, and miscellaneous items">
+<BaseLayout title={`Items${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Consumables, aid items, and miscellaneous goods">
   <div class="category-header">
     <h1>Items</h1>
-    <p>Stimpaks, Nuka-Cola, chems, and other essential supplies for wasteland survival.</p>
+    <p>Stimpaks, Nuka-Cola, chems, and other useful items of the wasteland.</p>
+    <span class="article-count">{page.total} articles</span>
   </div>
 
   <GameFilter games={allGames} />
 
   <div class="article-grid" id="articles-grid">
-    {sortedItems.map(item => (
+    {page.data.map(item => (
       <div class="article-wrapper" data-games={JSON.stringify(item.data.games || [])}>
         <ArticleCard
           title={item.data.title}
@@ -31,11 +45,17 @@ const allGames = [...new Set(items.flatMap(i => i.data.games || []))];
     ))}
   </div>
 
-  {sortedItems.length === 0 && (
+  {page.data.length === 0 && (
     <div class="empty-state">
       <p>No items found. Check back soon!</p>
     </div>
   )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/items"
+  />
 </BaseLayout>
 
 <style>
@@ -46,6 +66,16 @@ const allGames = [...new Set(items.flatMap(i => i.data.games || []))];
   .category-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
   }
 
   .article-grid {
@@ -62,12 +92,17 @@ const allGames = [...new Set(items.flatMap(i => i.data.games || []))];
     display: none;
   }
 
-  .empty-state,
-  .no-results {
+  .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+  }
+
+  .no-results {
     grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
   }
 </style>
 

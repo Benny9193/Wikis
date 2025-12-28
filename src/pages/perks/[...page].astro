@@ -1,24 +1,38 @@
 ---
+import type { GetStaticPaths, Page } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
-const perks = await getCollection('perks', ({ data }) => !data.draft);
-const sortedPerks = perks.sort((a, b) => a.data.title.localeCompare(b.data.title));
-const allGames = [...new Set(perks.flatMap(p => p.data.games || []))];
+export const getStaticPaths = (async ({ paginate }) => {
+  const perks = await getCollection('perks', ({ data }) => !data.draft);
+  const sortedPerks = perks.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedPerks, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allPerks = await getCollection('perks', ({ data }) => !data.draft);
+const allGames = [...new Set(allPerks.flatMap(p => p.data.games || []))].sort();
 ---
 
-<BaseLayout title="Perks" description="Perks, traits, and abilities for character builds">
+<BaseLayout title={`Perks${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Perks, traits, and abilities for character builds">
   <div class="category-header">
     <h1>Perks & Traits</h1>
     <p>Special abilities, traits, and perks to customize your wasteland survivor.</p>
+    <span class="article-count">{page.total} articles</span>
   </div>
 
   <GameFilter games={allGames} />
 
   <div class="article-grid" id="articles-grid">
-    {sortedPerks.map(perk => (
+    {page.data.map(perk => (
       <div class="article-wrapper" data-games={JSON.stringify(perk.data.games || [])}>
         <ArticleCard
           title={perk.data.title}
@@ -31,11 +45,17 @@ const allGames = [...new Set(perks.flatMap(p => p.data.games || []))];
     ))}
   </div>
 
-  {sortedPerks.length === 0 && (
+  {page.data.length === 0 && (
     <div class="empty-state">
       <p>No perks found. Check back soon!</p>
     </div>
   )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/perks"
+  />
 </BaseLayout>
 
 <style>
@@ -46,6 +66,16 @@ const allGames = [...new Set(perks.flatMap(p => p.data.games || []))];
   .category-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
   }
 
   .article-grid {
@@ -62,12 +92,17 @@ const allGames = [...new Set(perks.flatMap(p => p.data.games || []))];
     display: none;
   }
 
-  .empty-state,
-  .no-results {
+  .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+  }
+
+  .no-results {
     grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
   }
 </style>
 

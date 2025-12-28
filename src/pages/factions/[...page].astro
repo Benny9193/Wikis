@@ -1,41 +1,61 @@
 ---
+import type { GetStaticPaths, Page } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
-const locations = await getCollection('locations', ({ data }) => !data.draft);
-const sortedLocations = locations.sort((a, b) => a.data.title.localeCompare(b.data.title));
-const allGames = [...new Set(locations.flatMap(l => l.data.games || []))];
+export const getStaticPaths = (async ({ paginate }) => {
+  const factions = await getCollection('factions', ({ data }) => !data.draft);
+  const sortedFactions = factions.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedFactions, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allFactions = await getCollection('factions', ({ data }) => !data.draft);
+const allGames = [...new Set(allFactions.flatMap(f => f.data.games || []))].sort();
 ---
 
-<BaseLayout title="Locations" description="Vaults, cities, settlements, and landmarks of the wasteland">
+<BaseLayout title={`Factions${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Major factions and organizations of the Fallout universe">
   <div class="category-header">
-    <h1>Locations</h1>
-    <p>Explore the vaults, cities, ruins, and landmarks scattered across the wasteland.</p>
+    <h1>Factions</h1>
+    <p>The powerful organizations vying for control of the wasteland.</p>
+    <span class="article-count">{page.total} articles</span>
   </div>
 
   <GameFilter games={allGames} />
 
   <div class="article-grid" id="articles-grid">
-    {sortedLocations.map(location => (
-      <div class="article-wrapper" data-games={JSON.stringify(location.data.games || [])}>
+    {page.data.map(faction => (
+      <div class="article-wrapper" data-games={JSON.stringify(faction.data.games || [])}>
         <ArticleCard
-          title={location.data.title}
-          description={location.data.description}
-          href={`/locations/${location.slug}`}
-          image={location.data.image}
-          games={location.data.games}
+          title={faction.data.title}
+          description={faction.data.description}
+          href={`/factions/${faction.slug}`}
+          image={faction.data.image}
+          games={faction.data.games}
         />
       </div>
     ))}
   </div>
 
-  {sortedLocations.length === 0 && (
+  {page.data.length === 0 && (
     <div class="empty-state">
-      <p>No locations found. Check back soon!</p>
+      <p>No factions found. Check back soon!</p>
     </div>
   )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/factions"
+  />
 </BaseLayout>
 
 <style>
@@ -46,6 +66,16 @@ const allGames = [...new Set(locations.flatMap(l => l.data.games || []))];
   .category-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
   }
 
   .article-grid {
@@ -62,12 +92,17 @@ const allGames = [...new Set(locations.flatMap(l => l.data.games || []))];
     display: none;
   }
 
-  .empty-state,
-  .no-results {
+  .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+  }
+
+  .no-results {
     grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
   }
 </style>
 

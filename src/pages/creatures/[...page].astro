@@ -1,41 +1,61 @@
 ---
+import type { GetStaticPaths, Page } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
-const weapons = await getCollection('weapons', ({ data }) => !data.draft);
-const sortedWeapons = weapons.sort((a, b) => a.data.title.localeCompare(b.data.title));
-const allGames = [...new Set(weapons.flatMap(w => w.data.games || []))];
+export const getStaticPaths = (async ({ paginate }) => {
+  const creatures = await getCollection('creatures', ({ data }) => !data.draft);
+  const sortedCreatures = creatures.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedCreatures, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allCreatures = await getCollection('creatures', ({ data }) => !data.draft);
+const allGames = [...new Set(allCreatures.flatMap(c => c.data.games || []))].sort();
 ---
 
-<BaseLayout title="Weapons" description="Firearms, energy weapons, melee weapons, and explosives">
+<BaseLayout title={`Creatures${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Mutated wildlife and monsters of the wasteland">
   <div class="category-header">
-    <h1>Weapons</h1>
-    <p>From pipe pistols to plasma rifles, discover the arsenal of the wasteland.</p>
+    <h1>Creatures</h1>
+    <p>Deathclaws, Radscorpions, Super Mutants, and other wasteland dangers.</p>
+    <span class="article-count">{page.total} articles</span>
   </div>
 
   <GameFilter games={allGames} />
 
   <div class="article-grid" id="articles-grid">
-    {sortedWeapons.map(weapon => (
-      <div class="article-wrapper" data-games={JSON.stringify(weapon.data.games || [])}>
+    {page.data.map(creature => (
+      <div class="article-wrapper" data-games={JSON.stringify(creature.data.games || [])}>
         <ArticleCard
-          title={weapon.data.title}
-          description={weapon.data.description}
-          href={`/weapons/${weapon.slug}`}
-          image={weapon.data.image}
-          games={weapon.data.games}
+          title={creature.data.title}
+          description={creature.data.description}
+          href={`/creatures/${creature.slug}`}
+          image={creature.data.image}
+          games={creature.data.games}
         />
       </div>
     ))}
   </div>
 
-  {sortedWeapons.length === 0 && (
+  {page.data.length === 0 && (
     <div class="empty-state">
-      <p>No weapons found. Check back soon!</p>
+      <p>No creatures found. Check back soon!</p>
     </div>
   )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/creatures"
+  />
 </BaseLayout>
 
 <style>
@@ -46,6 +66,16 @@ const allGames = [...new Set(weapons.flatMap(w => w.data.games || []))];
   .category-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
   }
 
   .article-grid {
@@ -62,12 +92,17 @@ const allGames = [...new Set(weapons.flatMap(w => w.data.games || []))];
     display: none;
   }
 
-  .empty-state,
-  .no-results {
+  .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+  }
+
+  .no-results {
     grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
   }
 </style>
 

@@ -1,0 +1,146 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import GameFilter from '../../components/GameFilter.astro';
+import { getCollection } from 'astro:content';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const weapons = await getCollection('weapons', ({ data }) => !data.draft);
+  const sortedWeapons = weapons.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedWeapons, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allWeapons = await getCollection('weapons', ({ data }) => !data.draft);
+const allGames = [...new Set(allWeapons.flatMap(w => w.data.games || []))].sort();
+---
+
+<BaseLayout title={`Weapons${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Firearms, melee weapons, and explosives of the Fallout universe">
+  <div class="category-header">
+    <h1>Weapons</h1>
+    <p>From pipe pistols to plasma rifles, explore the arsenal of the wasteland.</p>
+    <span class="article-count">{page.total} articles</span>
+  </div>
+
+  <GameFilter games={allGames} />
+
+  <div class="article-grid" id="articles-grid">
+    {page.data.map(weapon => (
+      <div class="article-wrapper" data-games={JSON.stringify(weapon.data.games || [])}>
+        <ArticleCard
+          title={weapon.data.title}
+          description={weapon.data.description}
+          href={`/weapons/${weapon.slug}`}
+          image={weapon.data.image}
+          games={weapon.data.games}
+        />
+      </div>
+    ))}
+  </div>
+
+  {page.data.length === 0 && (
+    <div class="empty-state">
+      <p>No weapons found. Check back soon!</p>
+    </div>
+  )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/weapons"
+  />
+</BaseLayout>
+
+<style>
+  .category-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .category-header p {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .article-wrapper {
+    display: block;
+  }
+
+  .article-wrapper.hidden {
+    display: none;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gameSelect = document.getElementById('game-filter') as HTMLSelectElement;
+    const articlesGrid = document.getElementById('articles-grid');
+    const articles = articlesGrid?.querySelectorAll('.article-wrapper');
+
+    if (!gameSelect || !articles) return;
+
+    gameSelect.addEventListener('change', () => {
+      const selectedGame = gameSelect.value;
+
+      articles.forEach(article => {
+        const wrapper = article as HTMLElement;
+        const games = JSON.parse(wrapper.dataset.games || '[]');
+
+        if (selectedGame === 'all' || games.includes(selectedGame)) {
+          wrapper.classList.remove('hidden');
+        } else {
+          wrapper.classList.add('hidden');
+        }
+      });
+
+      const visibleArticles = articlesGrid?.querySelectorAll('.article-wrapper:not(.hidden)');
+      const existingNoResults = articlesGrid?.querySelector('.no-results');
+
+      if (visibleArticles?.length === 0) {
+        if (!existingNoResults) {
+          const noResults = document.createElement('div');
+          noResults.className = 'no-results';
+          noResults.textContent = 'No articles found for this game.';
+          articlesGrid?.appendChild(noResults);
+        }
+      } else {
+        existingNoResults?.remove();
+      }
+    });
+  });
+</script>

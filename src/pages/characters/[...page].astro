@@ -1,41 +1,61 @@
 ---
+import type { GetStaticPaths, Page } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
 import GameFilter from '../../components/GameFilter.astro';
 import { getCollection } from 'astro:content';
 
-const lore = await getCollection('lore', ({ data }) => !data.draft);
-const sortedLore = lore.sort((a, b) => a.data.title.localeCompare(b.data.title));
-const allGames = [...new Set(lore.flatMap(l => l.data.games || []))];
+export const getStaticPaths = (async ({ paginate }) => {
+  const characters = await getCollection('characters', ({ data }) => !data.draft);
+  const sortedCharacters = characters.sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+  return paginate(sortedCharacters, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const allCharacters = await getCollection('characters', ({ data }) => !data.draft);
+const allGames = [...new Set(allCharacters.flatMap(c => c.data.games || []))].sort();
 ---
 
-<BaseLayout title="Lore" description="History, timeline, and world-building of the Fallout universe">
+<BaseLayout title={`Characters${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''}`} description="Companions, NPCs, and protagonists of the Fallout universe">
   <div class="category-header">
-    <h1>Lore</h1>
-    <p>The history, timeline, and deep lore of the Fallout universe.</p>
+    <h1>Characters</h1>
+    <p>Meet the memorable characters of the Fallout universe—from protagonists to companions to villains.</p>
+    <span class="article-count">{page.total} articles</span>
   </div>
 
   <GameFilter games={allGames} />
 
   <div class="article-grid" id="articles-grid">
-    {sortedLore.map(entry => (
-      <div class="article-wrapper" data-games={JSON.stringify(entry.data.games || [])}>
+    {page.data.map(character => (
+      <div class="article-wrapper" data-games={JSON.stringify(character.data.games || [])}>
         <ArticleCard
-          title={entry.data.title}
-          description={entry.data.description}
-          href={`/lore/${entry.slug}`}
-          image={entry.data.image}
-          games={entry.data.games}
+          title={character.data.title}
+          description={character.data.description}
+          href={`/characters/${character.slug}`}
+          image={character.data.image}
+          games={character.data.games}
         />
       </div>
     ))}
   </div>
 
-  {sortedLore.length === 0 && (
+  {page.data.length === 0 && (
     <div class="empty-state">
-      <p>No lore entries found. Check back soon!</p>
+      <p>No characters found. Check back soon!</p>
     </div>
   )}
+
+  <Pagination
+    currentPage={page.currentPage}
+    totalPages={page.lastPage}
+    baseUrl="/characters"
+  />
 </BaseLayout>
 
 <style>
@@ -46,6 +66,16 @@ const allGames = [...new Set(lore.flatMap(l => l.data.games || []))];
   .category-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .article-count {
+    display: inline-block;
+    background: var(--color-vault-blue);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
   }
 
   .article-grid {
@@ -62,12 +92,17 @@ const allGames = [...new Set(lore.flatMap(l => l.data.games || []))];
     display: none;
   }
 
-  .empty-state,
-  .no-results {
+  .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
     color: var(--color-text-muted);
+  }
+
+  .no-results {
     grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-muted);
   }
 </style>
 
