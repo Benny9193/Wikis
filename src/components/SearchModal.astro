@@ -65,6 +65,68 @@ const searchIndex: SearchItem[] = [
   const input = document.getElementById('search-input');
   const results = document.getElementById('search-results');
   let selectedIndex = -1;
+  const HISTORY_KEY = 'fallout-wiki-search-history';
+  const MAX_HISTORY = 5;
+
+  // Search history functions
+  function getSearchHistory(): string[] {
+    try {
+      return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function saveSearchHistory(query: string) {
+    const history = getSearchHistory().filter(h => h !== query);
+    history.unshift(query);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, MAX_HISTORY)));
+  }
+
+  function clearSearchHistory() {
+    localStorage.removeItem(HISTORY_KEY);
+    showDefaultContent();
+  }
+
+  function showDefaultContent() {
+    const history = getSearchHistory();
+    if (history.length > 0) {
+      results.innerHTML = `
+        <div class="search-history">
+          <div class="history-header">
+            <span class="history-title">Recent Searches</span>
+            <button class="clear-history" id="clear-history">Clear</button>
+          </div>
+          ${history.map(query => `
+            <button class="history-item" data-query="${query}">
+              <span class="history-icon">🕐</span>
+              <span class="history-query">${query}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div class="search-empty">
+          <p class="search-hint">Use arrow keys to navigate, Enter to select</p>
+        </div>
+      `;
+      // Add click handlers for history items
+      results.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const query = (item as HTMLElement).dataset.query || '';
+          input.value = query;
+          input.dispatchEvent(new Event('input'));
+        });
+      });
+      // Add click handler for clear button
+      document.getElementById('clear-history')?.addEventListener('click', clearSearchHistory);
+    } else {
+      results.innerHTML = `
+        <div class="search-empty">
+          <p>Type to search across all wiki articles</p>
+          <p class="search-hint">Use arrow keys to navigate, Enter to select</p>
+        </div>
+      `;
+    }
+  }
 
   // Open modal with Ctrl/Cmd + K
   document.addEventListener('keydown', (e) => {
@@ -86,12 +148,7 @@ const searchIndex: SearchItem[] = [
     selectedIndex = -1;
 
     if (query.length < 2) {
-      results.innerHTML = `
-        <div class="search-empty">
-          <p>Type to search across all wiki articles</p>
-          <p class="search-hint">Use arrow keys to navigate, Enter to select</p>
-        </div>
-      `;
+      showDefaultContent();
       return;
     }
 
@@ -114,13 +171,16 @@ const searchIndex: SearchItem[] = [
       <a href="${item.url}" class="search-result" data-index="${index}">
         <span class="result-category">${item.categoryLabel}</span>
         <span class="result-title">${highlightMatch(item.title, query)}</span>
-        <span class="result-description">${truncate(item.description, 60)}</span>
+        <span class="result-description">${highlightMatch(truncate(item.description, 80), query)}</span>
       </a>
     `).join('');
 
-    // Add click handlers
+    // Add click handlers - save search to history
     results.querySelectorAll('.search-result').forEach(result => {
-      result.addEventListener('click', () => closeSearch());
+      result.addEventListener('click', () => {
+        saveSearchHistory(query);
+        closeSearch();
+      });
     });
   });
 
@@ -145,6 +205,7 @@ const searchIndex: SearchItem[] = [
   function openSearch() {
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    showDefaultContent();
     setTimeout(() => input?.focus(), 50);
   }
 
@@ -153,12 +214,7 @@ const searchIndex: SearchItem[] = [
     document.body.style.overflow = '';
     input.value = '';
     selectedIndex = -1;
-    results.innerHTML = `
-      <div class="search-empty">
-        <p>Type to search across all wiki articles</p>
-        <p class="search-hint">Use arrow keys to navigate, Enter to select</p>
-      </div>
-    `;
+    showDefaultContent();
   }
 
   function updateSelection(items) {
@@ -274,6 +330,70 @@ const searchIndex: SearchItem[] = [
     opacity: 0.7;
   }
 
+  .search-history {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .history-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    font-weight: bold;
+  }
+
+  .clear-history {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .clear-history:hover {
+    background: var(--color-nuka-red);
+    color: var(--color-text);
+  }
+
+  .history-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--color-text);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .history-item:hover {
+    background: rgba(24, 255, 109, 0.1);
+  }
+
+  .history-icon {
+    font-size: 0.875rem;
+    opacity: 0.6;
+  }
+
+  .history-query {
+    flex: 1;
+  }
+
   .search-result {
     display: flex;
     flex-direction: column;
@@ -317,5 +437,12 @@ const searchIndex: SearchItem[] = [
     font-size: 0.875rem;
     color: var(--color-text-muted);
     margin-top: 2px;
+  }
+
+  .result-description :global(mark) {
+    background: var(--color-pip-amber);
+    color: var(--color-bg-dark);
+    padding: 0 2px;
+    border-radius: 2px;
   }
 </style>

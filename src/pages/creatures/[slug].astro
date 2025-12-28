@@ -9,7 +9,12 @@ export async function getStaticPaths() {
   const weapons = await getCollection('weapons', ({ data }) => !data.draft);
   const quests = await getCollection('quests', ({ data }) => !data.draft);
 
+  const sortedCreatures = [...creatures].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
   return creatures.map(creature => {
+    const currentIndex = sortedCreatures.findIndex(c => c.slug === creature.slug);
+    const previousArticle = currentIndex > 0 ? sortedCreatures[currentIndex - 1] : null;
+    const nextArticle = currentIndex < sortedCreatures.length - 1 ? sortedCreatures[currentIndex + 1] : null;
     const creatureGames = creature.data.games || [];
     const creatureType = creature.data.type;
 
@@ -56,12 +61,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: creature.slug },
-      props: { creature, relatedArticles },
+      props: {
+        creature,
+        relatedArticles,
+        previousArticle: previousArticle ? { title: previousArticle.data.title, slug: previousArticle.slug } : null,
+        nextArticle: nextArticle ? { title: nextArticle.data.title, slug: nextArticle.slug } : null,
+      },
     };
   });
 }
 
-const { creature, relatedArticles } = Astro.props;
+const { creature, relatedArticles, previousArticle, nextArticle } = Astro.props;
 const { Content } = await creature.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -83,6 +93,8 @@ if (creature.data.variants?.length > 0) {
   infobox={infobox}
   category="creatures"
   relatedArticles={relatedArticles}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
 >
   <Content />
 </WikiArticle>

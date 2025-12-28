@@ -9,7 +9,12 @@ export async function getStaticPaths() {
   const armor = await getCollection('armor', ({ data }) => !data.draft);
   const characters = await getCollection('characters', ({ data }) => !data.draft);
 
+  const sortedPerks = [...perks].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
   return perks.map(perk => {
+    const currentIndex = sortedPerks.findIndex(p => p.slug === perk.slug);
+    const previousArticle = currentIndex > 0 ? sortedPerks[currentIndex - 1] : null;
+    const nextArticle = currentIndex < sortedPerks.length - 1 ? sortedPerks[currentIndex + 1] : null;
     const perkGames = perk.data.games || [];
     const perkType = perk.data.type;
 
@@ -56,12 +61,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: perk.slug },
-      props: { perk, relatedArticles },
+      props: {
+        perk,
+        relatedArticles,
+        previousArticle: previousArticle ? { title: previousArticle.data.title, slug: previousArticle.slug } : null,
+        nextArticle: nextArticle ? { title: nextArticle.data.title, slug: nextArticle.slug } : null,
+      },
     };
   });
 }
 
-const { perk, relatedArticles } = Astro.props;
+const { perk, relatedArticles, previousArticle, nextArticle } = Astro.props;
 const { Content } = await perk.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -90,6 +100,8 @@ if (perk.data.effects && perk.data.effects.length > 0) {
   infobox={infobox}
   category="perks"
   relatedArticles={relatedArticles}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
 >
   <Content />
 </WikiArticle>

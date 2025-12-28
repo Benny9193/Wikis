@@ -7,6 +7,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="page-header">
       <h1>Your Favorites</h1>
       <p>Articles you've bookmarked for quick access.</p>
+      <div class="favorites-actions" id="favorites-actions">
+        <button class="action-btn export-btn" id="export-btn" title="Export favorites as JSON">
+          <span>📤</span> Export
+        </button>
+        <label class="action-btn import-btn" title="Import favorites from JSON file">
+          <span>📥</span> Import
+          <input type="file" id="import-input" accept=".json" hidden />
+        </label>
+      </div>
     </div>
 
     <div class="favorites-list" id="favorites-list">
@@ -26,11 +35,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   document.addEventListener('DOMContentLoaded', () => {
     const listEl = document.getElementById('favorites-list');
     const emptyEl = document.getElementById('favorites-empty');
+    const exportBtn = document.getElementById('export-btn');
+    const importInput = document.getElementById('import-input') as HTMLInputElement;
 
     if (!listEl || !emptyEl) return;
 
+    // Category icons mapping
+    const categoryIcons: Record<string, string> = {
+      characters: '👤',
+      factions: '⚔️',
+      locations: '📍',
+      weapons: '🔫',
+      armor: '🛡️',
+      items: '📦',
+      creatures: '🦎',
+      quests: '📜',
+      lore: '📖',
+      perks: '⭐',
+      games: '🎮',
+    };
+
     // Get favorites from localStorage
-    const getFavorites = (): { url: string; title: string }[] => {
+    const getFavorites = (): { url: string; title: string; category?: string }[] => {
       try {
         return JSON.parse(localStorage.getItem('fallout-wiki-favorites') || '[]');
       } catch {
@@ -47,13 +73,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
 
     // Render favorites
-    listEl.innerHTML = favorites.map(fav => `
-      <a href="${fav.url}" class="favorite-item">
-        <span class="favorite-star">★</span>
-        <span class="favorite-title">${fav.title}</span>
-        <button class="remove-btn" data-url="${fav.url}" title="Remove from favorites">×</button>
-      </a>
-    `).join('');
+    listEl.innerHTML = favorites.map(fav => {
+      const icon = fav.category ? categoryIcons[fav.category] || '📄' : '📄';
+      return `
+        <a href="${fav.url}" class="favorite-item">
+          <span class="favorite-category-icon" title="${fav.category || 'Article'}">${icon}</span>
+          <span class="favorite-title">${fav.title}</span>
+          <span class="favorite-star">★</span>
+          <button class="remove-btn" data-url="${fav.url}" title="Remove from favorites">×</button>
+        </a>
+      `;
+    }).join('');
 
     // Handle remove buttons
     listEl.querySelectorAll('.remove-btn').forEach(btn => {
@@ -76,6 +106,64 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         }
       });
     });
+
+    // Export favorites
+    exportBtn?.addEventListener('click', () => {
+      const data = JSON.stringify(favorites, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `fallout-wiki-favorites-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Import favorites
+    importInput?.addEventListener('change', (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const imported = JSON.parse(event.target?.result as string);
+
+          // Validate structure
+          if (!Array.isArray(imported)) {
+            alert('Invalid file format. Expected an array of favorites.');
+            return;
+          }
+
+          // Merge with existing, avoiding duplicates
+          const existing = getFavorites();
+          const existingUrls = new Set(existing.map(f => f.url));
+
+          const newItems = imported.filter((item: any) =>
+            item.url && item.title && !existingUrls.has(item.url)
+          );
+
+          if (newItems.length === 0) {
+            alert('No new favorites to import. All items already exist or file was invalid.');
+            return;
+          }
+
+          const merged = [...existing, ...newItems];
+          localStorage.setItem('fallout-wiki-favorites', JSON.stringify(merged));
+
+          alert(`Successfully imported ${newItems.length} new favorite(s). Refreshing page...`);
+          window.location.reload();
+        } catch (err) {
+          alert('Failed to parse file. Please ensure it is a valid JSON file.');
+        }
+      };
+      reader.readAsText(file);
+
+      // Reset input so same file can be imported again
+      importInput.value = '';
+    });
   });
 </script>
 
@@ -93,6 +181,44 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .page-header p {
     color: var(--color-text-muted);
     font-size: 1.125rem;
+  }
+
+  .favorites-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-bg-darker);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .action-btn:hover {
+    border-color: var(--color-pip-green);
+    background: rgba(24, 255, 109, 0.1);
+  }
+
+  .export-btn:hover {
+    border-color: var(--color-pip-amber);
+    background: rgba(255, 176, 0, 0.1);
+    color: var(--color-pip-amber);
+  }
+
+  .import-btn:hover {
+    border-color: var(--color-pip-green);
+    background: rgba(24, 255, 109, 0.1);
+    color: var(--color-pip-green);
   }
 
   .favorites-list {
@@ -125,9 +251,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-decoration: none;
   }
 
+  .favorite-category-icon {
+    font-size: 1.25rem;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
   .favorite-star {
     color: var(--color-pip-amber);
-    font-size: 1.25rem;
+    font-size: 1rem;
+    opacity: 0.6;
   }
 
   .favorite-title {

@@ -9,7 +9,12 @@ export async function getStaticPaths() {
   const locations = await getCollection('locations', ({ data }) => !data.draft);
   const weapons = await getCollection('weapons', ({ data }) => !data.draft);
 
+  const sortedQuests = [...quests].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
   return quests.map(quest => {
+    const currentIndex = sortedQuests.findIndex(q => q.slug === quest.slug);
+    const previousArticle = currentIndex > 0 ? sortedQuests[currentIndex - 1] : null;
+    const nextArticle = currentIndex < sortedQuests.length - 1 ? sortedQuests[currentIndex + 1] : null;
     const questGames = quest.data.games || [];
 
     const relatedQuests = allQuests
@@ -51,12 +56,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: quest.slug },
-      props: { quest, relatedArticles },
+      props: {
+        quest,
+        relatedArticles,
+        previousArticle: previousArticle ? { title: previousArticle.data.title, slug: previousArticle.slug } : null,
+        nextArticle: nextArticle ? { title: nextArticle.data.title, slug: nextArticle.slug } : null,
+      },
     };
   });
 }
 
-const { quest, relatedArticles } = Astro.props;
+const { quest, relatedArticles, previousArticle, nextArticle } = Astro.props;
 const { Content } = await quest.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -89,6 +99,8 @@ if (quest.data.rewards?.length > 0) {
   infobox={infobox}
   category="quests"
   relatedArticles={relatedArticles}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
 >
   <Content />
 </WikiArticle>

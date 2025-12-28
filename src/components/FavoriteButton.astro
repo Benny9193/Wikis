@@ -2,15 +2,17 @@
 interface Props {
   articleUrl: string;
   articleTitle: string;
+  category?: string;
 }
 
-const { articleUrl, articleTitle } = Astro.props;
+const { articleUrl, articleTitle, category = '' } = Astro.props;
 ---
 
 <button
   class="favorite-btn"
   data-url={articleUrl}
   data-title={articleTitle}
+  data-category={category}
   aria-label="Add to favorites"
   title="Add to favorites"
 >
@@ -23,7 +25,7 @@ const { articleUrl, articleTitle } = Astro.props;
     const buttons = document.querySelectorAll('.favorite-btn');
 
     // Get favorites from localStorage
-    const getFavorites = (): { url: string; title: string }[] => {
+    const getFavorites = (): { url: string; title: string; category?: string }[] => {
       try {
         return JSON.parse(localStorage.getItem('fallout-wiki-favorites') || '[]');
       } catch {
@@ -32,7 +34,7 @@ const { articleUrl, articleTitle } = Astro.props;
     };
 
     // Save favorites to localStorage
-    const saveFavorites = (favorites: { url: string; title: string }[]) => {
+    const saveFavorites = (favorites: { url: string; title: string; category?: string }[]) => {
       localStorage.setItem('fallout-wiki-favorites', JSON.stringify(favorites));
     };
 
@@ -74,6 +76,7 @@ const { articleUrl, articleTitle } = Astro.props;
       btn.addEventListener('click', () => {
         const favorites = getFavorites();
         const title = btn.dataset.title || '';
+        const category = btn.dataset.category || '';
 
         if (isFavorited(url)) {
           // Remove from favorites
@@ -82,7 +85,7 @@ const { articleUrl, articleTitle } = Astro.props;
           updateButtonState(btn, false);
         } else {
           // Add to favorites
-          favorites.push({ url, title });
+          favorites.push({ url, title, category });
           saveFavorites(favorites);
           updateButtonState(btn, true);
         }

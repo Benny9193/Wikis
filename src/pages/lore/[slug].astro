@@ -9,7 +9,12 @@ export async function getStaticPaths() {
   const locations = await getCollection('locations', ({ data }) => !data.draft);
   const characters = await getCollection('characters', ({ data }) => !data.draft);
 
+  const sortedLore = [...lore].sort((a, b) => a.data.title.localeCompare(b.data.title));
+
   return lore.map(entry => {
+    const currentIndex = sortedLore.findIndex(l => l.slug === entry.slug);
+    const previousArticle = currentIndex > 0 ? sortedLore[currentIndex - 1] : null;
+    const nextArticle = currentIndex < sortedLore.length - 1 ? sortedLore[currentIndex + 1] : null;
     const loreGames = entry.data.games || [];
     const loreCategory = entry.data.category;
 
@@ -56,12 +61,17 @@ export async function getStaticPaths() {
 
     return {
       params: { slug: entry.slug },
-      props: { entry, relatedArticles },
+      props: {
+        entry,
+        relatedArticles,
+        previousArticle: previousArticle ? { title: previousArticle.data.title, slug: previousArticle.slug } : null,
+        nextArticle: nextArticle ? { title: nextArticle.data.title, slug: nextArticle.slug } : null,
+      },
     };
   });
 }
 
-const { entry, relatedArticles } = Astro.props;
+const { entry, relatedArticles, previousArticle, nextArticle } = Astro.props;
 const { Content } = await entry.render();
 
 const infobox: Record<string, string | string[]> = {
@@ -78,6 +88,8 @@ const infobox: Record<string, string | string[]> = {
   infobox={infobox}
   category="lore"
   relatedArticles={relatedArticles}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
 >
   <Content />
 </WikiArticle>
